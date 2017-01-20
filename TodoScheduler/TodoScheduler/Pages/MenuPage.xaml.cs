@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoScheduler.Infrastructure.Base;
 using Xamarin.Forms;
 
-namespace TodoScheduler
+namespace TodoScheduler.Pages
 {
-    public partial class MainPage : ContentPage
+    public partial class MenuPage : BaseContentPage
     {
-        public MainPage()
+        public MenuPage()
         {
             InitializeComponent();
         }

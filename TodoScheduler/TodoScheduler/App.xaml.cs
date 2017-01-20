@@ -13,7 +13,10 @@ namespace TodoScheduler
         {
             InitializeComponent();
 
-            MainPage = new TodoScheduler.MainPage();
+            MainPage = new Pages.MenuPage()
+            {
+                BindingContext = new ViewModels.MenuViewModel()
+            };
         }
 
         protected override void OnStart()
