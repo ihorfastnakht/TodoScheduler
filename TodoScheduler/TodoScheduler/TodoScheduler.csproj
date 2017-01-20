@@ -38,7 +38,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Base\Grouping.cs" />
     <Compile Include="Infrastructure\Base\ObservableObject.cs" />
+    <Compile Include="Infrastructure\Base\SelectableObject.cs" />
     <Compile Include="Infrastructure\Base\ViewModelBase.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
