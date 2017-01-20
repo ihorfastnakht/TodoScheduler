@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Acr.UserDialogs;
 
 namespace TodoScheduler.Android
 {
@@ -20,6 +21,10 @@ namespace TodoScheduler.Android
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            
+            //Initialize Arc.UserDialogs
+            UserDialogs.Init(this);
+
             LoadApplication(new App());
         }
     }

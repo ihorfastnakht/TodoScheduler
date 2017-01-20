@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
     <Compile Include="Infrastructure\Base\BaseContentPage.cs" />
     <Compile Include="Infrastructure\Base\BehaviorBase.cs" />
@@ -45,6 +46,7 @@
     <Compile Include="Infrastructure\Base\ObservableObject.cs" />
     <Compile Include="Infrastructure\Base\SelectableObject.cs" />
     <Compile Include="Infrastructure\Base\ViewModelBase.cs" />
+    <Compile Include="Infrastructure\Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Infrastructure\Enums\NavigationTypes.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\INavigationService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\NavigationService.cs" />
@@ -107,6 +109,11 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\Services\DataServices\" />
+    <Folder Include="Infrastructure\Services\NotificationServices\" />
+    <Folder Include="Infrastructure\Services\UserDialogServices\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

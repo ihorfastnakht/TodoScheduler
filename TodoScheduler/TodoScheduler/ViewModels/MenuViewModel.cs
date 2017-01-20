@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using TodoScheduler.Infrastructure.Base;
@@ -34,7 +35,7 @@ namespace TodoScheduler.ViewModels
 
         private ICommand _selectMenuCommand;
         public ICommand SelectMenuCommand {
-            get { return _selectMenuCommand ?? new Command<MenuItem>(SelectMenuCommandExecute); }
+            get { return _selectMenuCommand ?? new Command<m.MenuItem>(SelectMenuCommandExecute); }
             set { SetProperty(ref _selectMenuCommand, value); }
         }
 
@@ -52,7 +53,7 @@ namespace TodoScheduler.ViewModels
             var menuItems = new List<m.MenuItem>()
             {
                 //tag
-                new m.MenuItem() { MenuGroup = tagGroup, Icon = "", Title = "" },
+                new m.MenuItem() { MenuGroup = tagGroup, Icon = "tag.png", Title = "Tags" },
                 //todo
                 new m.MenuItem() { MenuGroup = todoGroup, Icon = "today.png", Title = "Today" },
                 new m.MenuItem() { MenuGroup = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow" },
@@ -71,11 +72,9 @@ namespace TodoScheduler.ViewModels
             MenuGroups = new ObservableCollection<Grouping<m.MenuGroup, m.MenuItem>>(groupedMenu);
         }
 
-        private void SelectMenuCommandExecute(MenuItem menuItem)
+        private void SelectMenuCommandExecute(m.MenuItem selectedItem)
         {
-            throw new NotImplementedException();
-            //if (menuItem == null) return;
-            //navigate to detail 
+            //TODO: Make navigation to details
         }
 
         #endregion

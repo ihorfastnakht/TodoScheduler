@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoScheduler.Infrastructure.Base;
-using Xamarin.Forms;
+﻿using TodoScheduler.Infrastructure.Base;
 
 namespace TodoScheduler.Pages
 {
@@ -13,6 +7,7 @@ namespace TodoScheduler.Pages
         public MenuPage()
         {
             InitializeComponent();
+            listView.ItemSelected += (s, e) => listView.SelectedItem = null;
         }
     }
 }

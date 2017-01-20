@@ -28,7 +28,8 @@
         <ListView.GroupHeaderTemplate>
           <DataTemplate>
             <ViewCell Height="50">
-              <Frame Padding="10" HasShadow="True">
+              <Frame Padding="10" HasShadow="True" 
+                     BackgroundColor="{StaticResource WhiteColor}">
                 <StackLayout Orientation="Horizontal" 
                              Margin="2" 
                              BackgroundColor="{StaticResource WhiteColor}" 
@@ -37,7 +38,8 @@
                          HeightRequest="30" 
                          WidthRequest="30"/>
                   <Label Text="{Binding Key.Title}" 
-                         Font="Bold" 
+                         Font="Bold"
+                         VerticalOptions="Center"
                          TextColor="{StaticResource MainColor}"/>
                 </StackLayout>
               </Frame>
@@ -45,11 +47,10 @@
           </DataTemplate>
         </ListView.GroupHeaderTemplate>
         <ListView.Behaviors>
-          <!--<behaviors:EventToCommandBehavior EventName="ItemTapped"
-                                            Command="{Binding NavigateCommand}"
+          <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                            Command="{Binding SelectMenuCommand}"
                                             Converter="{StaticResource ItemTappedConverter}">
-
-          </behaviors:EventToCommandBehavior>-->
+          </behaviors:EventToCommandBehavior>
         </ListView.Behaviors>
         <ListView.ItemTemplate>
           <DataTemplate>
