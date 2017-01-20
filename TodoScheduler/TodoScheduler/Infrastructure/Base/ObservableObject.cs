@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace TodoScheduler.Infrastructure.Base
 {
-    public class ObservableObject : INotifyPropertyChanged
+    public abstract class ObservableObject : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged implementation
 
