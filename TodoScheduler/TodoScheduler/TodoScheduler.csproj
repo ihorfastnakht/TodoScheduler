@@ -44,6 +44,8 @@
     <Compile Include="Infrastructure\Base\ObservableObject.cs" />
     <Compile Include="Infrastructure\Base\SelectableObject.cs" />
     <Compile Include="Infrastructure\Base\ViewModelBase.cs" />
+    <Compile Include="Infrastructure\Enums\NavigationTypes.cs" />
+    <Compile Include="Infrastructure\Services\NavigationServices\INavigationService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
