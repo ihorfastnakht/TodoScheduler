@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using TodoScheduler.Converters;
+using Xamarin.Forms;
 
 namespace TodoScheduler.Infrastructure.Base
 {
@@ -6,6 +7,7 @@ namespace TodoScheduler.Infrastructure.Base
     {
         public BaseContentPage()
         {
+            SetBinding(NavigationProperty, new Binding("Navigation", converter: new NavigationConverter()));
             if (Device.OS == TargetPlatform.iOS)
                 this.Padding = new Thickness(0,20,0,0);
         }

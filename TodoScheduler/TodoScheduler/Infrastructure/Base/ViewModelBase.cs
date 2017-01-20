@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using TodoScheduler.Infrastructure.Services.NavigationServices;
 
 namespace TodoScheduler.Infrastructure.Base
 {
     public abstract class ViewModelBase : ObservableObject
     {
         #region fields & properties
+
+        INavigationService _navigation;
+        public INavigationService Navigation {
+            get { return _navigation; }
+            set { SetProperty(ref _navigation, value); }
+        }
 
         string _icon;
         public string Icon {

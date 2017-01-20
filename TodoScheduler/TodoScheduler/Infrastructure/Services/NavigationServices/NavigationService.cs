@@ -14,6 +14,15 @@ namespace TodoScheduler.Infrastructure.Services.NavigationServices
 
         #endregion
 
+        #region constructor
+
+        public NavigationService(INavigation navigation)
+        {
+            _navigation = navigation;
+        }
+
+        #endregion
+
         #region INavigationService implementation
 
         public async Task CloseAsync(NavType navType = NavType.Stack, bool animation = false)
