@@ -33,6 +33,12 @@ namespace TodoScheduler.Infrastructure.Services.DataServices
             tags = new List<TagItem>() {
                 new TagItem() {
                     Id = 0, Title = "Default", TagColor = "#7635EB"
+                },
+                new TagItem() {
+                    Id = 1, Title = "Sports", TagColor = "#2d2d30"
+                },
+                new TagItem() {
+                    Id = 2, Title = "Works", TagColor = "#8000FF"
                 }
             };
 

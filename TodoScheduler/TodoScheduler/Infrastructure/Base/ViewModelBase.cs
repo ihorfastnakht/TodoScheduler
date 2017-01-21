@@ -30,7 +30,7 @@ namespace TodoScheduler.Infrastructure.Base
 
         #region virtual
 
-        public virtual void Init(Dictionary<string, object>[] parameters = null) { }
+        public virtual void Init(Dictionary<string, object> parameters = null) { }
         public virtual void Appearing() { }
         public virtual void Disappearing() { }
          

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:TodoScheduler.Infrastructure.Base;assembly:TodoScheduler"
+             xmlns:behaviors="clr-namespace:TodoScheduler.Infrastructure.Behaviors;assembly:TodoScheduler"
+             xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+             x:Class="TodoScheduler.Pages.TagsPage"
+             x:Name="page"
+             Title="Tags">
+  <base:BaseContentPage.ToolbarItems>
+    <ToolbarItem Icon="create.png" Command="{Binding AddTagCommand}"/>
+  </base:BaseContentPage.ToolbarItems>
+  <ScrollView BackgroundColor="{StaticResource GrayColor}">
+    <ListView ItemsSource="{Binding Tags}"
+              x:Name="list"
+              BackgroundColor="{StaticResource GrayColor}"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshCommand}"
+              SeparatorVisibility="None"
+              RowHeight="320">
+      <ListView.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding ItemTappedCommand}"
+                                          Converter="{StaticResource ItemTappedConverter}">
+        </behaviors:EventToCommandBehavior>
+      </ListView.Behaviors>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid BackgroundColor="{StaticResource GrayColor}">
+              <Frame HasShadow="True" Padding="0" Margin="0,5"
+                     BackgroundColor="{StaticResource WhiteColor}">
+                <Grid BackgroundColor="{StaticResource WhiteColor}"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/> <!--Description-->
+                    <RowDefinition Height="1"/> <!--Separator-->
+                    <RowDefinition Height="100"/> <!--Buttons-->
+                  </Grid.RowDefinitions>
+                  <!--Description-->
+                  <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/><!--BoxView-->
+                      <ColumnDefinition Width="*"/><!--Title-->
+                    </Grid.ColumnDefinitions>
+
+
+                    <StackLayout Grid.Column="0" Padding="40" BackgroundColor="Yellow">
+                    </StackLayout>
+                    
+                    <StackLayout Grid.Column="1" Padding="5">
+                      <Label Text="{Binding Item.Title}"
+                             Font="Large, Bold"
+                             TextColor="{Binding Item.TagColor}"/>
+                      <Label Text="{Binding Item.TodoItemsCount, StringFormat='Total items: {0}'}"
+                             Font="Small, Italic"/>
+                    </StackLayout>
+                  </Grid>
+                  <!--Separator-->
+                  <controls:Separator Grid.Row="1" Margin="10,0" 
+                                      BackgroundColor="{StaticResource GrayColor}"/>
+                  <!--ImageButtons-->
+                  <StackLayout Grid.Row="2" IsVisible="False"  
+                               Orientation="Horizontal" 
+                               HorizontalOptions="FillAndExpand">
+                    <StackLayout.Triggers>
+                      <DataTrigger TargetType="StackLayout" 
+                                   Binding="{Binding IsSelected}" 
+                                   Value="True">
+                        <Setter Property="IsVisible" Value="True"/>
+                      </DataTrigger>
+                      <DataTrigger TargetType="StackLayout" 
+                                   Binding="{Binding IsSelected}" 
+                                   Value="False">
+                        <Setter Property="IsVisible" Value="False"/>
+                      </DataTrigger>
+                    </StackLayout.Triggers>
+                    <!--buttons here-->
+                    
+                  </StackLayout>
+                </Grid>
+            </Frame>
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ScrollView>
+</base:BaseContentPage>
