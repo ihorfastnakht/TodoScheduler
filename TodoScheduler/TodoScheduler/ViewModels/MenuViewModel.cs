@@ -45,25 +45,61 @@ namespace TodoScheduler.ViewModels
 
         private void InitMenuGroups()
         {
-            //menu groups
-            var tagGroup = new m.MenuGroup() { Id = 1, Icon = "tags.png", Title = "Tag items" };
-            var todoGroup = new m.MenuGroup() { Id = 2, Icon = "todos.png", Title = "Todo items" };
-            var configGroup = new m.MenuGroup() { Id = 3, Icon = "settings.png", Title = "Settings" };
+            //TODO: Add ViewModelTypes
 
+            //menu groups
+            var tagGroup = new m.MenuGroup(){
+                Id = 1,
+                Icon = "tags.png",
+                Title = "Tag items" };
+            var todoGroup = new m.MenuGroup(){
+                Id = 2,
+                Icon = "todos.png",
+                Title = "Todo items" };
+
+            var configGroup = new m.MenuGroup(){
+                Id = 3,
+                Icon = "settings.png",
+                Title = "Settings" };
+
+            //menu items
             var menuItems = new List<m.MenuItem>()
             {
                 //tag
-                new m.MenuItem() { MenuGroup = tagGroup, Icon = "tag.png", Title = "Tags" },
+                new m.MenuItem(){
+                    MenuGroup = tagGroup,
+                    Icon = "tag.png",
+                    Title = "Tags" },
+
                 //todo
-                new m.MenuItem() { MenuGroup = todoGroup, Icon = "today.png", Title = "Today" },
-                new m.MenuItem() { MenuGroup = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow" },
-                new m.MenuItem() { MenuGroup = todoGroup, Icon = "schedule.png", Title = "Schedule" },
+                new m.MenuItem(){
+                    MenuGroup = todoGroup,
+                    Icon = "today.png",
+                    Title = "Today" },
+
+                new m.MenuItem(){
+                    MenuGroup = todoGroup,
+                    Icon = "tomorrow.png",
+                    Title = "Tomorrow" },
+
+                new m.MenuItem(){
+                    MenuGroup = todoGroup,
+                    Icon = "schedule.png",
+                    Title = "Schedule" },
+
                 //configuration
-                new m.MenuItem() { MenuGroup = configGroup, Icon = "config.png", Title = "Configuration" },
-                new m.MenuItem() { MenuGroup = configGroup, Icon = "about.png", Title = "About" },
+                new m.MenuItem(){
+                    MenuGroup = configGroup,
+                    Icon = "config.png",
+                    Title = "Configuration" },
+
+                new m.MenuItem() {
+                    MenuGroup = configGroup,
+                    Icon = "about.png",
+                    Title = "About" },
             };
 
-            //grouping menu by menu header
+            //grouping menu by menu group
             var groupedMenu = from menu in menuItems
                               orderby menu.MenuGroup.Id
                               group menu by menu.MenuGroup into grouped
