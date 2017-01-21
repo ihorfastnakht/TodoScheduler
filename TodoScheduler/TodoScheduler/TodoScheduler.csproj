@@ -49,6 +49,8 @@
     <Compile Include="Infrastructure\Base\ViewModelBase.cs" />
     <Compile Include="Infrastructure\Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Infrastructure\Enums\NavigationTypes.cs" />
+    <Compile Include="Infrastructure\Services\DataServices\IDataService.cs" />
+    <Compile Include="Infrastructure\Services\DataServices\TestDataService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\INavigationService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\NavigationService.cs" />
     <Compile Include="Models\TagItem.cs" />
@@ -112,7 +114,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Services\DataServices\" />
     <Folder Include="Infrastructure\Services\NotificationServices\" />
     <Folder Include="Infrastructure\Services\UserDialogServices\" />
   </ItemGroup>
