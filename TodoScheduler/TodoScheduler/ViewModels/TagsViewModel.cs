@@ -24,8 +24,8 @@ namespace TodoScheduler.ViewModels
 
         #region fileds & properties
 
-        IEnumerable<SelectableObject<TagItem>> _tag;
-        public IEnumerable<SelectableObject<TagItem>> Tags {
+        IEnumerable<TagItem> _tag;
+        public IEnumerable<TagItem> Tags {
             get { return _tag; }
             set { SetProperty(ref _tag, value); }
         }
@@ -87,9 +87,9 @@ namespace TodoScheduler.ViewModels
                 
                 if (items.Any())
                 {
-                    var selectableItems = from tag in items
-                                          select new SelectableObject<TagItem>() { Item = tag, IsSelected = false };
-                    Tags = selectableItems;
+                    //var selectableItems = from tag in items
+                    //                      select new SelectableObject<TagItem>() { Item = tag, IsSelected = false };
+                    Tags = items;//selectableItems;
                     //TagItems = items;
                     //Normal
                 }
@@ -107,17 +107,17 @@ namespace TodoScheduler.ViewModels
 
         private void ItemTappedCommandExecute(object item)
         {
-            if (item == null)
-                return;
+            //if (item == null)
+            //    return;
 
-            foreach (var tag in Tags)
-            {
-                tag.IsSelected = false;
-                OnPropertyChanged(nameof(tag.IsSelected));
-            }
+            //foreach (var tag in Tags)
+            //{
+            //    tag.IsSelected = false;
+            //    OnPropertyChanged(nameof(tag.IsSelected));
+            //}
 
-            var selectedTag = (SelectableObject<TagItem>)item;
-            selectedTag.IsSelected = true;
+            //var selectedTag = (SelectableObject<TagItem>)item;
+            //selectedTag.IsSelected = true;
 
             //deselect all tags
             //foreach (var tag in Tags)
@@ -141,9 +141,17 @@ namespace TodoScheduler.ViewModels
             throw new NotImplementedException();
         }
 
-        private void RemoveTagCommandExecute(object obj)
+        private async void RemoveTagCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tagItem = (TagItem) obj;
+                await _dialogService.ShowMessage("Test", tagItem.Title);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void DetailTagCommandExecute(object obj)

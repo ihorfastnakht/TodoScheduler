@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Controls\Separator.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
@@ -49,12 +50,14 @@
     <Compile Include="Infrastructure\Base\ViewModelBase.cs" />
     <Compile Include="Infrastructure\Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Infrastructure\Enums\NavigationTypes.cs" />
+    <Compile Include="Infrastructure\Enums\ViewModelStates.cs" />
     <Compile Include="Infrastructure\Services\DataServices\IDataService.cs" />
     <Compile Include="Infrastructure\Services\DataServices\TestDataService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\INavigationService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\NavigationService.cs" />
     <Compile Include="Infrastructure\Services\UserDialogServices\DialogService.cs" />
     <Compile Include="Infrastructure\Services\UserDialogServices\IDialogService.cs" />
+    <Compile Include="Infrastructure\StateManager\StateContainer.cs" />
     <Compile Include="Models\TagItem.cs" />
     <Compile Include="Models\TodoEnums.cs" />
     <Compile Include="Models\TodoItem.cs" />

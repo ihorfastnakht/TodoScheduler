@@ -8,7 +8,8 @@
              x:Name="page"
              Title="Tags">
   <base:BaseContentPage.ToolbarItems>
-    <ToolbarItem Icon="create.png" Command="{Binding AddTagCommand}"/>
+    <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}"/>
+    <ToolbarItem Icon="add_tag.png" Command="{Binding AddTagCommand}"/>
   </base:BaseContentPage.ToolbarItems>
   <ScrollView BackgroundColor="{StaticResource GrayColor}">
     <ListView ItemsSource="{Binding Tags}"
@@ -17,7 +18,7 @@
               IsPullToRefreshEnabled="True"
               RefreshCommand="{Binding RefreshCommand}"
               SeparatorVisibility="None"
-              RowHeight="320">
+              RowHeight="140">
       <ListView.Behaviors>
         <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                           Command="{Binding ItemTappedCommand}"
@@ -26,7 +27,7 @@
       </ListView.Behaviors>
       <ListView.ItemTemplate>
         <DataTemplate>
-          <ViewCell>
+          <ViewCell x:Name="cell">
             <Grid BackgroundColor="{StaticResource GrayColor}">
               <Frame HasShadow="True" Padding="0" Margin="0,5"
                      BackgroundColor="{StaticResource WhiteColor}">
@@ -34,51 +35,55 @@
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand">
                   <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/> <!--Description-->
-                    <RowDefinition Height="1"/> <!--Separator-->
-                    <RowDefinition Height="100"/> <!--Buttons-->
+                    <RowDefinition Height="*"/>  <!--header(description etc)-->
+                    <RowDefinition Height="1"/>  <!--separator-->
+                    <RowDefinition Height="40"/> <!--buttons-->
                   </Grid.RowDefinitions>
-                  <!--Description-->
+                  <!--header-->
                   <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="*"/><!--BoxView-->
-                      <ColumnDefinition Width="*"/><!--Title-->
+                      <ColumnDefinition Width="*"/> <!--description-->
+                      <ColumnDefinition Width="50"/> <!--delete button-->
                     </Grid.ColumnDefinitions>
-
-
-                    <StackLayout Grid.Column="0" Padding="40" BackgroundColor="Yellow">
-                    </StackLayout>
-                    
-                    <StackLayout Grid.Column="1" Padding="5">
-                      <Label Text="{Binding Item.Title}"
-                             Font="Large, Bold"
-                             TextColor="{Binding Item.TagColor}"/>
-                      <Label Text="{Binding Item.TodoItemsCount, StringFormat='Total items: {0}'}"
+                    <!--description-->
+                    <StackLayout Grid.Column="0" Padding="10">
+                      <Label Text="{Binding Title}" FontSize="17"
+                             TextColor="{Binding TagColor}"/>
+                      <Label Text="{Binding TodoItemsCount, StringFormat='Total items: {0}'}" 
                              Font="Small, Italic"/>
                     </StackLayout>
+                    <!--remove button-->
+                    <StackLayout Grid.Column="1" Padding="10" VerticalOptions="StartAndExpand"
+                                 HorizontalOptions="Center">
+                      <controls:ImageButton Source="remove_tag.png"
+                                            Command="{Binding RemoveTagCommand}"
+                                            BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                            CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                    </StackLayout>
                   </Grid>
-                  <!--Separator-->
-                  <controls:Separator Grid.Row="1" Margin="10,0" 
-                                      BackgroundColor="{StaticResource GrayColor}"/>
-                  <!--ImageButtons-->
-                  <StackLayout Grid.Row="2" IsVisible="False"  
-                               Orientation="Horizontal" 
-                               HorizontalOptions="FillAndExpand">
-                    <StackLayout.Triggers>
-                      <DataTrigger TargetType="StackLayout" 
-                                   Binding="{Binding IsSelected}" 
-                                   Value="True">
-                        <Setter Property="IsVisible" Value="True"/>
-                      </DataTrigger>
-                      <DataTrigger TargetType="StackLayout" 
-                                   Binding="{Binding IsSelected}" 
-                                   Value="False">
-                        <Setter Property="IsVisible" Value="False"/>
-                      </DataTrigger>
-                    </StackLayout.Triggers>
-                    <!--buttons here-->
+                  <!--separator-->
+                  <controls:Separator Grid.Row="1" BackgroundColor="{StaticResource GrayColor}" Margin="10,0"/>
+                  <!--buttons-->
+                  <Grid Grid.Row="2" HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" Padding="15,0">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     
-                  </StackLayout>
+                    <controls:ImageButton Grid.Column="0" Source="add_todo.png"
+                                          HorizontalOptions="Start"
+                                          Command="{Binding RemoveTagCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+
+                    <controls:ImageButton Grid.Column="1" Source="detail.png"
+                                          HorizontalOptions="End"
+                                          Command="{Binding RemoveTagCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+
+                  </Grid>
                 </Grid>
             </Frame>
             </Grid>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TodoScheduler.Infrastructure.Enums;
 using TodoScheduler.Infrastructure.Services.NavigationServices;
 
 namespace TodoScheduler.Infrastructure.Base
@@ -25,6 +26,11 @@ namespace TodoScheduler.Infrastructure.Base
             set { SetProperty(ref _header, value); }
         }
 
+        VmState _state;
+        public VmState State {
+            get { return _state; }
+            set { SetProperty(ref _state, value); }
+        }
 
         #endregion
 
