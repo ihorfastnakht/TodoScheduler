@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TodoScheduler.Services.NavigationServices;
 
 namespace TodoScheduler.Base
 {
@@ -6,6 +7,12 @@ namespace TodoScheduler.Base
     {
 
         #region fields & properties
+
+        INavigationService _navigation;
+        public INavigationService Navigation {
+            get { return _navigation; }
+            set { SetProperty(ref _navigation, value); }
+        }
 
         string _icon;
         public string Icon
