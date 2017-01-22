@@ -9,6 +9,8 @@ namespace TodoScheduler.Infrastructure.Services.UserDialogServices
 {
     public interface IDialogService
     {
-        Task ShowMessage(string title, string message);
+        Task ShowErrorMessage(string title, string message, string buttonText);
+        Task ShowPopup(string message);
+        Task<bool> ShowMessageWithConfirmation(string title, string message, string okText = "ok", string cancelText = "cancel");
     }
 }

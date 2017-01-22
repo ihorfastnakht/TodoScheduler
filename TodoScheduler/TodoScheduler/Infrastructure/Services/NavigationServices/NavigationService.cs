@@ -46,7 +46,7 @@ namespace TodoScheduler.Infrastructure.Services.NavigationServices
             switch (navType)
             {
                 case NavType.Stack:
-                    throw new NotImplementedException();
+                    await _navigation.PushAsync(App.ResolvePage(viewModelType, parameters), animated: animation);
                     break;
                 case NavType.Modal:
                     throw new NotImplementedException();

@@ -3,22 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:base="clr-namespace:TodoScheduler.Infrastructure.Base;assembly:TodoScheduler"
              xmlns:behaviors="clr-namespace:TodoScheduler.Infrastructure.Behaviors;assembly:TodoScheduler"
+             xmlns:sm="clr-namespace:TodoScheduler.Infrastructure.StateManager;assembly:TodoScheduler"
              xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
              x:Class="TodoScheduler.Pages.TagsPage"
              x:Name="page"
              Title="Tags">
   <base:BaseContentPage.ToolbarItems>
     <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}"/>
-    <ToolbarItem Icon="add_tag.png" Command="{Binding AddTagCommand}"/>
+    <ToolbarItem Icon="add_tag.png" Command="{Binding AddNewTagCommand}"/>
   </base:BaseContentPage.ToolbarItems>
-  <ScrollView BackgroundColor="{StaticResource GrayColor}">
-    <ListView ItemsSource="{Binding Tags}"
-              x:Name="list"
-              BackgroundColor="{StaticResource GrayColor}"
-              IsPullToRefreshEnabled="True"
-              RefreshCommand="{Binding RefreshCommand}"
-              SeparatorVisibility="None"
-              RowHeight="140">
+  <sm:StateContainer State="{Binding State}">
+    <sm:StateCondition State="Normal">
+      <ScrollView BackgroundColor="{StaticResource GrayColor}">
+        <ListView ItemsSource="{Binding Tags}"
+                  x:Name="list"
+                  BackgroundColor="{StaticResource GrayColor}"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsRefresh}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  SeparatorVisibility="None"
+                  RowHeight="140">
       <ListView.Behaviors>
         <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                           Command="{Binding ItemTappedCommand}"
@@ -73,13 +77,13 @@
                     
                     <controls:ImageButton Grid.Column="0" Source="add_todo.png"
                                           HorizontalOptions="Start"
-                                          Command="{Binding RemoveTagCommand}"
+                                          Command="{Binding AddTodoForTagCommand}"
                                           BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                           CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
 
                     <controls:ImageButton Grid.Column="1" Source="detail.png"
                                           HorizontalOptions="End"
-                                          Command="{Binding RemoveTagCommand}"
+                                          Command="{Binding DetailTagCommand}"
                                           BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                           CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
 
@@ -92,4 +96,18 @@
       </ListView.ItemTemplate>
     </ListView>
   </ScrollView>
+    </sm:StateCondition>
+    <sm:StateCondition State="Loading">
+      <StackLayout HorizontalOptions="Center"
+                   VerticalOptions="Center">
+        <ActivityIndicator IsRunning="True" IsVisible="True"/>
+      </StackLayout>  
+    </sm:StateCondition>
+    <sm:StateCondition State="NoData">
+      <StackLayout HorizontalOptions="Center"
+                   VerticalOptions="Center">
+        <Label Text="No data"/>
+      </StackLayout>  
+    </sm:StateCondition>
+  </sm:StateContainer>
 </base:BaseContentPage>

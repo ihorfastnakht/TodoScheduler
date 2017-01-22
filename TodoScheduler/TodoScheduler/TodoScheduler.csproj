@@ -38,10 +38,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BindablePicker.cs" />
     <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Controls\Separator.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
+    <Compile Include="Data\ColorFactory.cs" />
     <Compile Include="Infrastructure\Base\BaseContentPage.cs" />
     <Compile Include="Infrastructure\Base\BehaviorBase.cs" />
     <Compile Include="Infrastructure\Base\Grouping.cs" />
@@ -63,18 +65,30 @@
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="PageModels\MenuGroup.cs" />
     <Compile Include="PageModels\MenuItem.cs" />
+    <Compile Include="Pages\AddNewTagPage.xaml.cs">
+      <DependentUpon>AddNewTagPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AddNewTodoPage.xaml.cs">
+      <DependentUpon>AddNewTodoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AppPage.xaml.cs">
       <DependentUpon>AppPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TagDetailPage.xaml.cs">
+      <DependentUpon>TagDetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TagsPage.xaml.cs">
       <DependentUpon>TagsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddNewTagViewModel.cs" />
+    <Compile Include="ViewModels\AddNewTodoViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\TagDetailViewModel.cs" />
     <Compile Include="ViewModels\TagsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +159,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TagsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\AddNewTagPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\TagDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\AddNewTodoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

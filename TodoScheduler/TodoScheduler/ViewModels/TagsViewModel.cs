@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TodoScheduler.Infrastructure.Base;
+using TodoScheduler.Infrastructure.Enums;
 using TodoScheduler.Infrastructure.Services.DataServices;
 using TodoScheduler.Infrastructure.Services.UserDialogServices;
 using TodoScheduler.Models;
@@ -23,6 +24,12 @@ namespace TodoScheduler.ViewModels
         #endregion
 
         #region fileds & properties
+
+        bool _isRefresh = false;
+        public bool IsRefresh {
+            get { return _isRefresh; }
+            set { SetProperty(ref _isRefresh, value); }
+        }
 
         IEnumerable<TagItem> _tag;
         public IEnumerable<TagItem> Tags {
@@ -43,6 +50,12 @@ namespace TodoScheduler.ViewModels
         #endregion
 
         #region commands
+
+        ICommand _refreshCommand;
+        public ICommand RefreshCommand {
+            get { return _refreshCommand ?? new Command(RefreshCommandExecute);  }
+            set { SetProperty(ref _refreshCommand, value); }
+        }
 
         ICommand _itemTappedCommand;
         public ICommand ItemTappedCommand {
@@ -82,28 +95,29 @@ namespace TodoScheduler.ViewModels
         {
             try
             {
-                //Busy
+                if (State == VmState.Loading)
+                    return;
+
+                State = VmState.Loading;
+
+                await Task.Delay(4000); // for test
+
                 var items = await _dataService.GetTagItemsAsync();
-                
+
                 if (items.Any())
                 {
-                    //var selectableItems = from tag in items
-                    //                      select new SelectableObject<TagItem>() { Item = tag, IsSelected = false };
-                    Tags = items;//selectableItems;
-                    //TagItems = items;
-                    //Normal
+                    Tags = items;
+                    State = VmState.Normal;
                 }
                 else
-                {
-                    //NoData
-                }
+                    State = VmState.NoData;
+                
             }
             catch (Exception ex)
             {
                 //notify when error
             }
         }
-
 
         private void ItemTappedCommandExecute(object item)
         {
@@ -131,32 +145,85 @@ namespace TodoScheduler.ViewModels
             //OnPropertyChanged(nameof(Tags));
         }
 
-        private void AddNewTagCommandExecute(object obj)
+        private async void AddNewTagCommandExecute()
         {
-            throw new NotImplementedException();
+            await Navigation.NavigateAsync(typeof(AddNewTagViewModel), animation: true);
         }
 
-        private void AddTodoForTagCommandExecute(object obj)
+        private async void AddTodoForTagCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            if (State == VmState.Loading)
+                return;
+
+            var tagItem = (TagItem)obj;
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>(){
+                ["tag"] = tagItem
+            };
+
+            State = VmState.Loading;
+
+            await Navigation.NavigateAsync(typeof(AddNewTodoViewModel), parameters, animation: true);
+
+            State = VmState.Normal;
         }
 
         private async void RemoveTagCommandExecute(object obj)
         {
             try
             {
-                var tagItem = (TagItem) obj;
-                await _dialogService.ShowMessage("Test", tagItem.Title);
+                if (State == VmState.Loading)
+                    return;
+
+                var tagItem = (TagItem)obj;
+
+                var result = await _dialogService.ShowMessageWithConfirmation("Confirm",
+                    $"Remove ({tagItem.Title} with {tagItem.TodoItemsCount} todos) permanently?");
+
+                if (result)
+                {
+                    await _dataService.RemoveTagItemAsync(tagItem);
+                    await _dialogService.ShowPopup($"Tag ({tagItem.Title}) has been removed");
+
+                    //reload tag items
+                    LoadTagItems();
+                }
             }
             catch (Exception ex)
             {
-
+                await _dialogService.ShowErrorMessage("Oops", ex.Message, "OK");
+            }
+            finally
+            {
+                State = VmState.Normal;
             }
         }
 
-        private void DetailTagCommandExecute(object obj)
+        private async void DetailTagCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            if (State == VmState.Loading)
+                return;
+
+            var tagItem = (TagItem) obj;
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>() {
+                ["tag"] = tagItem
+            };
+
+            State = VmState.Loading;
+
+            await Navigation.NavigateAsync(typeof(TagDetailViewModel), parameters, animation: true);
+
+            State = VmState.Normal;
+        }
+
+        private void RefreshCommandExecute()
+        {
+            IsRefresh = true;
+
+            LoadTagItems();
+
+            IsRefresh = false;
         }
 
         #endregion
@@ -167,7 +234,12 @@ namespace TodoScheduler.ViewModels
         {
             base.Init(parameters);
             LoadTagItems();
-            _dialogService.ShowMessage("Test", "Test message");
+        }
+
+        public override void Appearing()
+        {
+            base.Appearing();
+            //LoadTagItems();
         }
 
         #endregion
