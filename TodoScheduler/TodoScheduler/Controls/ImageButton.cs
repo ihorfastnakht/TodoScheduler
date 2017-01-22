@@ -10,7 +10,7 @@ namespace TodoScheduler.Controls
 {
     public class ImageButton : Image
     {
-        bool isAnimated = false;
+        bool isPressed = false;
 
         public ImageButton()
         {
@@ -18,13 +18,17 @@ namespace TodoScheduler.Controls
 
             gestureRecognizer.Tapped +=  async (s, e) =>
             {
-                if (isAnimated)
+                if (isPressed)
                     return;
 
-                await Grow();
+                isPressed = true;
+
+                await Animate();
 
                 if (Command != null)
                     Command.Execute(CommandParameter);
+
+                isPressed = false;
             };
 
             this.GestureRecognizers.Add(gestureRecognizer);
@@ -57,14 +61,10 @@ namespace TodoScheduler.Controls
         #endregion
 
 
-        public async Task Grow()
+        public async Task Animate()
         {
-            isAnimated = true;
-
             await this.ScaleTo(1.4, 75);
             await this.ScaleTo(1.0, 75);
-
-            isAnimated = false;
         }
     }
 }

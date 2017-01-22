@@ -56,8 +56,9 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell Height="50">
-              <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal"
-                           Padding="20, 0, 0, 0" Spacing="10" Margin="20,0,0,0">
+              <StackLayout VerticalOptions="FillAndExpand" 
+                           Orientation="Horizontal"
+                           Padding="30,0">
                 <Image Source ="{Binding Icon}" WidthRequest="25" HeightRequest="25"
                        VerticalOptions="Center">
                 </Image>

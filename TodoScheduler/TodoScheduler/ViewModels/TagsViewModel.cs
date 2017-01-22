@@ -243,7 +243,5 @@ namespace TodoScheduler.ViewModels
         }
 
         #endregion
-
-
     }
 }

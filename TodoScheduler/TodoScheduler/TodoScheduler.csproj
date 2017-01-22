@@ -54,9 +54,11 @@
     <Compile Include="Infrastructure\Enums\NavigationTypes.cs" />
     <Compile Include="Infrastructure\Enums\ViewModelStates.cs" />
     <Compile Include="Infrastructure\Services\DataServices\IDataService.cs" />
+    <Compile Include="Infrastructure\Services\DataServices\SqliteDataService.cs" />
     <Compile Include="Infrastructure\Services\DataServices\TestDataService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\INavigationService.cs" />
     <Compile Include="Infrastructure\Services\NavigationServices\NavigationService.cs" />
+    <Compile Include="Infrastructure\Services\PlatformSpecificServices\IFileSystemService.cs" />
     <Compile Include="Infrastructure\Services\UserDialogServices\DialogService.cs" />
     <Compile Include="Infrastructure\Services\UserDialogServices\IDialogService.cs" />
     <Compile Include="Infrastructure\StateManager\StateContainer.cs" />
