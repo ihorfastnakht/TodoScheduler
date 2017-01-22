@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\BehaviorBase.cs" />
     <Compile Include="Base\ObservableObject.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
     <Compile Include="MainPage.xaml.cs">
