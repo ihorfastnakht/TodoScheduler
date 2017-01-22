@@ -43,6 +43,7 @@
     <Compile Include="Base\ObservableObject.cs" />
     <Compile Include="Base\SelectableObject.cs" />
     <Compile Include="Base\ViewModelBase.cs" />
+    <Compile Include="Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Enums\TodoPriority.cs" />
     <Compile Include="Enums\TodoStatus.cs" />
     <Compile Include="MainPage.xaml.cs">
