@@ -12,9 +12,12 @@ namespace TodoScheduler
         public App()
         {
             InitializeComponent();
-
             MainPage = new TodoScheduler.MainPage();
         }
+
+
+
+        #region application state handlers
 
         protected override void OnStart()
         {
@@ -30,5 +33,7 @@ namespace TodoScheduler
         {
             // Handle when your app resumes
         }
+
+        #endregion
     }
 }

@@ -1,10 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TodoScheduler.Converters;assembly:TodoScheduler"
              x:Class="TodoScheduler.App">
   <Application.Resources>
-
     <!-- Application resource dictionary -->
-
+    <ResourceDictionary>
+      <!--colors-->
+      <Color x:Key="MainColor">#7635EB</Color>
+      <Color x:Key="MetroBlackColor">#2D2D30</Color>
+      <Color x:Key="MainLightColor">#D1B3FF</Color>
+      <Color  x:Key="WhiteColor">#FFFFFF</Color>
+      <Color x:Key="BlackColor">#000000</Color>
+      <Color x:Key="GrayColor">#F2F2F2</Color>
+      <Color x:Key="SeparatorColor">#000000</Color>
+      <!--converters-->
+      <converters:ItemTappedEventArgsConverter x:Key="ItemTappedConverter"/>
+    </ResourceDictionary>
   </Application.Resources>
 </Application>
