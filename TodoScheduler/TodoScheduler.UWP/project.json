@@ -3,6 +3,7 @@
     "Acr.Notifications": "2.0.1",
     "Acr.UserDialogs": "6.3.6",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "SQLite.Net-PCL": "3.1.1",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {
