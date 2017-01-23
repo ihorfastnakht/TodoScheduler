@@ -47,6 +47,7 @@
     <Compile Include="Controls\BasePage.cs" />
     <Compile Include="Controls\BindablePicker.cs" />
     <Compile Include="Controls\Separator.cs" />
+    <Compile Include="Controls\StateContainer.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
     <Compile Include="Enums\TodoPriority.cs" />
