@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:TodoScheduler"
              x:Class="TodoScheduler.MainPage">
 
-  <Label Text="Welcome to Xamarin Forms!"
+  <Label x:Name="label" Text="Welcome to Xamarin Forms!"
            VerticalOptions="Center"
            HorizontalOptions="Center" />
 
