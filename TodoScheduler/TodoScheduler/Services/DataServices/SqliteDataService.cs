@@ -81,7 +81,7 @@ namespace TodoScheduler.Services.DataServices
             {
                 if (tagItem == null)
                     throw new ArgumentNullException("TagItem is null");
-                if (IsExistTag(tagItem))
+                if (!IsExistTag(tagItem))
                     throw new Exception($"Tag ({tagItem.Title}) not exist");
 
                 _database.Delete(tagItem);

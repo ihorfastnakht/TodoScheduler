@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+             x:Class="TodoScheduler.Pages.CreateTagPage"
+             Title="Create new tag">
+  <ScrollView>
+    <Frame Margin="10,20,10,100" HasShadow="True" BackgroundColor="{StaticResource WhiteColor}">
+      <Grid >
+        <Grid.RowDefinitions>
+          <RowDefinition Height="5"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <BoxView Grid.Row="0" Color="{Binding SelectedColor.HexValue}"></BoxView>
+        <StackLayout Grid.Row="1">
+          <Label Text="Tag name"/>
+          <Entry Placeholder="Type tag title" TextColor="{Binding SelectedColor.HexValue}"
+                 Keyboard="Text" Text="{Binding Title}"/>
+          <Label Text="Tag color" Margin="0,20,0,0"/>
+
+          <controls:BindablePicker ItemsSource="{Binding HexColors}"
+                                   SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                                   DisplayMemberPath="Name"
+                                   TextColor="{Binding SelectedColor.HexValue}"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Margin="0,50,0,0" Orientation="Horizontal"
+                     HorizontalOptions="EndAndExpand">
+
+          <Button Text="Save" TextColor="Green" IsEnabled="{Binding IsValid}"
+                  BackgroundColor="{StaticResource WhiteColor}" WidthRequest="110"
+                  Command="{Binding SaveCommand}"></Button>
+
+          <Button Text="Cancel" TextColor="Red" WidthRequest="110"
+                  Command="{Binding CancelCommand}"
+                  BackgroundColor="{StaticResource WhiteColor}"></Button>
+        </StackLayout>
+      </Grid>
+    </Frame>
+  </ScrollView>
+</controls:BasePage>

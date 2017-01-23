@@ -14,7 +14,7 @@ namespace TodoScheduler.Controls
         public View Content { get; set; }
     }
 
-    [ContentProperty("Condition")]
+    [ContentProperty("Conditions")]
     public class StateContainer : ContentView
     {
         public List<StateCondition> Conditions { get; set; } = new List<StateCondition>();

@@ -4,6 +4,9 @@
     "Acr.UserDialogs": "6.3.7",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "SQLite.Net-PCL": "3.1.1",
+    "Xam.FormsPlugin.Iconize": "1.0.10",
+    "Xam.Plugin.Iconize": "1.0.10",
+    "Xam.Plugin.Iconize.FontAwesome": "1.0.10",
     "Xamarin.Forms": "2.3.3.175"
   },
   "frameworks": {

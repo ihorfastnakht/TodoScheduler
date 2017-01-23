@@ -23,6 +23,8 @@ namespace TodoScheduler.Android
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
+
             UserDialogs.Init(this);
 
             LoadApplication(new App());

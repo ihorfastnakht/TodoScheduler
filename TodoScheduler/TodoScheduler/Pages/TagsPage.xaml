@@ -3,10 +3,104 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
              xmlns:behaviors="clr-namespace:TodoScheduler.Behaviors;assembly:TodoScheduler"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
              x:Class="TodoScheduler.Pages.TagsPage"
-             Title="Detail" 
+             Title="Tags" 
              BackgroundColor="{StaticResource GrayColor}">
-  <ScrollView>
-    
-  </ScrollView>
+  
+    <controls:BasePage.ToolbarItems>
+      <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}"/>
+      <ToolbarItem Icon="bar_add_tag.png" Command="{Binding CreateTagCommand}"/>
+    </controls:BasePage.ToolbarItems>
+  <controls:StateContainer State="{Binding State}">
+    <controls:StateCondition State="Normal">
+      <ListView ItemsSource="{Binding TagItems}"
+                        x:Name="list"
+                        BackgroundColor="{StaticResource GrayColor}"
+                        IsPullToRefreshEnabled="True"
+                        IsRefreshing="{Binding IsRefresh}"
+                        RefreshCommand="{Binding RefreshCommand}"
+                        SeparatorVisibility="None"
+                        RowHeight="120">
+        <!--<ListView.Behaviors>
+          <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                            Command="{Binding ItemTappedCommand}"
+                                            Converter="{StaticResource ItemTappedConverter}">
+          </behaviors:EventToCommandBehavior>
+        </ListView.Behaviors>-->
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell x:Name="cell">
+              <Grid BackgroundColor="{StaticResource GrayColor}">
+                <Frame HasShadow="True" Padding="0" Margin="0,5"
+                       BackgroundColor="{StaticResource WhiteColor}">
+                  <Grid BackgroundColor="{StaticResource WhiteColor}"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--image-->
+                    <iconize:IconImage Grid.Column="0" Margin="5" 
+                                       HeightRequest="65" 
+                                       VerticalOptions="StartAndExpand"
+                                       Icon="fa-bookmark" IconColor="{Binding HexColor}" />
+                    <!--description-->
+                    <Grid Grid.Column="1">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="40"/>
+                      </Grid.RowDefinitions>
+                      <!--Description-->
+                      <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Padding="0,5" Orientation="Vertical">
+                          <Label Text="{Binding Title}" TextColor="{Binding HexColor}"
+                                 FontSize="18" FontAttributes="Bold"/>
+                          <Label Text="{Binding TodoItemsCount, StringFormat='Total items: {0}'}"
+                                 Font="Small, Italic"/>
+                        </StackLayout>
+                        <!--remove button-->
+                        <StackLayout Grid.Column="1"
+                                     Orientation="Horizontal" Padding="5"
+                                     HorizontalOptions="EndAndExpand"
+                                     VerticalOptions="StartAndExpand">
+                          <controls:ImageButton Margin="5,0" 
+                                                Source="remove_tag.png" 
+                                                Command="{Binding RemoveTagCommand}"
+                                                BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                                CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                        </StackLayout>
+                      </Grid>
+                      <!--separator-->
+                      <controls:Separator Grid.Row="1" Margin="0,0,10,0"/>
+                      <!--remove button-->
+                      <StackLayout Grid.Row="2" 
+                                   Orientation="Horizontal" Padding="10" 
+                                   HorizontalOptions="EndAndExpand" 
+                                   VerticalOptions="Center">
+                        <controls:ImageButton Source="add_tag.png" Margin="5,0"/>
+                        <controls:ImageButton Source="detail.png" Margin="5,0"/>
+                      </StackLayout>
+                    </Grid>
+                  </Grid>
+                </Frame>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </controls:StateCondition>
+    <controls:StateCondition State="Busy">
+      
+    </controls:StateCondition>
+    <controls:StateCondition State="NoData">
+
+    </controls:StateCondition>
+  </controls:StateContainer>
 </controls:BasePage>
