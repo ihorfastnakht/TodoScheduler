@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+             xmlns:behaviors="clr-namespace:TodoScheduler.Behaviors;assembly:TodoScheduler"
+             x:Class="TodoScheduler.Pages.MenuPage" Title="Menu">
+  <Grid BackgroundColor="{StaticResource WhiteColor}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="100"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <StackLayout Grid.Row="0" BackgroundColor="{StaticResource MainColor}" Orientation="Horizontal">
+      <Image HeightRequest="50" Margin="20,0,20,0" WidthRequest="50"
+             VerticalOptions="Center" Source="schedule_maker.png"/>
+      <Label Text="Todo scheduler"
+             TextColor="{StaticResource WhiteColor}"
+             VerticalOptions="Center"
+             Font="Bold, Large"/>
+    </StackLayout>
+    <ScrollView Grid.Row="1">
+      <ListView x:Name="listView"
+                IsGroupingEnabled="True"
+                GroupDisplayBinding="{Binding Key}"
+                GroupShortNameBinding="{Binding Key}"
+                SeparatorVisibility="None"
+                HasUnevenRows="True"
+                ItemsSource="{Binding MenuGroups}">
+        <ListView.GroupHeaderTemplate>
+          <DataTemplate>
+            <ViewCell Height="50">
+              <Frame Padding="10" HasShadow="True"
+                     BackgroundColor="{StaticResource WhiteColor}">
+                <StackLayout Orientation="Horizontal"
+                             Margin="2"
+                             BackgroundColor="{StaticResource WhiteColor}"
+                             VerticalOptions="Center">
+                  <Image Source="{Binding Key.Icon}"
+                         HeightRequest="30"
+                         WidthRequest="30"/>
+                  <Label Text="{Binding Key.Title}"
+                         Font="Bold"
+                         VerticalOptions="Center"
+                         TextColor="{StaticResource MainColor}"/>
+                </StackLayout>
+              </Frame>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        <ListView.Behaviors>
+          <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                            Command="{Binding TapCommand}"
+                                            Converter="{StaticResource ItemTappedConverter}">
+          </behaviors:EventToCommandBehavior>
+        </ListView.Behaviors>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell Height="50">
+              <StackLayout VerticalOptions="FillAndExpand"
+                           Orientation="Horizontal"
+                           Padding="30,0">
+                <Image Source ="{Binding Icon}" WidthRequest="25" HeightRequest="25"
+                       VerticalOptions="Center">
+                </Image>
+                <Label Text="{Binding Title}" Font="Normal, Small" VerticalOptions="Center"
+                       TextColor="{StaticResource MetroBlackColor}"/>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </ScrollView>
+  </Grid>
+</controls:BasePage>
