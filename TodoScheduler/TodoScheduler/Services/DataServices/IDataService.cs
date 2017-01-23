@@ -12,5 +12,11 @@ namespace TodoScheduler.Services.DataServices
         Task CreateTagItemAsync(TagItem tagItem);
         Task RemoveTagItemAsync(TagItem tagItem);
         Task<IEnumerable<TagItem>> GetTagItemsAsync();
+
+        Task CreateTodoItemAsync(TodoItem todoItem);
+        Task RemoveTodoItemAsync(TodoItem todoItem);
+        Task<IEnumerable<TodoItem>> GetTodoItemsAsync();
+        Task<IEnumerable<TodoItem>> GetTodoItemsAsync(DateTime dueDate);
+        Task<IEnumerable<TodoItem>> GetTodoItemsAsync(TagItem tagItem);
     }
 }

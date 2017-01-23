@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TodoScheduler.Models;
 using SQLite.Net;
 using TodoScheduler.Services.PlatformServices;
 using Xamarin.Forms;
-using System.Diagnostics;
+using TodoScheduler.Enums;
 
 namespace TodoScheduler.Services.DataServices
 {
     public class SqliteDataService : IDataService
     {
-        readonly SQLiteConnection _connection;
+        readonly SQLiteConnection _database;
 
         #region constructor
 
         public SqliteDataService()
         {
-            _connection = DependencyService.Get<ISqliteConnectionService>().GetDatabaseConnection();
+            _database = DependencyService.Get<ISqliteConnectionService>().GetDatabaseConnection();
 
-            if (_connection == null)
+            if (_database == null)
                 throw new ArgumentNullException("SqliteDataService: connection is null");
             
             //Create tables
-            _connection.CreateTable<TagItem>();
-
+            _database.CreateTable<TagItem>();
+            _database.CreateTable<TodoItem>();
 
             var tag = new TagItem() {
                 Title = "Default",
@@ -34,7 +33,7 @@ namespace TodoScheduler.Services.DataServices
             };
 
             if (!IsExistTag(tag))
-                _connection.Insert(tag);
+                _database.Insert(tag);
             
         }
 
@@ -44,7 +43,12 @@ namespace TodoScheduler.Services.DataServices
 
         private bool IsExistTag(TagItem tagItem)
         {
-            var exist = _connection.Table<TagItem>().Where(t => t.Title == tagItem.Title).FirstOrDefault();
+            var exist = _database.Table<TagItem>().Where(t => t.Title == tagItem.Title).FirstOrDefault();
+            return exist == null ? false : true;
+        }
+        private bool IsExistTodo(TodoItem todoItem)
+        {
+            var exist = _database.Table<TodoItem>().Where(t => t.Id == todoItem.Id && t.TagId == todoItem.TagId).FirstOrDefault();
             return exist == null ? false : true;
         }
 
@@ -61,18 +65,16 @@ namespace TodoScheduler.Services.DataServices
                 if (IsExistTag(tagItem))
                     throw new Exception($"Tag ({tagItem.Title}) already existed");
 
-                _connection.Insert(tagItem);
+                _database.Insert(tagItem);
             });
         }
-
         public async Task<IEnumerable<TagItem>> GetTagItemsAsync()
         {
             return await Task.Factory.StartNew(() =>
             {
-                return _connection.Table<TagItem>().ToList();
+                return _database.Table<TagItem>().ToList();
             });
         }
-
         public async Task RemoveTagItemAsync(TagItem tagItem)
         {
             await Task.Factory.StartNew(() =>
@@ -82,8 +84,51 @@ namespace TodoScheduler.Services.DataServices
                 if (IsExistTag(tagItem))
                     throw new Exception($"Tag ({tagItem.Title}) not exist");
 
-                _connection.Delete(tagItem);
+                _database.Delete(tagItem);
             });
+        }
+        public async Task CreateTodoItemAsync(TodoItem todoItem)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                if (todoItem == null)
+                    throw new ArgumentNullException("TodoItem is null");
+
+                _database.Insert(todoItem);
+            });
+        }
+        public async Task RemoveTodoItemAsync(TodoItem todoItem)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                if (todoItem == null)
+                    throw new ArgumentNullException("TodoItem is null");
+                if (!IsExistTodo(todoItem))
+                    throw new Exception($"Todo item with Id:{todoItem.Id} not exist");
+
+                _database.Delete(todoItem);
+            });
+        }
+        public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync()
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                return _database.Table<TodoItem>()
+                                  .Where(t => t.Status == TodoStatus.InProcess)
+                                  .OrderBy(t => t.DueDate.Value.Date)
+                                  .OrderByDescending(t => t.Priority)
+                                  .ToList();
+            });
+        }
+        public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync(DateTime dueDate)
+        {
+            var items = await GetTodoItemsAsync();
+            return items.Where(t => t.DueDate.Value == dueDate).ToList();
+        }
+        public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync(TagItem tagItem)
+        {
+            var items = await GetTodoItemsAsync();
+            return items.Where(t => t.TagId == tagItem.Id).ToList();
         }
 
         #endregion
