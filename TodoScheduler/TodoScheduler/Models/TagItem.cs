@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TodoScheduler.Base;
+using TodoScheduler.Enums;
 
 namespace TodoScheduler.Models
 {
@@ -10,7 +11,7 @@ namespace TodoScheduler.Models
     {
         #region private members
 
-        readonly string[] dependendProps = new string[] { nameof(HasItems), nameof(TodoItemsCount) };
+        readonly string[] dependendProps = new string[] { nameof(HasItems), nameof(Total), nameof(Failed), nameof(Completed) };
 
         #endregion
 
@@ -46,10 +47,31 @@ namespace TodoScheduler.Models
         #endregion
 
         #region readonly properties
-        [Ignore]
-        public int TodoItemsCount => !HasItems ? 0 : TodoItems.Count();
+        //[Ignore]
+        //public int TodoItemsCount => !HasItems ? 0 : TodoItems.Count();
         [Ignore]
         public bool HasItems => TodoItems?.Any() == true ? true : false;
+
+        [Ignore]
+        public string Total => !HasItems ? "-" : TodoItems.Count().ToString();
+        [Ignore]
+        public string Completed
+        {
+            get
+            {
+                if (!HasItems) return "-";
+                return TodoItems.Where(t => t.Status == TodoStatus.Completed).Count().ToString();
+            }
+        }
+        [Ignore]
+        public string Failed
+        {
+            get
+            {
+                if (!HasItems) return "-";
+                return TodoItems.Where(t => t.Status == TodoStatus.Failed).Count().ToString();
+            }
+        }
 
         #endregion
     }

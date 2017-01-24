@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -38,6 +37,7 @@ namespace TodoScheduler.ViewModels
         {
             _dataService = dataService;
             _dialogService = dialogService;
+            MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh", (sender) => LoadTagItems());
         }
 
         #endregion
@@ -55,6 +55,18 @@ namespace TodoScheduler.ViewModels
         {
             get { return _createTagCommand ?? new Command(CreateTagCommandExecute); }
             set { SetProperty(ref _createTagCommand, value); }
+        }
+
+        ICommand _addTodoCommand;
+        public ICommand AddTodoCommand {
+            get { return _addTodoCommand ?? new Command(AddTodoCommandExecute); }
+            set { SetProperty(ref _addTodoCommand, value); }
+        }
+
+        ICommand _detailCommand;
+        public ICommand DetailCommand {
+            get { return _detailCommand ?? new Command(DetailCommandExecute); }
+            set { SetProperty(ref _detailCommand, value); }
         }
 
         #endregion
@@ -107,6 +119,14 @@ namespace TodoScheduler.ViewModels
 
         private async void CreateTagCommandExecute() => await Navigation.NavigateAsync(typeof(CreateTagViewModel), animation: true);
 
+        private async void AddTodoCommandExecute()
+        {
+            
+        }
+
+        private async void DetailCommandExecute()
+        {
+        }
         #endregion
 
         #region override

@@ -72,7 +72,16 @@ namespace TodoScheduler.Services.DataServices
         {
             return await Task.Factory.StartNew(() =>
             {
-                return _database.Table<TagItem>().ToList();
+                var tags = _database.Table<TagItem>().ToList();
+                var todos = _database.Table<TodoItem>().ToList();
+
+                foreach (var tag in tags)
+                {
+                    //TODO: Add order
+                    tag.TodoItems = todos.Where(t => t.TagId == tag.Id).ToList();
+                }
+
+                return tags;
             });
         }
         public async Task RemoveTagItemAsync(TagItem tagItem)

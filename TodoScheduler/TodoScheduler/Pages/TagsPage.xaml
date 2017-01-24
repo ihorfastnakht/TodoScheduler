@@ -21,7 +21,7 @@
                         IsRefreshing="{Binding IsRefresh}"
                         RefreshCommand="{Binding RefreshCommand}"
                         SeparatorVisibility="None"
-                        RowHeight="120">
+                        RowHeight="170">
         <!--<ListView.Behaviors>
           <behaviors:EventToCommandBehavior EventName="ItemTapped"
                                             Command="{Binding ItemTappedCommand}"
@@ -32,7 +32,90 @@
           <DataTemplate>
             <ViewCell x:Name="cell">
               <Grid BackgroundColor="{StaticResource GrayColor}">
-                <Frame HasShadow="True" Padding="0" Margin="0,5"
+                <Frame HasShadow="True" OutlineColor="{StaticResource MainColor}" Padding="0" BackgroundColor="{StaticResource WhiteColor}" Margin="10,5">
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition/> <!--Header-->
+                      <RowDefinition/> <!--Counters-->
+                      <RowDefinition/> <!--Buttons-->
+                    </Grid.RowDefinitions>
+                    <!--Header-->
+                    <StackLayout Grid.Row="0" Padding="10" Orientation="Horizontal"
+                                 BackgroundColor="{Binding HexColor}">
+                      <iconize:IconImage HeightRequest="30"
+                                         VerticalOptions="EndAndExpand"
+                                         Icon="fa-bookmark" IconColor="{StaticResource WhiteColor}" />
+                      <Label Text="{Binding Title}" Font="20" FontAttributes="Bold" 
+                             TextColor="{StaticResource WhiteColor}" VerticalOptions="EndAndExpand"/>
+                    </StackLayout>
+                    <!--Counters-->
+                    <Grid Grid.Row="1">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                      </Grid.ColumnDefinitions>
+                      <StackLayout Grid.Column="0" Padding="10" Orientation="Horizontal" 
+                                   HorizontalOptions="Center">
+                        <Label Text="{Binding Total}" Font="20" FontAttributes="Bold"
+                               TextColor="{StaticResource GrayColor}" VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                      </StackLayout>
+                      <!--completed-->
+                      <StackLayout Grid.Column="1" Padding="10" Orientation="Horizontal"
+                                   HorizontalOptions="Center">
+                        <Label Text="{Binding Failed}" Font="20" FontAttributes="Bold"
+                               TextColor="{StaticResource GrayColor}" 
+                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                      </StackLayout>
+                      <!--failed-->
+                      <StackLayout Grid.Column="2" Padding="10" Orientation="Horizontal" HorizontalOptions="Center">
+                        <Label Text="{Binding Completed}" Font="20" FontAttributes="Bold"
+                               TextColor="{StaticResource GrayColor}" 
+                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                      </StackLayout>
+                    </Grid>
+                    
+                    <!--Counters-->
+                    <Grid Grid.Row="2">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                      </Grid.ColumnDefinitions>
+                      
+                      <iconize:IconButton Grid.Column="0" 
+                                          FontSize="20" 
+                                          Text="fa-remove" 
+                                          BackgroundColor="{StaticResource WhiteColor}"
+                                          TextColor="Red" WidthRequest="25"
+                                          Command="{Binding RemoveTagCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                      <!--Add todo btn-->
+                      <iconize:IconButton Grid.Column="1"
+                                          FontSize="20"
+                                          Text="fa-plus"
+                                          BackgroundColor="{StaticResource WhiteColor}"
+                                          TextColor="{StaticResource GrayColor}" 
+                                          WidthRequest="25"
+                                          Command="{Binding AddTodoCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                      <!--Detaiд btn-->
+                      <iconize:IconButton Grid.Column="2"
+                                          FontSize="20"
+                                          Text="fa-reorder"
+                                          BackgroundColor="{StaticResource WhiteColor}"
+                                          TextColor="{StaticResource GrayColor}" 
+                                          WidthRequest="25"
+                                          Command="{Binding DetailCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                    </Grid>
+                  </Grid>
+                </Frame>
+                <!--<Frame HasShadow="True" Padding="0" Margin="0,5"
                        BackgroundColor="{StaticResource WhiteColor}">
                   <Grid BackgroundColor="{StaticResource WhiteColor}"
                         VerticalOptions="FillAndExpand"
@@ -41,19 +124,19 @@
                       <ColumnDefinition Width="Auto"/>
                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <!--image-->
+                    
                     <iconize:IconImage Grid.Column="0" Margin="5" 
                                        HeightRequest="65" 
                                        VerticalOptions="StartAndExpand"
                                        Icon="fa-bookmark" IconColor="{Binding HexColor}" />
-                    <!--description-->
+
                     <Grid Grid.Column="1">
                       <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="40"/>
                       </Grid.RowDefinitions>
-                      <!--Description-->
+
                       <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                           <ColumnDefinition/>
@@ -65,7 +148,7 @@
                           <Label Text="{Binding TodoItemsCount, StringFormat='Total items: {0}'}"
                                  Font="Small, Italic"/>
                         </StackLayout>
-                        <!--remove button-->
+
                         <StackLayout Grid.Column="1"
                                      Orientation="Horizontal" Padding="5"
                                      HorizontalOptions="EndAndExpand"
@@ -77,9 +160,9 @@
                                                 CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
                         </StackLayout>
                       </Grid>
-                      <!--separator-->
+
                       <controls:Separator Grid.Row="1" Margin="0,0,10,0"/>
-                      <!--remove button-->
+
                       <StackLayout Grid.Row="2" 
                                    Orientation="Horizontal" Padding="10" 
                                    HorizontalOptions="EndAndExpand" 
@@ -89,7 +172,7 @@
                       </StackLayout>
                     </Grid>
                   </Grid>
-                </Frame>
+                </Frame>-->
               </Grid>
             </ViewCell>
           </DataTemplate>

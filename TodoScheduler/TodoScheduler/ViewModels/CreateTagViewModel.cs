@@ -100,6 +100,8 @@ namespace TodoScheduler.ViewModels
                 await _dataService.CreateTagItemAsync(tag);
                 await _dialogService.ShowToastMessageAsync($"Tag ({tag.Title}) has been created", TimeSpan.FromSeconds(2));
                 await Navigation.CloseAsync(animation: true);
+                //Send message for refresh tag items after add
+                MessagingCenter.Send(this, "refresh");
             }
             catch (Exception ex)
             {
