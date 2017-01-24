@@ -2,6 +2,7 @@
 using TodoScheduler.Base;
 using SQLite.Net.Attributes;
 using TodoScheduler.Enums;
+using System.Diagnostics;
 
 namespace TodoScheduler.Models
 {
@@ -94,8 +95,8 @@ namespace TodoScheduler.Models
         }
 
         [Ignore]
-        public int RemainHours => DueDate.HasValue 
-                               ? DueDate.Value.Date.Subtract(DateTime.Now.Date).Hours 
+        public double RemainHours => DueDate.HasValue 
+                               ? DueDate.Value.Subtract(DateTime.Now).TotalHours 
                                : -1;
         
         #endregion

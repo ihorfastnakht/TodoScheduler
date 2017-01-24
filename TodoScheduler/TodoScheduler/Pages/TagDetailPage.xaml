@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+                   xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+                   x:Class="TodoScheduler.Pages.TagDetailPage"
+                   x:Name="page"
+                   Title="{Binding Header}">
+  <controls:BasePage.ToolbarItems>
+    <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}"/>
+    <ToolbarItem Icon="plus.png" Command="{Binding CreateTodoCommand}"/>
+  </controls:BasePage.ToolbarItems>
+  <controls:StateContainer State="{Binding State}">
+    <controls:StateCondition State="Normal">
+      <ListView x:Name="list" 
+                BackgroundColor="{StaticResource GrayColor}" 
+                ItemsSource="{Binding Tag.TodoItems}"
+                SeparatorVisibility="None"
+                RowHeight="150">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell x:Name="cell">
+              <Grid>
+                <Frame BackgroundColor="{StaticResource WhiteColor}" 
+                       Padding="0" Margin="5">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="10"/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <controls:PriorityGrid Grid.Column="0" Priority="{Binding Priority, Mode=TwoWay}"/>
+                    
+                    <Grid Grid.Column="1">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition/>
+                      </Grid.RowDefinitions>
+                      <!--Title-->
+                      <StackLayout Grid.Row="0" Orientation="Vertical" Padding="10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Title}" FontSize="17" FontAttributes="Bold"/>
+                        </StackLayout>
+                        <Label Text="{Binding Description}" Font="Small, Italic"/>
+                      </StackLayout>
+                      <!--Description-->
+                      
+                      <!--Separator-->
+                      <controls:Separator Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"/>
+                    </Grid>
+                  </Grid>
+                </Frame>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </controls:StateCondition>
+    <controls:StateCondition State="Busy">
+
+    </controls:StateCondition>
+    <controls:StateCondition State="NoData">
+      <StackLayout BackgroundColor="{StaticResource MainColor}">
+        <Label Text="No any todo items here" 
+               TextColor="{StaticResource WhiteColor}"
+               VerticalOptions="CenterAndExpand" 
+               HorizontalOptions="CenterAndExpand"/>
+      </StackLayout>
+    </controls:StateCondition>
+  </controls:StateContainer>
+</controls:BasePage>

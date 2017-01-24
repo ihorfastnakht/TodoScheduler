@@ -47,13 +47,13 @@ namespace TodoScheduler.Models
         #endregion
 
         #region readonly properties
-        //[Ignore]
-        //public int TodoItemsCount => !HasItems ? 0 : TodoItems.Count();
+
         [Ignore]
         public bool HasItems => TodoItems?.Any() == true ? true : false;
 
         [Ignore]
         public string Total => !HasItems ? "-" : TodoItems.Count().ToString();
+
         [Ignore]
         public string Completed
         {
@@ -63,6 +63,7 @@ namespace TodoScheduler.Models
                 return TodoItems.Where(t => t.Status == TodoStatus.Completed).Count().ToString();
             }
         }
+
         [Ignore]
         public string Failed
         {

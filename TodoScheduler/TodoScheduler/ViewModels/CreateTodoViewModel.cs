@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TodoScheduler.Base;
 
-namespace TodoScheduler.Renderers
+namespace TodoScheduler.ViewModels
 {
-    class TransparentButtonRenderer
+    public class CreateTodoViewModel : ViewModelBase
     {
     }
 }

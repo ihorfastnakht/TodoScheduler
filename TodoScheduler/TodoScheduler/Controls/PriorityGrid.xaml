@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+      x:Class="TodoScheduler.Controls.PriorityGrid">
+  <Grid.RowDefinitions>
+    <RowDefinition/>
+    <RowDefinition/>
+    <RowDefinition/>
+  </Grid.RowDefinitions>
+  <StackLayout x:Name="high" BackgroundColor="#FF0000" Grid.Row="0" Margin="2">
+    <!--<Label Text="1" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+  </StackLayout>
+  <StackLayout x:Name="normal" BackgroundColor="#FFA500" Grid.Row="1" Margin="2">
+    <!--<Label Text="2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+  </StackLayout>
+
+  <StackLayout x:Name="low" BackgroundColor="#FFD700" Grid.Row="2" Margin="2">
+    <!--<Label Text="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>-->
+  </StackLayout>
+</Grid>

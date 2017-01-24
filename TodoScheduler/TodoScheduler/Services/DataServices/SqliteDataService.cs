@@ -34,7 +34,6 @@ namespace TodoScheduler.Services.DataServices
 
             if (!IsExistTag(tag))
                 _database.Insert(tag);
-            
         }
 
         #endregion
@@ -75,8 +74,7 @@ namespace TodoScheduler.Services.DataServices
                 var tags = _database.Table<TagItem>().ToList();
                 var todos = _database.Table<TodoItem>().ToList();
 
-                foreach (var tag in tags)
-                {
+                foreach (var tag in tags) {
                     //TODO: Add order
                     tag.TodoItems = todos.Where(t => t.TagId == tag.Id).ToList();
                 }

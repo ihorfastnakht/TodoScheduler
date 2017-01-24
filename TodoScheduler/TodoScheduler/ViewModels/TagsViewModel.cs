@@ -37,6 +37,7 @@ namespace TodoScheduler.ViewModels
         {
             _dataService = dataService;
             _dialogService = dialogService;
+
             MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh", (sender) => LoadTagItems());
         }
 
@@ -59,13 +60,13 @@ namespace TodoScheduler.ViewModels
 
         ICommand _addTodoCommand;
         public ICommand AddTodoCommand {
-            get { return _addTodoCommand ?? new Command(AddTodoCommandExecute); }
+            get { return _addTodoCommand ?? new Command<TagItem>(AddTodoCommandExecute); }
             set { SetProperty(ref _addTodoCommand, value); }
         }
 
         ICommand _detailCommand;
         public ICommand DetailCommand {
-            get { return _detailCommand ?? new Command(DetailCommandExecute); }
+            get { return _detailCommand ?? new Command<TagItem>(DetailCommandExecute); }
             set { SetProperty(ref _detailCommand, value); }
         }
 
@@ -102,13 +103,13 @@ namespace TodoScheduler.ViewModels
             {
                 if (State == VmState.Busy) return;
           
-                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Remove tag {tag.Title} permanently?");
+                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Remove tag ({tag.Title}) permanently?");
 
                 if (result)
                 {
                     await _dataService.RemoveTagItemAsync(tag);
                     LoadTagItems();
-                    await _dialogService.ShowToastMessageAsync($"Tag ({tag.Title}) removed", TimeSpan.FromSeconds(2));
+                    await _dialogService.ShowToastMessageAsync($"Tag ({tag.Title}) has been removed", TimeSpan.FromSeconds(2));
                 }
             }
             catch (Exception ex)
@@ -119,13 +120,22 @@ namespace TodoScheduler.ViewModels
 
         private async void CreateTagCommandExecute() => await Navigation.NavigateAsync(typeof(CreateTagViewModel), animation: true);
 
-        private async void AddTodoCommandExecute()
+        private async void AddTodoCommandExecute(TagItem tag)
         {
-            
+            if (tag == null)
+                return;
+
+            var parameters = new Dictionary<string, object>() { ["tag"] = tag };
+            await Navigation.NavigateAsync(typeof(CreateTodoViewModel), parameters, animation: true);
         }
 
-        private async void DetailCommandExecute()
+        private async void DetailCommandExecute(TagItem tag)
         {
+            if (tag == null)
+                return;
+
+            var parameters = new Dictionary<string, object>() { ["tag"] = tag };
+            await Navigation.NavigateAsync(typeof(TagDetailViewModel), parameters, animation: true);
         }
         #endregion
 

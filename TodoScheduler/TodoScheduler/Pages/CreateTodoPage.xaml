@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+                   x:Class="TodoScheduler.Pages.CreateTodoPage"
+                   BackgroundColor="{StaticResource GrayColor}"
+                   Title="Create new todo">
+  <ScrollView>
+    <Frame BackgroundColor="{StaticResource WhiteColor}">
+      <StackLayout Orientation="Vertical">
+        <Label Text="Set a tag"/>
+        <controls:BindablePicker PickerTitle="Select a tag" SelectedItem="{Binding Tag, Mode=OneWay}"/>
+        <Label Text="Set title and description"/>
+        <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Type todo's title"/>
+        <Entry Text="{Binding Description, Mode=TwoWay}" Placeholder="Type todo's description"/>
+      </StackLayout>      
+    </Frame>
+  </ScrollView>
+</controls:BasePage>
