@@ -34,13 +34,24 @@
                       <RowDefinition/> <!--Buttons-->
                     </Grid.RowDefinitions>
                     <!--Header(Grid.Row 0)-->
-                    <StackLayout Grid.Row="0" Padding="10" Orientation="Horizontal"
+                    <StackLayout Grid.Row="0" Padding="5" Orientation="Horizontal"
                                  BackgroundColor="{Binding HexColor}">
-                      <iconize:IconImage HeightRequest="30"
+                      <!--<iconize:IconImage HeightRequest="30"
                                          VerticalOptions="EndAndExpand"
-                                         Icon="fa-bookmark" IconColor="{StaticResource WhiteColor}" />
+                                         Icon="fa-bookmark" IconColor="{StaticResource WhiteColor}" />-->
                       <Label Text="{Binding Title}" Font="20" FontAttributes="Bold" 
                              TextColor="{StaticResource WhiteColor}" VerticalOptions="EndAndExpand"/>
+                      <xlabs:ImageButton Source="delete_black.png"
+                                          BackgroundColor="Transparent"
+                                          Orientation="ImageToRight"
+                                          VerticalOptions="Center"
+                                          ImageHeightRequest="35"
+                                          WidthRequest="50"
+                                          ImageWidthRequest="35"
+                                          HorizontalOptions="EndAndExpand"
+                                          Command="{Binding RemoveTagCommand}"
+                                          BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                          CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
                     </StackLayout>
                     <!--Counters(Grid.Row 1)-->
                     <Grid Grid.Row="1">
@@ -51,31 +62,31 @@
                       </Grid.ColumnDefinitions>
                       <StackLayout Grid.Column="0" Padding="5" Orientation="Vertical" 
                                    HorizontalOptions="Center">
-                        <Label Text="total" FontSize="10" HorizontalOptions="Center"/>
+                        <!--<Label Text="total" FontSize="10" HorizontalOptions="Center"/>-->
                         <Label Text="{Binding Total}" Font="20" FontAttributes="Bold"
-                               TextColor="{StaticResource GrayColor}" VerticalOptions="Center"
+                               TextColor="{StaticResource GrayColor}" VerticalOptions="CenterAndExpand"
                                HorizontalOptions="Center"/>
                       </StackLayout>
                       <!--completed-->
                       <StackLayout Grid.Column="1" Padding="5" Orientation="Vertical"
                                    HorizontalOptions="Center">
-                        <Label Text="failed" FontSize="10" HorizontalOptions="Center"/>
+                        <!--<Label Text="failed" FontSize="10" HorizontalOptions="Center"/>-->
                         <Label Text="{Binding Failed}" Font="20" FontAttributes="Bold"
                                TextColor="{StaticResource GrayColor}" 
-                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                               VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
                       </StackLayout>
-                      <!--failed-->
+                      
                       <StackLayout Grid.Column="2" Padding="5" Orientation="Vertical" HorizontalOptions="Center">
-                        <Label Text="completed" FontSize="10" HorizontalOptions="Center"/>
+                        <!--<Label Text="completed" FontSize="10" HorizontalOptions="Center"/>-->
                         <Label Text="{Binding Completed}" Font="20" FontAttributes="Bold"
                                TextColor="{StaticResource GrayColor}" 
-                               VerticalOptions="Center" HorizontalOptions="Center"/>
+                               VerticalOptions="CenterAndExpand" HorizontalOptions="Center"/>
                       </StackLayout>
                     </Grid>
                     <!--Separator(Grid.Row 2)-->
                     <controls:Separator Grid.Row="2" HeightRequest="1" BackgroundColor="{StaticResource GrayColor}"/>
                     <!--Buttons(Grid.Row 3)-->
-                    <Grid Grid.Row="3">
+                    <!--<Grid Grid.Row="3">
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -92,7 +103,7 @@
                                           Command="{Binding RemoveTagCommand}"
                                           BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                           CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
-                      <!--Add todo btn-->
+                      
                       <iconize:IconButton Grid.Column="1"
                                           FontSize="20"
                                           Text="fa-plus"
@@ -102,8 +113,27 @@
                                           Command="{Binding AddTodoCommand}"
                                           BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                           CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
-                      <!--Detail btn-->
-                    </Grid>
+                      <xlabs:ImageButton Grid.Column="2" Source="tag.png" Orientation="ImageOnTop" HorizontalOptions="StartAndExpand"/>
+                    </Grid>-->
+                    <StackLayout Grid.Row="3" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                      
+                      <xlabs:ImageButton 
+                                         BackgroundColor="{StaticResource WhiteColor}" 
+                                         Orientation="ImageToLeft" Text="Add todo" 
+                                         HorizontalOptions="StartAndExpand"
+                                         Command="{Binding AddTodoCommand}"
+                                         BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                         CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                      
+                      <xlabs:ImageButton  
+                                         ImageHeightRequest="50" ImageWidthRequest="50"
+                                         BackgroundColor="{StaticResource WhiteColor}" 
+                                         Orientation="ImageToLeft" Text="Detail" 
+                                         HorizontalOptions="EndAndExpand"
+                                         Command="{Binding DetailCommand}"
+                                         BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
+                                         CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
+                    </StackLayout>
                   </Grid>
                 </Frame>
               </Grid>

@@ -48,6 +48,7 @@
                       
                       <!--Separator-->
                       <controls:Separator Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"/>
+                      
                     </Grid>
                   </Grid>
                 </Frame>

@@ -7,7 +7,8 @@
     "Xam.FormsPlugin.Iconize": "1.0.10",
     "Xam.Plugin.Iconize": "1.0.10",
     "Xam.Plugin.Iconize.FontAwesome": "1.0.10",
-    "Xamarin.Forms": "2.3.3.175"
+    "Xamarin.Forms": "2.3.3.175",
+    "XLabs.Forms": "2.0.5782"
   },
   "frameworks": {
     "uap10.0": {}
