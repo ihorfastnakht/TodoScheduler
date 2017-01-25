@@ -11,7 +11,7 @@ namespace TodoScheduler.Models
     {
         #region private members
 
-        readonly string[] dependendProps = new string[] { nameof(HasItems), nameof(Total), nameof(Failed), nameof(Completed) };
+        readonly string[] dependendProps = new string[] { nameof(HasItems) /*nameof(Total), nameof(Failed), nameof(Completed) */};
 
         #endregion
 
@@ -51,6 +51,9 @@ namespace TodoScheduler.Models
         [Ignore]
         public bool HasItems => TodoItems?.Any() == true ? true : false;
 
+        public int TotalItems => HasItems ? TodoItems.Count() : 0;
+
+        /*
         [Ignore]
         public string Total => !HasItems ? "-" : TodoItems.Count().ToString();
 
@@ -73,7 +76,7 @@ namespace TodoScheduler.Models
                 return TodoItems.Where(t => t.Status == TodoStatus.Failed).Count().ToString();
             }
         }
-
+        */
         #endregion
     }
 }

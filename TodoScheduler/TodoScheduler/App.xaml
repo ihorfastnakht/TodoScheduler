@@ -12,6 +12,7 @@
       <Color x:Key="MainLightColor">#D1B3FF</Color>
       <Color  x:Key="WhiteColor">#FFFFFF</Color>
       <Color x:Key="BlackColor">#000000</Color>
+      <Color x:Key="MetroWhiteColor">#F1F1F1</Color>
       <Color x:Key="GrayColor">#D3D3D3</Color>
       <Color x:Key="SeparatorColor">#000000</Color>
       <!--converters-->

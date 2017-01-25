@@ -22,11 +22,30 @@ namespace TodoScheduler.ViewModels
 
         #region fields & properties
 
+        private IEnumerable<TagItem> _originalTags;
+
         IEnumerable<TagItem> _tagItems;
         public IEnumerable<TagItem> TagItems
         {
             get { return _tagItems; }
             set { SetProperty(ref _tagItems, value); }
+        }
+
+        string _searchedText;
+        public string SearchedText {
+            get { return _searchedText; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    TagItems = _originalTags;
+
+                if (SetProperty(ref _searchedText, value))
+                {
+                    TagItems = _originalTags.Where(t => t.Title.ToLower()
+                                            .StartsWith(SearchedText.ToLower()));
+
+                }
+            }
         }
 
         #endregion
@@ -70,6 +89,13 @@ namespace TodoScheduler.ViewModels
             set { SetProperty(ref _detailCommand, value); }
         }
 
+        ICommand _refreshCommand;
+        public ICommand RefreshCommand
+        {
+            get { return _refreshCommand ?? new Command(() => LoadTagItems()); }
+            set { SetProperty(ref _refreshCommand, value); }
+        }
+
         #endregion
 
         #region private
@@ -87,6 +113,7 @@ namespace TodoScheduler.ViewModels
                 {
                     State = VmState.Normal;
                     TagItems = items;
+                    _originalTags = items;
                 }
                 else
                     State = VmState.NoData;
@@ -137,6 +164,7 @@ namespace TodoScheduler.ViewModels
             var parameters = new Dictionary<string, object>() { ["tag"] = tag };
             await Navigation.NavigateAsync(typeof(TagDetailViewModel), parameters, animation: true);
         }
+
         #endregion
 
         #region override

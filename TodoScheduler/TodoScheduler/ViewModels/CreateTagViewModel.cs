@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using TodoScheduler.Base;
 using TodoScheduler.Data;
@@ -46,12 +47,12 @@ namespace TodoScheduler.ViewModels
 
         HexColor _selectedColor;
         public HexColor SelectedColor {
-            get { return _selectedColor ?? new HexColor() { Name = "Default", HexValue = "#7635EB" }; }
+            get { return _selectedColor; }
             set { SetProperty(ref _selectedColor, value); }
         }
 
-        IEnumerable<HexColor> _hexColors;
-        public IEnumerable<HexColor> HexColors
+        IList<HexColor> _hexColors;
+        public IList<HexColor> HexColors
         {
             get { return _hexColors; }
             private set { SetProperty(ref _hexColors, value); }
@@ -100,6 +101,7 @@ namespace TodoScheduler.ViewModels
                 await _dataService.CreateTagItemAsync(tag);
                 await _dialogService.ShowToastMessageAsync($"Tag ({tag.Title}) has been created", TimeSpan.FromSeconds(2));
                 await Navigation.CloseAsync(animation: true);
+               
                 //Send message for refresh tag items after add
                 MessagingCenter.Send(this, "refresh");
             }
@@ -120,7 +122,8 @@ namespace TodoScheduler.ViewModels
         public override void Init(Dictionary<string, object> parameters = null)
         {
             base.Init(parameters);
-            HexColors = ColorFactory.Colors;
+            HexColors = ColorFactory.Colors.ToList();
+            SelectedColor = HexColors[0];
         }
 
         #endregion
