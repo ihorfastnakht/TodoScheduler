@@ -47,7 +47,7 @@ namespace TodoScheduler.ViewModels
 
         HexColor _selectedColor;
         public HexColor SelectedColor {
-            get { return _selectedColor; }
+            get { return _selectedColor;  }
             set { SetProperty(ref _selectedColor, value); }
         }
 

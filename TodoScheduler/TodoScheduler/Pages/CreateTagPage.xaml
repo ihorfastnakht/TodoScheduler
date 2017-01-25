@@ -15,11 +15,13 @@
                Keyboard="Text" TextColor="{Binding SelectedColor.HexValue}"/>
         <Label Text="Tag color" Font="Large" TextColor="#808080" Margin="5,10"/>
         <controls:BindablePicker ItemsSource="{Binding HexColors}"
-                         SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
-                         DisplayMemberPath="Name" PickerTitle="Select color"
-                         TextColor="{Binding SelectedColor.HexValue}"/>
+                                 SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                                 DisplayMemberPath="Name" PickerTitle="Select color"
+                                TextColor="{Binding SelectedColor.HexValue}"/>
         
-        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand"
+        <StackLayout Margin="0,20,0,0" 
+                     Orientation="Horizontal" 
+                     HorizontalOptions="EndAndExpand"
                      VerticalOptions="StartAndExpand">
           <xlabs:ImageButton
                            BackgroundColor="{StaticResource MetroWhiteColor}"
@@ -36,13 +38,6 @@
                            BorderRadius="0"
                            FontSize="14"
                            Command="{Binding CancelCommand}"/>
-          <!--<Button Text="Save" TextColor="Green" IsEnabled="{Binding IsValid}"
-                  BackgroundColor="{StaticResource WhiteColor}" WidthRequest="110"
-                  Command="{Binding SaveCommand}"></Button>-->
-
-          <!--<Button Text="Cancel" TextColor="Red" WidthRequest="110"
-                  Command="{Binding CancelCommand}"
-                  BackgroundColor="{StaticResource WhiteColor}"></Button>-->
         </StackLayout>
         
       </StackLayout>

@@ -75,6 +75,7 @@ namespace TodoScheduler.Controls
         void InstanceOnItemsSourceChanged(Object oldValue, Object newValue)
         {
             _disableNestedCalls = true;
+
             this.Items.Clear();
             var oldCollectionINotifyCollectionChanged = oldValue as INotifyCollectionChanged;
             if (oldCollectionINotifyCollectionChanged != null)
@@ -322,7 +323,8 @@ namespace TodoScheduler.Controls
 
                 if (this.SelectedIndex != -1)
                 {
-                    this.SelectedIndex = -1;
+                    //this.SelectedIndex = -1;
+                    this.SelectedIndex = 0;
                 }
 
                 this.SelectedItem = null;

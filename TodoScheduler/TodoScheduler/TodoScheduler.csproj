@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Controls\Separator.cs" />
     <Compile Include="Controls\StateContainer.cs" />
+    <Compile Include="Converters\BoolToOn_OffConverter.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
     <Compile Include="Data\ColorFactory.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Enums\TodoPriority.cs" />
     <Compile Include="Enums\TodoStatus.cs" />
     <Compile Include="Enums\ViewModelStates.cs" />
+    <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Models\TagItem.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="PageModel\Menu.cs" />

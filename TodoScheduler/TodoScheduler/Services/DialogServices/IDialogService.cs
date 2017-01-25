@@ -9,5 +9,7 @@ namespace TodoScheduler.Services.DialogServices
         Task ShowErrorMessageAsync(string title, string message, string buttonText = "ok");
         Task<bool> ShowConfirmMessageAsync(string title, string message, string okButton = "ok", 
             string cancelButton = "cancel");
+        Task<DateTime> ShowDateDialogAsync();
+        Task<TimeSpan> ShowTimeDialogAsync();
     }
 }
