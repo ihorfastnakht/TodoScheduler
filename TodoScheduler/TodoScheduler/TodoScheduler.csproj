@@ -52,12 +52,14 @@
     <Compile Include="Controls\Separator.cs" />
     <Compile Include="Controls\StateContainer.cs" />
     <Compile Include="Converters\BoolToOn_OffConverter.cs" />
+    <Compile Include="Converters\ColorTypeToFontColorConverter.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NavigationConverter.cs" />
     <Compile Include="Data\ColorFactory.cs" />
-    <Compile Include="Enums\ImageOrientationscs.cs" />
+    <Compile Include="Enums\ColorTypes.cs" />
     <Compile Include="Enums\TodoPriority.cs" />
     <Compile Include="Enums\TodoStatus.cs" />
+    <Compile Include="Enums\TodoViewModelType.cs" />
     <Compile Include="Enums\ViewModelStates.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Models\TagItem.cs" />
@@ -81,6 +83,12 @@
     <Compile Include="Pages\TagsPage.xaml.cs">
       <DependentUpon>TagsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TodayPage.xaml.cs">
+      <DependentUpon>TodayPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TomorrowPage.xaml.cs">
+      <DependentUpon>TomorrowPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataServices\IDataService.cs" />
     <Compile Include="Services\DataServices\SqliteDataService.cs" />
@@ -96,6 +104,9 @@
     <Compile Include="ViewModels\TagDetailViewModel.cs" />
     <Compile Include="ViewModels\TagsViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="ViewModels\TodayViewModel.cs" />
+    <Compile Include="ViewModels\TodoBaseViewModel.cs" />
+    <Compile Include="ViewModels\TomorrowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
@@ -227,7 +238,18 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\TodayPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\TomorrowPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.175\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

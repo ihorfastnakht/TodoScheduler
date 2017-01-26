@@ -1,4 +1,7 @@
-﻿using TodoScheduler.Controls;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using TodoScheduler.Controls;
+using Xamarin.Forms;
 
 namespace TodoScheduler.Pages
 {
@@ -8,22 +11,26 @@ namespace TodoScheduler.Pages
         {
             InitializeComponent();
 
-            //TODO: scroll to end
+            @switch.Toggled += (s, e) => ResizeAnimation();
+        }
 
-            @switch.Toggled += (s, e) =>
+        private void ResizeAnimation()
+        {
+            Device.BeginInvokeOnMainThread(async() =>
             {
-                if (e.Value)
+                if (@switch.IsToggled)
                 {
-                    reminderContainer.HeightRequest = 130;
+                    container.HeightRequest = 130;
                     holder.IsVisible = true;
                 }
                 else
                 {
-                    reminderContainer.HeightRequest = 32;
+                    container.HeightRequest = 32;
                     holder.IsVisible = false;
                 }
-                //ForceLayout();
-            };
+                await scroller.ScrollToAsync(container.Bounds.X, container.Bounds.Y, false);
+                ForceLayout();
+            });
         }
     }
 }

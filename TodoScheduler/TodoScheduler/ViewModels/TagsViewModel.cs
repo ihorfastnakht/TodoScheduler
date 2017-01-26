@@ -57,7 +57,7 @@ namespace TodoScheduler.ViewModels
             _dataService = dataService;
             _dialogService = dialogService;
 
-            MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh", (sender) => LoadTagItems());
+            //MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh", (sender) => LoadTagItems());
         }
 
         #endregion
@@ -107,20 +107,22 @@ namespace TodoScheduler.ViewModels
             State = VmState.Busy;
             try
             {
+                TagItems = null;
                 var items = await _dataService.GetTagItemsAsync();
 
                 if (items.Any())
                 {
-                    State = VmState.Normal;
                     TagItems = items;
                     _originalTags = items;
+
+                    State = VmState.Normal;
                 }
                 else
                     State = VmState.NoData;
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowErrorMessageAsync("Opps.", ex.Message);
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
         }
 
@@ -141,11 +143,11 @@ namespace TodoScheduler.ViewModels
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowErrorMessageAsync("Oops.", ex.Message);
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
         }
 
-        private async void CreateTagCommandExecute() => await Navigation.NavigateAsync(typeof(CreateTagViewModel), animation: true);
+        private async void CreateTagCommandExecute() => await Navigation.NavigateAsync(typeof(CreateTagViewModel));
 
         private async void AddTodoCommandExecute(TagItem tag)
         {
@@ -153,7 +155,7 @@ namespace TodoScheduler.ViewModels
                 return;
 
             var parameters = new Dictionary<string, object>() { ["tag"] = tag };
-            await Navigation.NavigateAsync(typeof(CreateTodoViewModel), parameters, animation: true);
+            await Navigation.NavigateAsync(typeof(CreateTodoViewModel), parameters);
         }
 
         private async void DetailCommandExecute(TagItem tag)
@@ -162,7 +164,7 @@ namespace TodoScheduler.ViewModels
                 return;
 
             var parameters = new Dictionary<string, object>() { ["tag"] = tag };
-            await Navigation.NavigateAsync(typeof(TagDetailViewModel), parameters, animation: true);
+            await Navigation.NavigateAsync(typeof(TagDetailViewModel), parameters);
         }
 
         #endregion

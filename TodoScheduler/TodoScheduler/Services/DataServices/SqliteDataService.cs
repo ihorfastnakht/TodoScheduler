@@ -12,6 +12,7 @@ namespace TodoScheduler.Services.DataServices
 {
     public class SqliteDataService : IDataService
     {
+        readonly static object locker = new object();
         readonly SQLiteConnection _database;
 
         #region constructor
@@ -64,7 +65,10 @@ namespace TodoScheduler.Services.DataServices
                 if (IsExistTag(tagItem))
                     throw new Exception($"Tag ({tagItem.Title}) already existed");
 
-                _database.Insert(tagItem);
+                lock (locker)
+                {
+                    _database.Insert(tagItem);
+                }
             });
         }
         public async Task<IEnumerable<TagItem>> GetTagItemsAsync()
@@ -91,7 +95,14 @@ namespace TodoScheduler.Services.DataServices
                 if (!IsExistTag(tagItem))
                     throw new Exception($"Tag ({tagItem.Title}) not exist");
 
-                _database.Delete(tagItem);
+                lock (locker)
+                {
+                    if (tagItem.HasItems)
+                        foreach (var todo in tagItem.TodoItems)
+                            _database.Delete(todo);
+
+                    _database.Delete(tagItem);
+                }
             });
         }
         public async Task CreateTodoItemAsync(TodoItem todoItem)
@@ -101,7 +112,10 @@ namespace TodoScheduler.Services.DataServices
                 if (todoItem == null)
                     throw new ArgumentNullException("TodoItem is null");
 
-                _database.Insert(todoItem);
+                lock (locker)
+                {
+                    _database.Insert(todoItem);
+                }
             });
         }
         public async Task RemoveTodoItemAsync(TodoItem todoItem)
@@ -113,18 +127,23 @@ namespace TodoScheduler.Services.DataServices
                 if (!IsExistTodo(todoItem))
                     throw new Exception($"Todo item with Id:{todoItem.Id} not exist");
 
-                _database.Delete(todoItem);
+                lock (locker)
+                {
+                    _database.Delete(todoItem);
+                }
             });
         }
         public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync()
         {
             return await Task.Factory.StartNew(() =>
             {
-                return _database.Table<TodoItem>()
-                                  .Where(t => t.Status == TodoStatus.InProcess)
-                                  .OrderBy(t => t.DueDate.Value.Date)
-                                  .OrderByDescending(t => t.Priority)
-                                  .ToList();
+                lock (locker)
+                {
+                    return _database.Table<TodoItem>().ToList()
+                                      .Where(t => t.Status == TodoStatus.InProcess)
+                                      .OrderByDescending(t => t.Priority)
+                                      .OrderBy(t => t.DueDate.Value.Date).ToList();
+                }
             });
         }
         public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync(DateTime dueDate)

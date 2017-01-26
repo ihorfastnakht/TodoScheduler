@@ -5,6 +5,6 @@ namespace TodoScheduler.Services.NotificationServices
 {
     public interface INotificationService
     {
-        Task SendNotificationAsync(string title, string message, DateTime date, TimeSpan time);
+        Task SendNotificationAsync(string title, string message, DateTime date);
     }
 }

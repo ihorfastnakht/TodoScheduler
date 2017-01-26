@@ -46,7 +46,8 @@ namespace TodoScheduler.ViewModels
         private void TapCommandExecute(MenuItem menuItem)
         {
             if (menuItem == null) return;
-            Debug.WriteLine(menuItem.Title);
+
+            App.ResolveDetailPage(menuItem.ViewModelType);
         }
 
         public void CreateMenuGroups()
@@ -60,10 +61,10 @@ namespace TodoScheduler.ViewModels
             var menuItems = new List<MenuItem>()
             {
                 //Tags
-                new MenuItem() { Group = tagGroup, Icon = "tag.png", Title = "Tags", ViewModelType = null },
+                new MenuItem() { Group = tagGroup, Icon = "tag.png", Title = "Tags", ViewModelType = typeof(TagsViewModel) },
                 //Todos
-                new MenuItem() { Group = todoGroup, Icon = "today.png", Title = "Today", ViewModelType = null },
-                new MenuItem() { Group = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow", ViewModelType = null },
+                new MenuItem() { Group = todoGroup, Icon = "today.png", Title = "Today", ViewModelType = typeof(TodayViewModel) },
+                new MenuItem() { Group = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow", ViewModelType = typeof(TomorrowViewModel) },
                 new MenuItem() { Group = todoGroup, Icon = "schedule.png", Title = "Schedule", ViewModelType = null },
                 //Settings
                 new MenuItem() { Group = configGroup, Icon = "config.png", Title = "Configuration", ViewModelType = null },

@@ -63,7 +63,11 @@ namespace TodoScheduler.ViewModels
         bool _enableReminder = false;
         public bool EnableReminder {
             get { return _enableReminder; }
-            set { SetProperty(ref _enableReminder, value); }
+            set
+            {
+                if(SetProperty(ref _enableReminder, value))
+                    ReminderDate = DueDate;
+            }
         }
 
         TodoPriority _priority = TodoPriority.Low;
@@ -85,9 +89,8 @@ namespace TodoScheduler.ViewModels
             get { return _dueDate; }
             set
             {
-                _dueDate = value;
-                OnPropertyChanged(nameof(DueDate));
-                //SetProperty(ref _dueDate, value);
+                if (SetProperty(ref _dueDate, value))
+                    ReminderDate = DueDate;
             }
         }
 
@@ -128,19 +131,19 @@ namespace TodoScheduler.ViewModels
 
         ICommand _selectDateCommand;
         public ICommand SelectDateCommand {
-            get { return _selectDateCommand ?? new Command(SelectDateCommandExecute); }
+            get { return _selectDateCommand ?? new Command<string>(SelectDateCommandExecute); }
             set { SetProperty(ref _selectDateCommand, value); }
         }
 
         ICommand _selectTimeCommand;
         public ICommand SelectTimeCommand {
-            get { return _selectTimeCommand ?? new Command(SelectTimeCommandExecute); }
+            get { return _selectTimeCommand ?? new Command<string>(SelectTimeCommandExecute); }
             set { SetProperty(ref _selectTimeCommand, value); }
         }
 
         ICommand _saveCommand;
         public ICommand SaveCommand {
-            get { return _saveCommand ?? new Command(SaveCommandExecute); }
+            get { return _saveCommand ?? new Command(() => SaveCommandExecute(), () => IsValid); }
             set { SetProperty(ref _saveCommand, value); }
         }
 
@@ -155,22 +158,34 @@ namespace TodoScheduler.ViewModels
 
         #region private
 
-        private async void SelectDateCommandExecute()
+        private async void SelectDateCommandExecute(string type)
         {
+           
             var date = await _dialogService.ShowDateDialogAsync();
+
             if (date != null)
-                DueDate = date;
+            {
+                if (string.IsNullOrEmpty(type))
+                    DueDate = date;
+                else
+                    ReminderDate = date;
+            }
                
         }
 
-        private async void SelectTimeCommandExecute()
+        private async void SelectTimeCommandExecute(string type)
         {
             var time = await _dialogService.ShowTimeDialogAsync();
 
-            if (time != null) 
-                DueDate = new DateTime(DueDate.Year, DueDate.Month, DueDate.Day, 
-                    time.Hours, time.Minutes, time.Seconds);
-           
+            if (time != null)
+            {
+                if (string.IsNullOrEmpty(type))
+                    DueDate = new DateTime(DueDate.Year, DueDate.Month, DueDate.Day,
+                        time.Hours, time.Minutes, time.Seconds);
+                else
+                    ReminderDate = new DateTime(ReminderDate.Year, ReminderDate.Month, ReminderDate.Day,
+                        time.Hours, time.Minutes, time.Seconds);
+            }
         }
 
         private async void SaveCommandExecute()
@@ -196,16 +211,18 @@ namespace TodoScheduler.ViewModels
                 //send notification if it enabled
                 if (EnableReminder)
                 {
-                    //await _notificationService.SendNotificationAsync(todo.Title, todo.Description, ReminderDate.Date, );
+                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, ReminderDate.Date);
                 }
 
                 await _dialogService.ShowToastMessageAsync("To-do has been created", TimeSpan.FromSeconds(2));
                 await Navigation.CloseAsync();
+
+
                 MessagingCenter.Send(this, "refresh");
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowErrorMessageAsync("Opps", ex.Message);
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
             finally
             {
@@ -238,6 +255,7 @@ namespace TodoScheduler.ViewModels
                    //(TagItem)parameters["tag"],
                    //(TagItem)parameters["tag"]
                 };
+                SelectedTag = (TagItem)parameters["tag"];
                 //SelectedTag = Tags.ToList()[0];
             }
         }

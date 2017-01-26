@@ -23,20 +23,25 @@
                      Orientation="Horizontal" 
                      HorizontalOptions="EndAndExpand"
                      VerticalOptions="StartAndExpand">
+          
           <xlabs:ImageButton
                            BackgroundColor="{StaticResource MetroWhiteColor}"
                            Text="SAVE"
                            IsEnabled="{Binding IsValid}"
                            HorizontalOptions="StartAndExpand"
                            BorderRadius="0"
-                           FontSize="14"
+                           FontSize="12"
+                           HeightRequest="40"
+                           WidthRequest="100"
                            Command="{Binding SaveCommand}"/>
           <xlabs:ImageButton
                            BackgroundColor="{StaticResource MetroWhiteColor}"
                            Text="CANCEL"
                            HorizontalOptions="StartAndExpand"
                            BorderRadius="0"
-                           FontSize="14"
+                           FontSize="12"
+                           HeightRequest="40"
+                           WidthRequest="100"
                            Command="{Binding CancelCommand}"/>
         </StackLayout>
         

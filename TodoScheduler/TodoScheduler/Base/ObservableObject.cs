@@ -15,9 +15,10 @@ namespace TodoScheduler.Base
         #region protected
 
         protected bool SetProperty<T>(ref T backedField, T value, [CallerMemberName] string propertyName = "",
-            string[] dependendProperties = null)
+            string[] dependendProperties = null, bool needComapare = true)
         {
-            if (EqualityComparer<T>.Default.Equals(backedField, value)) return false;
+            if(needComapare)
+                if (EqualityComparer<T>.Default.Equals(backedField, value)) return false;
 
             if (dependendProperties != null)
             {

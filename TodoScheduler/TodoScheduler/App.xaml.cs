@@ -62,9 +62,9 @@ namespace TodoScheduler
 
         private static void RegisterTypes()
         {
-            _container.RegisterType<IDataService, SqliteDataService>();
-            _container.RegisterType<INotificationService, NotificationService>();
-            _container.RegisterType<IDialogService, DialogService>();
+            _container.RegisterType<IDataService, SqliteDataService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<INotificationService, NotificationService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
         }
 
         #region application state handlers

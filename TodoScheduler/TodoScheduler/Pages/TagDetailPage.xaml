@@ -2,25 +2,63 @@
 <controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+                   xmlns:converters="clr-namespace:TodoScheduler.Converters;assembly:TodoScheduler"
                    xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
                    x:Class="TodoScheduler.Pages.TagDetailPage"
                    x:Name="page"
-                   Title="{Binding Header}">
+                   Title="{Binding Header}"
+                   BackgroundColor="{StaticResource MetroWhiteColor}">
+  <controls:BasePage.Resources>
+    <ResourceDictionary>
+      <converters:ColorTypeToFontColorConverter x:Key="ColorTypeToFont"/>
+    </ResourceDictionary>
+  </controls:BasePage.Resources>
   <controls:BasePage.ToolbarItems>
-    <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}"/>
-    <ToolbarItem Icon="plus.png" Command="{Binding CreateTodoCommand}"/>
+    <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}" Order="Primary"/>
+    <ToolbarItem Icon="plus.png" Command="{Binding AddTodoCommand}" Name="Add new todo" Order="Primary"/>
+    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="date" 
+                 Name="Group by date" Order="Secondary"/>
+    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="status" 
+                 Name="Group by status" Order="Secondary"/>
+    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="priority" 
+                 Name="Group by priority" Order="Secondary"/>
   </controls:BasePage.ToolbarItems>
   <controls:StateContainer State="{Binding State}">
     <controls:StateCondition State="Normal">
       <ListView x:Name="list" 
-                BackgroundColor="{StaticResource GrayColor}" 
-                ItemsSource="{Binding Tag.TodoItems}"
+                BackgroundColor="{StaticResource MetroWhiteColor}"
+                IsGroupingEnabled="True" 
+                ItemsSource="{Binding GroupedTodoItems}"
                 SeparatorVisibility="None"
-                RowHeight="150">
+                HasUnevenRows="True">
+        <ListView.GroupHeaderTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid HeightRequest="50" 
+                    BackgroundColor="{Binding Source={x:Reference page}, Path=BindingContext.Tag.HexColor}"
+                    Margin="0,5">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <iconize:IconImage Grid.Column="0" Icon="fa-filter"
+                                   IconColor="{Binding Source={x:Reference page}, Path=BindingContext.Tag.HexColor, Converter={StaticResource ColorTypeToFont}}"
+                                   HorizontalOptions="StartAndExpand"
+                                   Margin="10,0,0,0"
+                                   VerticalOptions="Center"
+                                   HeightRequest="20"/>
+                <Label Grid.Column="1" VerticalOptions="Center"
+                       Text="{Binding Key}" FontSize="14"
+                       TextColor="{Binding Source={x:Reference page}, Path=BindingContext.Tag.HexColor, Converter={StaticResource ColorTypeToFont}}"
+                       FontAttributes="Bold"/>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.GroupHeaderTemplate>
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell x:Name="cell">
-              <Grid>
+              <Grid HeightRequest="150">
                 <Frame BackgroundColor="{StaticResource WhiteColor}" 
                        Padding="0" Margin="5">
                   <Grid>
@@ -47,7 +85,8 @@
                       <!--Description-->
                       
                       <!--Separator-->
-                      <controls:Separator Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"/>
+                      <controls:Separator Grid.Row="1" 
+                                          BackgroundColor="{StaticResource GrayColor}"/>
                       
                     </Grid>
                   </Grid>
@@ -59,14 +98,24 @@
       </ListView>
     </controls:StateCondition>
     <controls:StateCondition State="Busy">
-
+      <StackLayout>
+        <ActivityIndicator IsRunning="True">
+          
+        </ActivityIndicator>
+      </StackLayout>
     </controls:StateCondition>
     <controls:StateCondition State="NoData">
-      <StackLayout BackgroundColor="{StaticResource MainColor}">
-        <Label Text="No any todo items here" 
-               TextColor="{StaticResource WhiteColor}"
-               VerticalOptions="CenterAndExpand" 
-               HorizontalOptions="CenterAndExpand"/>
+      <!--fa-inbox-->
+      <StackLayout HorizontalOptions="Center" 
+                   VerticalOptions="Center">
+        <iconize:IconImage Icon="fa-inbox" 
+                           IconColor="{Binding Tag.HexColor}"
+                           VerticalOptions="Center"
+                           HeightRequest="50"/>
+        <Label Text="{Binding Tag.Title, StringFormat='{0} list is empty'}" 
+               TextColor="{Binding Tag.HexColor}"
+               HorizontalOptions="Center"
+               FontSize="14"/>
       </StackLayout>
     </controls:StateCondition>
   </controls:StateContainer>

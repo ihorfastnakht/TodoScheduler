@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Acr.Notifications;
+using System.Diagnostics;
 
 namespace TodoScheduler.Services.NotificationServices
 {
@@ -8,15 +9,17 @@ namespace TodoScheduler.Services.NotificationServices
     {
         #region INotificationService implementation
 
-        public async Task SendNotificationAsync(string title, string message, DateTime date, TimeSpan time)
+        public async Task SendNotificationAsync(string title, string message, DateTime date)
         {
             await Task.Factory.StartNew(() => {
                 var notification = new Notification() {
                     Title = title,
-                    Message = message,
-                    Date = date,
-                    When = time
+                    Message = message
                 };
+
+                Debug.WriteLine($"\n=========== SENDED TIME: {notification.SendTime} ====================\n");
+
+                notification.SetSchedule(date);
 
                 Notifications.Instance.Send(notification);
             });
