@@ -22,7 +22,7 @@ namespace TodoScheduler.iOS.Services
 
             var platform = new SQLitePlatformIOS();
 
-            return new SQLiteConnection(platform, connectionString);
+            return new SQLiteConnection(platform, connectionString, false);
         }
     }
 }

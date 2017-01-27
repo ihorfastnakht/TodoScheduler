@@ -28,7 +28,7 @@
         <ListView.GroupHeaderTemplate>
           <DataTemplate>
             <ViewCell Height="50">
-              <Frame Padding="10" HasShadow="True"
+              <Grid Padding="10"
                      BackgroundColor="{StaticResource WhiteColor}">
                 <StackLayout Orientation="Horizontal"
                              Margin="2"
@@ -42,7 +42,7 @@
                          VerticalOptions="Center"
                          TextColor="{StaticResource MainColor}"/>
                 </StackLayout>
-              </Frame>
+              </Grid>
             </ViewCell>
           </DataTemplate>
         </ListView.GroupHeaderTemplate>

@@ -18,7 +18,7 @@ namespace TodoScheduler.UWP.Services
             var connectionString = Path.Combine(ApplicationData.Current.LocalFolder.Path, database);
             var platform = new SQLitePlatformWinRT();
 
-            return new SQLiteConnection(platform, connectionString);
+            return new SQLiteConnection(platform, connectionString, false);
         }
     }
 }

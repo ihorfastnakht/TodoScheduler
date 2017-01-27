@@ -23,6 +23,8 @@ namespace TodoScheduler.Services.DataServices
 
             if (_database == null)
                 throw new ArgumentNullException("SqliteDataService: connection is null");
+            //_database.DropTable<TagItem>();
+            //_database.DropTable<TodoItem>();
             
             //Create tables
             _database.CreateTable<TagItem>();
@@ -35,6 +37,7 @@ namespace TodoScheduler.Services.DataServices
 
             if (!IsExistTag(tag))
                 _database.Insert(tag);
+            
         }
 
         #endregion
@@ -78,14 +81,17 @@ namespace TodoScheduler.Services.DataServices
                 var tags = _database.Table<TagItem>().ToList();
                 var todos = _database.Table<TodoItem>().ToList();
 
-                foreach (var tag in tags) {
-                    //TODO: Add order
+                foreach (var tag in tags)
+                {
                     tag.TodoItems = todos.Where(t => t.TagId == tag.Id).ToList();
+                    //foreach (var item in tag.TodoItems)
+                    //    item.TagItem = tag;
                 }
 
                 return tags;
             });
         }
+
         public async Task RemoveTagItemAsync(TagItem tagItem)
         {
             await Task.Factory.StartNew(() =>
@@ -127,18 +133,17 @@ namespace TodoScheduler.Services.DataServices
                 if (!IsExistTodo(todoItem))
                     throw new Exception($"Todo item with Id:{todoItem.Id} not exist");
 
-                lock (locker)
-                {
+                lock (locker) {
                     _database.Delete(todoItem);
                 }
             });
         }
+
         public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync()
         {
             return await Task.Factory.StartNew(() =>
             {
-                lock (locker)
-                {
+                lock (locker){
                     return _database.Table<TodoItem>().ToList()
                                       .Where(t => t.Status == TodoStatus.InProcess)
                                       .OrderByDescending(t => t.Priority)
@@ -146,15 +151,21 @@ namespace TodoScheduler.Services.DataServices
                 }
             });
         }
+
         public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync(DateTime dueDate)
         {
             var items = await GetTodoItemsAsync();
             return items.Where(t => t.DueDate.Value == dueDate).ToList();
         }
+
         public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync(TagItem tagItem)
         {
-            var items = await GetTodoItemsAsync();
-            return items.Where(t => t.TagId == tagItem.Id).ToList();
+            return await Task.Factory.StartNew(() => 
+            {
+                lock (locker) {
+                    return _database.Table<TodoItem>().ToList().Where(t => t.TagId == tagItem.Id);
+                }
+            });
         }
 
         #endregion

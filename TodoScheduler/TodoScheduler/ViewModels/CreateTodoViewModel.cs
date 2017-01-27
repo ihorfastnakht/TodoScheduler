@@ -10,6 +10,7 @@ using TodoScheduler.Services.DialogServices;
 using TodoScheduler.Services.NotificationServices;
 using TodoScheduler.Extensions;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace TodoScheduler.ViewModels
 {
@@ -87,31 +88,17 @@ namespace TodoScheduler.ViewModels
         DateTime _dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,0,0,0);
         public DateTime DueDate {
             get { return _dueDate; }
-            set
-            {
+            set {
                 if (SetProperty(ref _dueDate, value))
                     ReminderDate = DueDate;
             }
         }
-
-        /*DateTime _dueTime = DateTime.Now;
-        public DateTime DueTime
-        {
-            get { return _dueTime; }
-            set { SetProperty(ref _dueTime, value); }
-        }*/
 
         DateTime _reminderDate;
         public DateTime ReminderDate {
             get { return _reminderDate; }
             set { SetProperty(ref _reminderDate, value); }
         }
-
-        /*TimeSpan _reminderTime;
-        public TimeSpan ReminderTime {
-            get { return _reminderTime; }
-            set { SetProperty(ref _reminderTime, value); }
-        }*/
 
         #endregion
 
@@ -205,20 +192,20 @@ namespace TodoScheduler.ViewModels
                     CreatedDate = DateTime.Now,
                     DueDate = this.DueDate,
                     IsCompleted = false
-                };
+                }; 
 
-                await _dataService.CreateTodoItemAsync(todo);
-                //send notification if it enabled
+                await Task.WhenAll(_dataService.CreateTodoItemAsync(todo),
+                                   _dialogService.ShowToastMessageAsync("To-do has been created", TimeSpan.FromSeconds(2)),
+                                   Navigation.CloseAsync());
+
+
                 if (EnableReminder)
-                {
-                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, ReminderDate.Date);
-                }
-
-                await _dialogService.ShowToastMessageAsync("To-do has been created", TimeSpan.FromSeconds(2));
-                await Navigation.CloseAsync();
+                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, ReminderDate);
 
 
-                MessagingCenter.Send(this, "refresh");
+                MessagingCenter.Send(this, "refresh_tags");
+                MessagingCenter.Send(this, "refresh_todos");
+
             }
             catch (Exception ex)
             {

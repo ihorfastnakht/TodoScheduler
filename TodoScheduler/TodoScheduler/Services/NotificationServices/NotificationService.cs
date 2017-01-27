@@ -17,10 +17,8 @@ namespace TodoScheduler.Services.NotificationServices
                     Message = message
                 };
 
-                Debug.WriteLine($"\n=========== SENDED TIME: {notification.SendTime} ====================\n");
-
                 notification.SetSchedule(date);
-
+                notification.Vibrate = true;
                 Notifications.Instance.Send(notification);
             });
         }

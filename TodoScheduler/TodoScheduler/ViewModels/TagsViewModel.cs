@@ -39,8 +39,7 @@ namespace TodoScheduler.ViewModels
                 if (string.IsNullOrWhiteSpace(value))
                     TagItems = _originalTags;
 
-                if (SetProperty(ref _searchedText, value))
-                {
+                if (SetProperty(ref _searchedText, value)) {
                     TagItems = _originalTags.Where(t => t.Title.ToLower()
                                             .StartsWith(SearchedText.ToLower()));
 
@@ -57,7 +56,8 @@ namespace TodoScheduler.ViewModels
             _dataService = dataService;
             _dialogService = dialogService;
 
-            //MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh", (sender) => LoadTagItems());
+            MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh_tags", (sender) => LoadTagItems());
+            MessagingCenter.Subscribe<CreateTodoViewModel>(this, "refresh_todos", (sender) => LoadTagItems());
         }
 
         #endregion

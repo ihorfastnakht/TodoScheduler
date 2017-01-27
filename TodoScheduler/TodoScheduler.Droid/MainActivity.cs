@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Acr.UserDialogs;
+using Xamarin.Forms;
 
 namespace TodoScheduler.Android
 {
@@ -25,9 +26,22 @@ namespace TodoScheduler.Android
 
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
 
-            UserDialogs.Init(this);
+            UserDialogs.Init(() => (Activity)Forms.Context);
 
             LoadApplication(new App());
+        }
+
+        //HACK:
+        //Fixed: Java.Lang.IllegalStateException: Activity has been destroyed
+        protected override void OnDestroy()
+        {
+            try
+            {
+                base.OnDestroy();
+            }
+            catch
+            {
+            }
         }
     }
 }

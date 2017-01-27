@@ -65,9 +65,8 @@ namespace TodoScheduler.ViewModels
                 //Todos
                 new MenuItem() { Group = todoGroup, Icon = "today.png", Title = "Today", ViewModelType = typeof(TodayViewModel) },
                 new MenuItem() { Group = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow", ViewModelType = typeof(TomorrowViewModel) },
-                new MenuItem() { Group = todoGroup, Icon = "schedule.png", Title = "Schedule", ViewModelType = null },
+                /*new MenuItem() { Group = todoGroup, Icon = "schedule.png", Title = "Schedule", ViewModelType = null },*/
                 //Settings
-                new MenuItem() { Group = configGroup, Icon = "config.png", Title = "Configuration", ViewModelType = null },
                 new MenuItem() { Group = configGroup, Icon = "about.png", Title = "About", ViewModelType = null }
             };
 

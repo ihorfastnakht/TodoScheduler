@@ -18,7 +18,7 @@ namespace TodoScheduler.Android.Services
             var connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), database);
             var platform = new SQLitePlatformAndroid();
 
-            return new SQLiteConnection(platform, connectionString);
+            return new SQLiteConnection(platform, connectionString, false);
         }
     }
 }

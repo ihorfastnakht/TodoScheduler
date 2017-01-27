@@ -28,7 +28,8 @@ namespace TodoScheduler.ViewModels
 
         #region constructor
 
-        public TodayViewModel(IDataService dataService, IDialogService dialogService, INotificationService notificationService)
+        public TodayViewModel(IDataService dataService, IDialogService dialogService, 
+            INotificationService notificationService)
         {
             _dataService = dataService;
             _dialogService = dialogService;

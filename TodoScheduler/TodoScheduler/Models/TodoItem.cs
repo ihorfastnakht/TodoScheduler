@@ -13,7 +13,7 @@ namespace TodoScheduler.Models
 
         // updated properties
 
-        readonly string[] dependendProps = new string[] { nameof(Status), nameof(RemainHours) };
+        readonly string[] dependendProps = new string[] { nameof(Status), nameof(RemainDisplay) };
 
         int _id;
         [AutoIncrement, PrimaryKey]
@@ -64,12 +64,6 @@ namespace TodoScheduler.Models
             set { SetProperty(ref _dueDate, value, dependendProperties: dependendProps); }
         }
 
-        TimeSpan? _dueTime;
-        public TimeSpan? DueTime {
-            get { return _dueTime; }
-            set { SetProperty(ref _dueTime, value, dependendProperties: dependendProps); }
-        }
-
         bool _isCompleted = false;
         [NotNull]
         public bool IsCompleted {
@@ -77,6 +71,8 @@ namespace TodoScheduler.Models
             set { SetProperty(ref _isCompleted, value, dependendProperties: dependendProps); }
         }
 
+        [Ignore]
+        public TagItem TagItem { get; set; }
         #endregion
 
         #region readonly properties
@@ -87,7 +83,7 @@ namespace TodoScheduler.Models
             {
                 if (IsCompleted)
                     return TodoStatus.Completed;
-                if (!IsCompleted && RemainHours <= 0)
+                if (!IsCompleted && Remain <= 0)
                     return TodoStatus.Failed;
 
                 return TodoStatus.InProcess;
@@ -95,10 +91,22 @@ namespace TodoScheduler.Models
         }
 
         [Ignore]
-        public double RemainHours => DueDate.HasValue 
-                               ? DueDate.Value.Subtract(DateTime.Now).TotalHours 
-                               : -1;
-        
+        private double Remain => DueDate.HasValue 
+            ? DueDate.Value.Subtract(DateTime.Now).TotalMinutes 
+            : -1;
+
+        [Ignore]
+        public string RemainDisplay
+        {
+            get
+            {
+                var hours = Math.Round(Remain / 60);
+                var minutes = Math.Round(Remain % 60);
+
+                return $"{hours:00} hh {minutes:00} mm";
+            }
+        }
+
         #endregion
     }
 }

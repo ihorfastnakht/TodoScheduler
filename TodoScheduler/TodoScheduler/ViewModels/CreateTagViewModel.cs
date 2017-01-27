@@ -103,7 +103,7 @@ namespace TodoScheduler.ViewModels
                 await Navigation.CloseAsync(animation: true);
                
                 //Send message for refresh tag items after add
-                MessagingCenter.Send(this, "refresh");
+                MessagingCenter.Send(this, "refresh_tags");
             }
             catch (Exception ex)
             {

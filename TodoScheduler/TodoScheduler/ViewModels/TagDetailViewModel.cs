@@ -57,7 +57,7 @@ namespace TodoScheduler.ViewModels
             _dialogService = dialogService;
             _notificationService = notificationService;
 
-            //MessagingCenter.Subscribe<CreateTodoViewModel>(this, "refresh", (p) => RefreshCommandExecute());
+            MessagingCenter.Subscribe<CreateTodoViewModel>(this, "refresh", (p) => RefreshCommandExecute());
         }
 
         #endregion
@@ -72,13 +72,13 @@ namespace TodoScheduler.ViewModels
 
         ICommand _groupCommand;
         public ICommand GroupCommand {
-            get { return _groupCommand ?? new Command<string>(GroupCommandExecute); }
+            get { return _groupCommand ?? new Command<string>((p) => GroupCommandExecute(p), (p) => { return State != VmState.Busy || State != VmState.NoData; }); }
             set { SetProperty(ref _groupCommand, value); }
         }
 
         ICommand _refreshCommand;
         public ICommand RefreshCommand {
-            get { return _refreshCommand ?? new Command(RefreshCommandExecute); }
+            get { return _refreshCommand ?? new Command(() => RefreshCommandExecute(), () => { return State != VmState.Busy || State != VmState.NoData; }); }
             set { SetProperty(ref _refreshCommand, value); }
         }
 
@@ -133,7 +133,7 @@ namespace TodoScheduler.ViewModels
                 if (State == VmState.Busy)
                     return;
 
-                //State = VmState.Busy;
+                State = VmState.Busy;
 
                 TodoItems = null;
 
@@ -143,7 +143,7 @@ namespace TodoScheduler.ViewModels
 
                 State = VmState.Normal;
 
-                //GroupCommandExecute("date");
+                GroupCommandExecute("date");
 
             }
             catch (Exception ex)
