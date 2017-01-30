@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using TodoScheduler.Base;
-using TodoScheduler.Enums;
-using TodoScheduler.Models;
+using System.Text;
+using System.Threading.Tasks;
 using TodoScheduler.Services.DataServices;
-using TodoScheduler.Services.DialogServices;
 using TodoScheduler.Services.NotificationServices;
+using TodoScheduler.Services.DialogServices;
+using TodoScheduler.Base;
+using TodoScheduler.Models;
+using System.Collections.ObjectModel;
+using TodoScheduler.Enums;
 
 namespace TodoScheduler.ViewModels
 {
-    public class TomorrowViewModel : TodayViewModel
+    public class ScheduleViewModel : TodayViewModel
     {
+
         #region constructor
 
-        public TomorrowViewModel(IDialogService dialogService, IDataService dataService, 
-            INotificationService notificationService) 
-            : base(dialogService, dataService, notificationService)
+        public ScheduleViewModel(IDialogService dialogService, IDataService dataService,
+            INotificationService notificationService) : base(dialogService, dataService, notificationService)
         {
         }
 
@@ -25,14 +27,20 @@ namespace TodoScheduler.ViewModels
 
         #region override
 
-        protected override async void LoadTodayTodos()
+        public override void Init(Dictionary<string, object> parameters = null)
         {
+            base.Init(parameters);
+            Header = "Schedule";
+        }
+        protected async override void LoadTodayTodos()
+        {
+            //base.LoadTodayTodos();
             try
             {
                 if (State == VmState.Busy) return;
                 State = VmState.Busy;
 
-                var todos = await _dataService.GetTodoItemsAsync(DateTime.Now.AddDays(1));
+                var todos = await _dataService.GetTodoItemsAsync();
                 if (todos.Any())
                 {
                     var groupByTag = from todoItem in todos
@@ -54,18 +62,11 @@ namespace TodoScheduler.ViewModels
                 await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
         }
-
-        public override void Init(Dictionary<string, object> parameters = null)
-        {
-            base.Init(parameters);
-            Header = $"Tomorrow ({DateTime.Now.DayOfWeek}, {DateTime.Now.ToString("dd.MM.yyyy")})";
-        }
-
         public override string NoDataText
         {
             get
             {
-                return "There are no todos for tomorrow";
+                return "There are no todos for any days";
             }
 
             set

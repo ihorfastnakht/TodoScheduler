@@ -7,7 +7,7 @@ namespace TodoScheduler.Pages
         public TagDetailPage()
         {
             InitializeComponent();
-            list.ItemSelected += (s, e) => list.SelectedItem = null;
+            //list.ItemSelected += (s, e) => list.SelectedItem = null;
         }
     }
 }

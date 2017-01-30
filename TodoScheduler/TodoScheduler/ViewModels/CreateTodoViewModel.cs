@@ -11,6 +11,7 @@ using TodoScheduler.Services.NotificationServices;
 using TodoScheduler.Extensions;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TodoScheduler.ViewModels
 {
@@ -21,58 +22,78 @@ namespace TodoScheduler.ViewModels
         readonly IDataService _dataService;
         readonly IDialogService _dialogService;
         readonly INotificationService _notificationService;
+        readonly string reminder_on = "_reminder.png";
+        readonly string reminder_off = "_no_reminder.png";
 
         #endregion
 
         #region fields & properties
 
         bool _isValid = false;
-        public bool IsValid {
+        public bool IsValid
+        {
             get { return _isValid; }
-            set { SetProperty(ref _isValid, value); }
+            set
+            {
+                if (SetProperty(ref _isValid, value))
+                    ((Command)SaveCommand).CanExecute(value);
+            }
         }
 
         IEnumerable<TagItem> _tags;
-        public IEnumerable<TagItem> Tags {
+        public IEnumerable<TagItem> Tags
+        {
             get { return _tags; }
             set { SetProperty(ref _tags, value); }
         }
 
         TagItem _selectedTag;
-        public TagItem SelectedTag {
+        public TagItem SelectedTag
+        {
             get { return _selectedTag; }
-            set { SetProperty(ref _selectedTag, value); }
+            set { SetProperty(ref _selectedTag, value, needComapare: false); }
         }
 
         string _title;
-        public string Title {
+        public string Title
+        {
             get { return _title; }
             set
             {
                 SetProperty(ref _title, value);
-                IsValid = !string.IsNullOrWhiteSpace(Title);
+                Validation();
             }
         }
 
         string _description;
-        public string Description {
+        public string Description
+        {
             get { return _description; }
             set { SetProperty(ref _description, value); }
         }
 
-
         bool _enableReminder = false;
-        public bool EnableReminder {
+        public bool EnableReminder
+        {
             get { return _enableReminder; }
             set
             {
-                if(SetProperty(ref _enableReminder, value))
-                    ReminderDate = DueDate;
+                if (SetProperty(ref _enableReminder, value))
+                {
+                    if (value)
+                        ReminderIcon = reminder_on;
+                    else
+                        ReminderIcon = reminder_off;
+                    OnPropertyChanged(nameof(ReminderIcon));
+                }
             }
         }
 
+        public string ReminderIcon { get; private set; }
+
         TodoPriority _priority = TodoPriority.Low;
-        public TodoPriority Priority {
+        public TodoPriority Priority
+        {
             get { return _priority; }
             set { SetProperty(ref _priority, value); }
         }
@@ -84,52 +105,45 @@ namespace TodoScheduler.ViewModels
             set { SetProperty(ref _priorityList, value); }
         }
 
-
-        DateTime _dueDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,0,0,0);
-        public DateTime DueDate {
-            get { return _dueDate; }
-            set {
-                if (SetProperty(ref _dueDate, value))
-                    ReminderDate = DueDate;
+        DateTime? _dueTime = null;
+        public DateTime? DueTime
+        {
+            get { return _dueTime; }
+            set
+            {
+                SetProperty(ref _dueTime, value);
+                Validation();
             }
-        }
-
-        DateTime _reminderDate;
-        public DateTime ReminderDate {
-            get { return _reminderDate; }
-            set { SetProperty(ref _reminderDate, value); }
         }
 
         #endregion
 
         #region constructors
 
-        public CreateTodoViewModel(IDataService dataService, IDialogService dialogService, 
+        public CreateTodoViewModel(IDataService dataService, IDialogService dialogService,
             INotificationService notificationService)
         {
             _dataService = dataService;
             _dialogService = dialogService;
             _notificationService = notificationService;
+
+            ReminderIcon = reminder_off;
         }
 
         #endregion
 
         #region commands
 
-        ICommand _selectDateCommand;
-        public ICommand SelectDateCommand {
-            get { return _selectDateCommand ?? new Command<string>(SelectDateCommandExecute); }
-            set { SetProperty(ref _selectDateCommand, value); }
-        }
-
-        ICommand _selectTimeCommand;
-        public ICommand SelectTimeCommand {
-            get { return _selectTimeCommand ?? new Command<string>(SelectTimeCommandExecute); }
-            set { SetProperty(ref _selectTimeCommand, value); }
+        ICommand _selectDueDateCommand;
+        public ICommand SelectDueDateCommand
+        {
+            get { return _selectDueDateCommand ?? new Command(SelectDueDateCommandExecute); }
+            set { SetProperty(ref _selectDueDateCommand, value); }
         }
 
         ICommand _saveCommand;
-        public ICommand SaveCommand {
+        public ICommand SaveCommand
+        {
             get { return _saveCommand ?? new Command(() => SaveCommandExecute(), () => IsValid); }
             set { SetProperty(ref _saveCommand, value); }
         }
@@ -145,33 +159,23 @@ namespace TodoScheduler.ViewModels
 
         #region private
 
-        private async void SelectDateCommandExecute(string type)
+        private async void SelectDueDateCommandExecute()
         {
-           
-            var date = await _dialogService.ShowDateDialogAsync();
-
-            if (date != null)
+            try
             {
-                if (string.IsNullOrEmpty(type))
-                    DueDate = date;
-                else
-                    ReminderDate = date;
+                var date = await _dialogService.ShowDateDialogAsync();
+                if (date != null)
+                {
+                    var time = await _dialogService.ShowTimeDialogAsync(date);
+
+                    if (time != null)
+                        DueTime = new DateTime(date.Year, date.Month, date.Day,
+                            time.Hours, time.Minutes, time.Seconds);
+                }
             }
-               
-        }
-
-        private async void SelectTimeCommandExecute(string type)
-        {
-            var time = await _dialogService.ShowTimeDialogAsync();
-
-            if (time != null)
+            catch (Exception ex)
             {
-                if (string.IsNullOrEmpty(type))
-                    DueDate = new DateTime(DueDate.Year, DueDate.Month, DueDate.Day,
-                        time.Hours, time.Minutes, time.Seconds);
-                else
-                    ReminderDate = new DateTime(ReminderDate.Year, ReminderDate.Month, ReminderDate.Day,
-                        time.Hours, time.Minutes, time.Seconds);
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
         }
 
@@ -184,28 +188,25 @@ namespace TodoScheduler.ViewModels
 
                 State = VmState.Busy;
 
-                TodoItem todo = new TodoItem() {
+                TodoItem todo = new TodoItem()
+                {
                     TagId = SelectedTag.Id,
                     Title = this.Title,
                     Description = this.Description == null ? "..." : this.Description,
                     Priority = this.Priority,
-                    CreatedDate = DateTime.Now,
-                    DueDate = this.DueDate,
+                    CreatedTime = DateTime.Now,
+                    DueTime = this.DueTime.Value,
                     IsCompleted = false
-                }; 
+                };
 
-                await Task.WhenAll(_dataService.CreateTodoItemAsync(todo),
-                                   _dialogService.ShowToastMessageAsync("To-do has been created", TimeSpan.FromSeconds(2)),
-                                   Navigation.CloseAsync());
-
+                await _dataService.CreateTodoItemAsync(todo);
+                await _dialogService.ShowToastMessageAsync($"Todo has been created", TimeSpan.FromSeconds(2));
 
                 if (EnableReminder)
-                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, ReminderDate);
-
+                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, DueTime.Value);
 
                 MessagingCenter.Send(this, "refresh_tags");
-                MessagingCenter.Send(this, "refresh_todos");
-
+                await Navigation.CloseAsync();
             }
             catch (Exception ex)
             {
@@ -213,11 +214,19 @@ namespace TodoScheduler.ViewModels
             }
             finally
             {
-                State = VmState.Normal;
+                //State = VmState.Normal;
             }
         }
 
         private async void CancelCommandExecute() => await Navigation.CloseAsync();
+
+        private void Validation()
+        {
+            if (string.IsNullOrEmpty(Title) || DueTime == null)
+                IsValid = false;
+            else
+                IsValid = true;
+        }
 
         #endregion
 
@@ -239,11 +248,8 @@ namespace TodoScheduler.ViewModels
 
                 Tags = new List<TagItem>{
                    (TagItem)parameters["tag"],
-                   //(TagItem)parameters["tag"],
-                   //(TagItem)parameters["tag"]
                 };
                 SelectedTag = (TagItem)parameters["tag"];
-                //SelectedTag = Tags.ToList()[0];
             }
         }
 

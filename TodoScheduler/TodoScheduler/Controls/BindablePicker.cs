@@ -104,7 +104,7 @@ namespace TodoScheduler.Controls
                     }
                 }
 
-                this.SelectedIndex = 0;  // select first item by default
+                this.SelectedIndex = -1;  // select first item by default
                 this._disableNestedCalls = false;
 
                 if (this.SelectedItem != null)

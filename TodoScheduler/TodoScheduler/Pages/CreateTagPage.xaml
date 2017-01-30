@@ -2,50 +2,113 @@
 <controls:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
+             xmlns:icons="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
              xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              x:Class="TodoScheduler.Pages.CreateTagPage"
              Title="Create new tag">
   <ScrollView BackgroundColor="{StaticResource MetroWhiteColor}">
-    <Grid Padding="10">
-      <StackLayout Orientation="Vertical" Padding="10" 
-                   BackgroundColor="{StaticResource WhiteColor}">
-        <BoxView HeightRequest="10" Color="{Binding SelectedColor.HexValue}" HorizontalOptions="FillAndExpand"/>
-        <Label Text="Tag title" Font="Large" TextColor="#808080" Margin="5,10"/>
-        <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Type tag title"
-               Keyboard="Text" TextColor="{Binding SelectedColor.HexValue}"/>
-        <Label Text="Tag color" Font="Large" TextColor="#808080" Margin="5,10"/>
-        <controls:BindablePicker ItemsSource="{Binding HexColors}"
-                                 SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
-                                 DisplayMemberPath="Name" PickerTitle="Select color"
-                                TextColor="{Binding SelectedColor.HexValue}"/>
-        
-        <StackLayout Margin="0,20,0,0" 
-                     Orientation="Horizontal" 
+    <StackLayout VerticalOptions="FillAndExpand"
+                 Padding="10"
+                 Margin="10"
+                 BackgroundColor="{StaticResource WhiteColor}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="65"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="70"/>
+          <RowDefinition Height="70"/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Title-->
+        <StackLayout Grid.Column="0" Grid.Row="0"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+          <icons:IconImage VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="Center"
+                 Icon="fa-edit"
+                 IconColor="{StaticResource MetroBlackColor}"
+                 HeightRequest="30"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="0"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout Orientation="Vertical"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <Entry Text="{Binding Title}"
+                   Placeholder="Type todo title"
+                   Keyboard="Text"
+                   Margin="15,0,15,5"
+                   VerticalOptions="EndAndExpand"/>
+          </StackLayout>
+        </StackLayout>
+
+        <!--Color picker-->
+        <StackLayout Grid.Column="0" Grid.Row="1"
+               BackgroundColor="{StaticResource MetroWhiteColor}"
+               VerticalOptions="FillAndExpand"
+               HorizontalOptions="FillAndExpand">
+          <icons:IconImage VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="Center"
+                 Icon="fa-paint-brush"
+                 IconColor="{Binding SelectedColor.HexValue}"
+                 HeightRequest="30"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="1"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout Orientation="Vertical"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <controls:BindablePicker Margin="15,15, 15, 5"
+                                     ItemsSource="{Binding HexColors}"
+                                     SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                                     DisplayMemberPath="Name"
+                                     Title="Select color"
+                                     VerticalOptions="EndAndExpand"/>
+          </StackLayout>
+        </StackLayout>
+
+        <!--Button container-->
+        <StackLayout Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="0,30"
                      HorizontalOptions="EndAndExpand"
-                     VerticalOptions="StartAndExpand">
-          
+                     VerticalOptions="CenterAndExpand">
           <xlabs:ImageButton
-                           BackgroundColor="{StaticResource MetroWhiteColor}"
-                           Text="SAVE"
-                           IsEnabled="{Binding IsValid}"
-                           HorizontalOptions="StartAndExpand"
-                           BorderRadius="0"
-                           FontSize="12"
-                           HeightRequest="40"
-                           WidthRequest="100"
-                           Command="{Binding SaveCommand}"/>
+                             BackgroundColor="{StaticResource MetroWhiteColor}"
+                             Text="SAVE" FontSize="12"
+                             IsEnabled="{Binding IsValid}"
+                             HorizontalOptions="StartAndExpand"
+                             HeightRequest="40"
+                             WidthRequest="100"
+                             BorderWidth="1"
+                             BorderColor="Green"
+                             BorderRadius="0"
+                             Command="{Binding SaveCommand}"/>
           <xlabs:ImageButton
                            BackgroundColor="{StaticResource MetroWhiteColor}"
                            Text="CANCEL"
                            HorizontalOptions="StartAndExpand"
                            BorderRadius="0"
-                           FontSize="12"
                            HeightRequest="40"
                            WidthRequest="100"
+                           BorderWidth="1"
+                           BorderColor="Red"
+                           FontSize="12"
                            Command="{Binding CancelCommand}"/>
         </StackLayout>
-        
-      </StackLayout>
-    </Grid>
+      </Grid>
+    </StackLayout>
   </ScrollView>
 </controls:BasePage>

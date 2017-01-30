@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TodoScheduler.Base;
-using TodoScheduler.Data;
-using TodoScheduler.Enums;
 
 namespace TodoScheduler.Models
 {
@@ -12,22 +10,20 @@ namespace TodoScheduler.Models
     {
         #region private members
 
-        readonly string[] dependendProps = new string[] { nameof(HasItems) /*nameof(Total), nameof(Failed), nameof(Completed) */};
+        readonly string[] dependendProps = new string[] { nameof(HasItems), nameof(ItemsCount) /*nameof(Total), nameof(Failed), nameof(Completed) */};
 
         #endregion
 
         #region fields & properties
 
         int _id;
-        [AutoIncrement, PrimaryKey]
-        public int Id {
+        [AutoIncrement, PrimaryKey] public int Id {
             get { return _id; }
             set { SetProperty(ref _id, value); }
         }
 
         string _title;
-        [NotNull, MaxLength(20)]
-        public string Title {
+        [NotNull, MaxLength(20)] public string Title {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
@@ -39,8 +35,7 @@ namespace TodoScheduler.Models
         }
 
         IEnumerable<TodoItem> _todoItems;
-        [Ignore]
-        public IEnumerable<TodoItem> TodoItems {
+        [Ignore] public IEnumerable<TodoItem> TodoItems {
             get { return _todoItems; }
             set { SetProperty(ref _todoItems, value, dependendProperties: dependendProps); }
         }
@@ -49,35 +44,9 @@ namespace TodoScheduler.Models
 
         #region readonly properties
 
-        [Ignore]
-        public bool HasItems => TodoItems?.Any() == true ? true : false;
+        [Ignore] public bool HasItems => TodoItems?.Any() == true ? true : false;
+        [Ignore] public int ItemsCount => HasItems ? TodoItems.Count() : 0;
 
-        public int TotalItems => HasItems ? TodoItems.Count() : 0;
-
-        /*
-        [Ignore]
-        public string Total => !HasItems ? "-" : TodoItems.Count().ToString();
-
-        [Ignore]
-        public string Completed
-        {
-            get
-            {
-                if (!HasItems) return "-";
-                return TodoItems.Where(t => t.Status == TodoStatus.Completed).Count().ToString();
-            }
-        }
-
-        [Ignore]
-        public string Failed
-        {
-            get
-            {
-                if (!HasItems) return "-";
-                return TodoItems.Where(t => t.Status == TodoStatus.Failed).Count().ToString();
-            }
-        }
-        */
         #endregion
     }
 }

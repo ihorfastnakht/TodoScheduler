@@ -2,8 +2,8 @@
 {
     public enum TodoStatus
     {
-        Failed = -1,
         InProcess = 0,
-        Completed
+        Completed,
+        Failed
     }
 }

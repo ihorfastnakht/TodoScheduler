@@ -2,7 +2,7 @@
 
 namespace TodoScheduler.Controls
 {
-    public class Separator : BoxView
+    public class Separator : StackLayout
     {
         public Separator()
         {

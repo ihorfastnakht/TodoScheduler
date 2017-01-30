@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TodoScheduler.App" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAEAAAACACAAAAAAAEAAAAAAhAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Base.BehaviorBase&lt;T&gt;" Collapsed="true">
+    <Position X="4.75" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAgAAAABIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\BehaviorBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Base.Grouping&lt;TKey, TItem&gt;" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\Grouping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Base.ObservableObject" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\ObservableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TodoScheduler.Base.SelectableObject&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAACEABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\SelectableObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Base.ViewModelBase" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAEAAAAAACAAAAABAACCAAAACBAEEQAA=</HashCode>
+      <FileName>Base\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Behaviors.EventToCommandBehavior" Collapsed="true">
+    <Position X="1.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAQAAIAAABIIgABIABAYAAAAAAICACAAAQAAA=</HashCode>
+      <FileName>Behaviors\EventToCommandBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.BasePage" Collapsed="true">
+    <Position X="9" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\BasePage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.BindablePicker" Collapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIGQAgAAAAACAAYAAMCBIEBGAAAABAAAIAAAAA=</HashCode>
+      <FileName>Controls\BindablePicker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.Separator" Collapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Separator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.StateCondition" Collapsed="true">
+    <Position X="25.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Controls\StateContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.StateContainer" Collapsed="true">
+    <Position X="27.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAkAAAAAAAAAAAAAABAAAACA=</HashCode>
+      <FileName>Controls\StateContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Controls.TransparentControl" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\TransparentControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Converters.BoolInverseConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BoolInverseConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.BoolToOn_OffConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BoolToOn_OffConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.ColorTypeToFontColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAICAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ColorTypeToFontColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.ItemTappedEventArgsConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ItemTappedEventArgsConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.NavigationConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\NavigationConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.PriorityToColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\PriorityToColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.StatusToBoolConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\StatusToBoolConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Converters.StatusToColorConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\StatusToColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Data.HexColor" Collapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Data\ColorFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Data.ColorFactory" Collapsed="true">
+    <Position X="25.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAgAAAAAA=</HashCode>
+      <FileName>Data\ColorFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Extensions.DateTimeExtension" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\DateTimeExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Models.TagItem" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEAAIAAAEgEAABIAAAAAAECAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TagItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Models.TodoItem" Collapsed="true">
+    <Position X="16.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQgCAAAEAIAgAEAEAABAAACgACAAAJAAAAAAAABIAAE=</HashCode>
+      <FileName>Models\TodoItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.PageModel.MenuGroup" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>PageModel\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.PageModel.MenuItem" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>PageModel\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.AppMainPage" Collapsed="true">
+    <Position X="27.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AppMainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.CreateTagPage" Collapsed="true">
+    <Position X="9.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\CreateTagPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.CreateTodoPage" Collapsed="true">
+    <Position X="7.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\CreateTodoPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.MenuPage" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\MenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.SchedulePage" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\SchedulePage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.TagDetailPage" Collapsed="true">
+    <Position X="13.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TagDetailPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.TagsPage" Collapsed="true">
+    <Position X="15.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TagsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.TodayPage" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TodayPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Pages.TomorrowPage" Collapsed="true">
+    <Position X="3.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\TomorrowPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.Services.DataServices.SqliteDataService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAIAAAAABAAAAAIEAAAQQAAAgCAAAACCQ=</HashCode>
+      <FileName>Services\DataServices\SqliteDataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Services.DialogServices.DialogService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAAAAACAAgAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Services\DialogServices\DialogService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Services.NavigationServices.NavigationService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Services\NavigationServices\NavigationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.Services.NotificationServices.NotificationService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="27.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\NotificationServices\NotificationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.CreateTagViewModel" Collapsed="true">
+    <Position X="14" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAIAAAUAEAAoACAAAAAAAAAQAREACAAQEAAA=</HashCode>
+      <FileName>ViewModels\CreateTagViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.CreateTodoViewModel" Collapsed="true">
+    <Position X="16.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQIQAAAAEIQgAUAMACqAAAAgAADAQERASEBCAAAGAAA=</HashCode>
+      <FileName>ViewModels\CreateTodoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.MenuViewModel" Collapsed="true">
+    <Position X="18.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAAAAAAAAAAAEAAAAAACAAgAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>ViewModels\MenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.ScheduleViewModel" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ViewModels\ScheduleViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.TagDetailViewModel" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIMAIFAEBQgEIgAgCsAAAEAAAACAAUBAAACggEEAAA=</HashCode>
+      <FileName>ViewModels\TagDetailViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.TagsViewModel" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAQAABCAgCIICACAIAAQgAUAAAACCgEECKA=</HashCode>
+      <FileName>ViewModels\TagsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.TodayViewModel" Collapsed="true">
+    <Position X="10.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABIAAAAEABAAAAAgAoCAAIAAAQAAAUAIAACAgEEQAA=</HashCode>
+      <FileName>ViewModels\TodayViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TodoScheduler.ViewModels.TomorrowViewModel" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ViewModels\TomorrowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TodoScheduler.Services.DataServices.IDataService" Collapsed="true">
+    <Position X="25.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAABAAAAAIEAAAAAAAAAAAAAACCQ=</HashCode>
+      <FileName>Services\DataServices\IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoScheduler.Services.DialogServices.IDialogService" Collapsed="true">
+    <Position X="27.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAACAAAAAAAAAACAAgAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Services\DialogServices\IDialogService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoScheduler.Services.NavigationServices.INavigationService" Collapsed="true">
+    <Position X="29" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Services\NavigationServices\INavigationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoScheduler.Services.NotificationServices.INotificationService" Collapsed="true">
+    <Position X="30.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\NotificationServices\INotificationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TodoScheduler.Services.PlatformServices.ISqliteConnectionService" Collapsed="true">
+    <Position X="32.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\PlatformServices\ISqliteConnectionService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TodoScheduler.Enums.ColorType" Collapsed="true">
+    <Position X="25.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\ColorTypes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TodoScheduler.Enums.TodoPriority" Collapsed="true">
+    <Position X="29" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\TodoPriority.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TodoScheduler.Enums.TodoStatus" Collapsed="true">
+    <Position X="30.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Enums\TodoStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TodoScheduler.Enums.TodoViewModelType" Collapsed="true">
+    <Position X="32.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Enums\TodoViewModelType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TodoScheduler.Enums.VmState" Collapsed="true">
+    <Position X="25.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\ViewModelStates.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TodoScheduler.Services.NavigationServices.NavType" Collapsed="true">
+    <Position X="27.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAgAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Services\NavigationServices\INavigationService.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

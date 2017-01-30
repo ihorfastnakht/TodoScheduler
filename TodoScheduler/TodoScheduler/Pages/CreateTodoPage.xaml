@@ -3,209 +3,215 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    xmlns:controls="clr-namespace:TodoScheduler.Controls;assembly:TodoScheduler"
                    xmlns:converters="clr-namespace:TodoScheduler.Converters;assembly:TodoScheduler"
-                   xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+                   xmlns:icons="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
                    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
                    x:Class="TodoScheduler.Pages.CreateTodoPage"
                    BackgroundColor="{StaticResource GrayColor}"
                    Title="Create new todo">
-  <controls:BasePage.Resources>
-    <ResourceDictionary>
-      <converters:BoolToOn_OffConverter x:Key="BoolToOnOff"/>
-    </ResourceDictionary>
-  </controls:BasePage.Resources>
-  <ScrollView BackgroundColor="{StaticResource MetroWhiteColor}" x:Name="scroller">
-    <!--<Grid Padding="10">-->
-      <StackLayout Orientation="Vertical" Padding="10"
-                   BackgroundColor="{StaticResource WhiteColor}">
-        <!--Title container-->
-        <Grid BackgroundColor="{StaticResource MetroWhiteColor}">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <StackLayout Orientation="Horizontal" Grid.Row="0" 
-                       Padding="5" HorizontalOptions="Fill">
-            <iconize:IconImage VerticalOptions="Center"
-                                          Icon="fa-edit"
-                                          HeightRequest="20"/>
-            <Label Text="To-do title and description" 
-                   TextColor="#000000" VerticalOptions="Center"/>
-          </StackLayout>
-          <Grid Grid.Row="1" Margin="2,0,2,2"
-                BackgroundColor="{StaticResource WhiteColor}">
-            <StackLayout Padding="5">
-              <Entry Text="{Binding Title, Mode=TwoWay}" 
-                     Placeholder="Type title for todo"/>
-              <Entry Text="{Binding Description, Mode=TwoWay}"
-                     Placeholder="Type description for todo"
-                     Margin="0,0,0,10"/>
-            </StackLayout>
-          </Grid>
-        </Grid>
-        
-        <!--Tag and priority-->
-        <Grid BackgroundColor="{StaticResource MetroWhiteColor}">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <StackLayout Orientation="Horizontal" Grid.Row="0"
-                       Padding="5" HorizontalOptions="Fill">
-            <iconize:IconImage VerticalOptions="Center"
-                                          Icon="fa-list"
-                                          HeightRequest="20"/>
-            <Label Text="Tag and priority" TextColor="#000000" VerticalOptions="Center"/>
-          </StackLayout>
-          <Grid Grid.Row="1" Margin="2,0,2,2"
-                BackgroundColor="{StaticResource WhiteColor}">
-            <StackLayout Padding="5">
-              
-              <controls:BindablePicker ItemsSource="{Binding Tags}"
-                                       SelectedItem="{Binding SelectedTag, Mode=TwoWay}"
-                                       DisplayMemberPath="Title" PickerTitle="Select color"/>
-              
-              <controls:BindablePicker ItemsSource="{Binding PriorityList}"
-                                       SelectedItem="{Binding Priority, Mode=TwoWay}"
-                                       PickerTitle="Select priority"
-                                       Margin="0,0,0,10"/>
-            </StackLayout>
-          </Grid>
-        </Grid>
+  <ScrollView BackgroundColor="{StaticResource WhiteColor}">
+    <StackLayout Margin="10"
+                 BackgroundColor="{StaticResource WhiteColor}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="65"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition Height="65"/>
+          <RowDefinition Height="65"/>
+          <RowDefinition Height="65"/>
+          <RowDefinition Height="65"/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <!--Due date -->
-        <Grid BackgroundColor="{StaticResource MetroWhiteColor}">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-          <StackLayout Orientation="Horizontal" Grid.Row="0"
-                       Padding="5" HorizontalOptions="Fill">
-            <iconize:IconImage VerticalOptions="Center"
-                                          Icon="fa-calendar"
-                                          HeightRequest="20"/>
-            <Label Text="Due date" TextColor="#000000" 
-                   VerticalOptions="Center"/>
+        <!--Title-->
+        <StackLayout Grid.Column="0" Grid.Row="0"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+          <icons:IconImage VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="Center"
+                 Icon="fa-edit"
+                 IconColor="{StaticResource MetroBlackColor}"
+                 HeightRequest="30"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="0"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout Orientation="Vertical"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <Entry Text="{Binding Title}"
+                   Placeholder="Type todo title"
+                   Keyboard="Text"
+                   Margin="15,0,15,2"/>
+            <Entry Text="{Binding Description}"
+                   Placeholder="Type todo description"
+                   Keyboard="Text"
+                   Margin="15,2,15,10"/>
           </StackLayout>
-          <Grid Grid.Row="1" Margin="2,0,2,2"
-                BackgroundColor="{StaticResource WhiteColor}">
-            <StackLayout Padding="5" Orientation="Horizontal">
-              <!--date picker-->
-              <Grid HorizontalOptions="CenterAndExpand">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="50"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <!--Image-->
-                <xlabs:ImageButton Grid.Row="0"
-                                   BackgroundColor="{StaticResource WhiteColor}"
-                                   HorizontalOptions="Center"
-                                   ImageHeightRequest="20"
-                                   ImageWidthRequest="20"
-                                   Image="_date.png"
-                                   BorderRadius="0"
-                                   Command="{Binding SelectDateCommand}"/>
-                <Label Grid.Row="1" 
-                       HorizontalOptions="Center"
-                       Text="{Binding DueDate, StringFormat='{0:dd.MM.yyyy}'}"/>
-              </Grid>
-              <!--time picker-->
-              <Grid HorizontalOptions="CenterAndExpand">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="50"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <!--Image-->
-                <xlabs:ImageButton Grid.Row="0"
-                                   Image="_time.png"
-                                   ImageHeightRequest="20"
-                                   ImageWidthRequest="20"
-                                   BackgroundColor="{StaticResource WhiteColor}"
-                                   HorizontalOptions="Center"
-                                   BorderRadius="0"
-                                   Command="{Binding SelectTimeCommand}"/>
-                <Label Grid.Row="1" 
-                       HorizontalOptions="Center"
-                       Text="{Binding DueDate, StringFormat='{0:HH:mm}'}"/>
-              </Grid>
-            </StackLayout>
-          </Grid>
-        </Grid>
+        </StackLayout>
 
-        <!--Reminder -->
-        <Grid BackgroundColor="{StaticResource MetroWhiteColor}" HeightRequest="30" x:Name="container">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-          </Grid.RowDefinitions>
-          <StackLayout Orientation="Horizontal" Grid.Row="0"
-                       Padding="5" HorizontalOptions="Fill">
-            <iconize:IconImage VerticalOptions="Center"
-                                          Icon="fa-bullhorn"
-                                          HeightRequest="20"/>
-            <Label Text="{Binding EnableReminder, StringFormat='Reminder ({0})', Converter={StaticResource BoolToOnOff}}" 
-                   TextColor="#000000" VerticalOptions="Center"/>
-            <Switch x:Name="switch" IsToggled="{Binding EnableReminder, Mode=TwoWay}" HorizontalOptions="EndAndExpand"/>
-          </StackLayout>          
-          <Grid Grid.Row="1" Margin="2,0,2,2" x:Name="holder"
-                BackgroundColor="{StaticResource WhiteColor}">
-            <StackLayout Padding="5" Orientation="Horizontal">
-              <!--date picker-->
-              <Grid HorizontalOptions="CenterAndExpand" IsEnabled="{Binding EnableReminder}">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="50"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <!--Image-->
-                <xlabs:ImageButton Grid.Row="0"
-                                   BackgroundColor="{StaticResource WhiteColor}"
-                                   HorizontalOptions="Center"
-                                   ImageHeightRequest="20"
-                                   ImageWidthRequest="20"
-                                   Image="_date.png"
-                                   BorderRadius="0"
-                                   CommandParameter="reminder"
-                                   Command="{Binding SelectDateCommand}"/>
-                <Label Grid.Row="1"
-                       HorizontalOptions="Center"
-                       Text="{Binding ReminderDate, StringFormat='{0:dd.MM.yyyy}'}"/>
-              </Grid>
-              <!--time picker-->
-              <Grid HorizontalOptions="CenterAndExpand">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="50"/>
-                  <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <!--Image-->
-                <xlabs:ImageButton Grid.Row="0"
-                                   Image="_remider_time.png"
-                                   ImageHeightRequest="20"
-                                   ImageWidthRequest="20"
-                                   BackgroundColor="{StaticResource WhiteColor}"
-                                   HorizontalOptions="Center"
-                                   BorderRadius="0"
-                                   Command="{Binding SelectTimeCommand}"
-                                   CommandParameter="reminder"/>
-                <Label Grid.Row="1"
-                       HorizontalOptions="Center"
-                       Text="{Binding ReminderDate, StringFormat='{0:HH:mm}'}"/>
-              </Grid>
-            </StackLayout>
-          </Grid>
-        </Grid>
+        <!--Tag-->
+        <StackLayout Grid.Column="0" Grid.Row="1"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+          <icons:IconImage VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="Center"
+                 Icon="fa-tags"
+                 IconColor="{StaticResource MetroBlackColor}"
+                 HeightRequest="30"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="1"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout Orientation="Vertical"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <controls:BindablePicker Margin="15,0"
+                                     ItemsSource="{Binding Tags}"
+                                     SelectedItem="{Binding SelectedTag, Mode=TwoWay}"
+                                     DisplayMemberPath="Title"
+                                     Title="Select tag"/>
+          </StackLayout>
+        </StackLayout>
+
+        <!--Priority-->
+        <StackLayout Grid.Column="0" Grid.Row="2"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+          <icons:IconImage VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="Center"
+                 Icon="fa-fire"
+                 IconColor="{StaticResource MetroBlackColor}"
+                 HeightRequest="30"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="2"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout Orientation="Vertical"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <controls:BindablePicker Margin="20,0"
+                                     ItemsSource="{Binding PriorityList}"
+                                     SelectedItem="{Binding Priority, Mode=TwoWay}"
+                                     Title="Select priority"/>
+          </StackLayout>
+        </StackLayout>
+
+        <!--Due date-->
+        <StackLayout Grid.Column="0" Grid.Row="3"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+
+          <xlabs:ImageButton Image="_duedate.png"
+                   ImageHeightRequest="35"
+                   ImageWidthRequest="35"
+                   BackgroundColor="{StaticResource MetroWhiteColor}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center"
+                   BorderRadius="0"
+                   Command="{Binding SelectDueDateCommand}"/>
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="3"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout BackgroundColor="{StaticResource WhiteColor}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <Label Text="{Binding DueTime, StringFormat='Due date  {0:dd.MM.yyyy HH:mm}'}"
+                   FontSize="17"
+                   Margin="25,0"
+                   TextColor="{StaticResource BlackColor}"
+                   VerticalTextAlignment="Start"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="StartAndExpand">
+            </Label>
+          </StackLayout>
+        </StackLayout>
+
+        <!--Reminder-->
+        <StackLayout Grid.Column="0" Grid.Row="4"
+                     Orientation="Vertical"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+          <Image HeightRequest="35"
+                 WidthRequest="35"
+                 Source="{Binding ReminderIcon}"
+                 VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="CenterAndExpand">
+            <!--triggers not working-->
+            <!--<Image.Triggers>
+              <DataTrigger TargetType="Image" Binding="{Binding EnabledReminder}" Value="True">
+                <Setter Property="Source" Value="_reminder.png"/>
+              </DataTrigger>
+              <DataTrigger TargetType="Image" Binding="{Binding EnabledReminder}" Value="False">
+                <Setter Property="Source" Value="_no_reminder.png"/>
+              </DataTrigger>
+            </Image.Triggers>-->
+          </Image>
+
+
+        </StackLayout>
+        <StackLayout Grid.Column="1" Grid.Row="4"
+                     BackgroundColor="{StaticResource MetroWhiteColor}"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand">
+          <StackLayout BackgroundColor="{StaticResource WhiteColor}"
+                       Orientation="Horizontal"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Margin="0,1,1,1">
+            <Label Text="Notification"
+                   FontSize="17"
+                   Margin="25,0,0,0"
+                   TextColor="{StaticResource BlackColor}"
+                   VerticalTextAlignment="Start"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Start"/>
+            <Switch IsToggled="{Binding EnableReminder, Mode=TwoWay}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Start"
+                    Margin="20,0"/>
+          </StackLayout>
+        </StackLayout>
+
         <!--Buttons-->
-        <StackLayout Margin="0,20,0,0"
-                    Orientation="Horizontal"
-                    HorizontalOptions="EndAndExpand"
-                    VerticalOptions="StartAndExpand">
+        <StackLayout Grid.Column="1" Grid.Row="5"
+                   Orientation="Horizontal" Margin="0,30"
+                   HorizontalOptions="EndAndExpand"
+                   VerticalOptions="CenterAndExpand">
           <xlabs:ImageButton
-                           BackgroundColor="{StaticResource MetroWhiteColor}"
-                           Text="SAVE" FontSize="12"
-                           IsEnabled="{Binding IsValid}"
-                           HorizontalOptions="StartAndExpand"
-                           HeightRequest="40"
-                           WidthRequest="100"
-                           BorderRadius="0"
-                           Command="{Binding SaveCommand}"/>
+                             BackgroundColor="{StaticResource MetroWhiteColor}"
+                             Text="SAVE" FontSize="12"
+                             IsEnabled="{Binding IsValid}"
+                             HorizontalOptions="StartAndExpand"
+                             HeightRequest="40"
+                             WidthRequest="100"
+                             BorderWidth="1"
+                             BorderColor="Green"
+                             BorderRadius="0"
+                             Command="{Binding SaveCommand}"/>
           <xlabs:ImageButton
                            BackgroundColor="{StaticResource MetroWhiteColor}"
                            Text="CANCEL"
@@ -213,10 +219,12 @@
                            BorderRadius="0"
                            HeightRequest="40"
                            WidthRequest="100"
+                           BorderWidth="1"
+                           BorderColor="Red"
                            FontSize="12"
                            Command="{Binding CancelCommand}"/>
         </StackLayout>
-      </StackLayout>
-    <!--</Grid>-->
+      </Grid>
+    </StackLayout>
   </ScrollView>
 </controls:BasePage>

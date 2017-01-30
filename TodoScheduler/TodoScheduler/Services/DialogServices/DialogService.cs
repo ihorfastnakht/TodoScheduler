@@ -28,8 +28,7 @@ namespace TodoScheduler.Services.DialogServices
                 {
                     MinimumDate = DateTime.Now,
                     OkText = "Ok",
-                    CancelText = "Cancel",
-                    IsCancellable = true
+                    IsCancellable = false
                 };
 
                 DatePromptResult result = await UserDialogs.Instance.DatePromptAsync(dateCfg);
@@ -48,7 +47,7 @@ namespace TodoScheduler.Services.DialogServices
 
             await UserDialogs.Instance.AlertAsync(alert);
         }
-        public async Task<TimeSpan> ShowTimeDialogAsync()
+        public async Task<TimeSpan> ShowTimeDialogAsync(DateTime date)
         {
             return await await Task.Factory.StartNew(async () =>
             {
@@ -57,11 +56,16 @@ namespace TodoScheduler.Services.DialogServices
                     MinuteInterval = 1,
                     Use24HourClock = true,
                     OkText = "Ok",
-                    CancelText = "Cancel",
-                    IsCancellable = true
+                    IsCancellable = false
                 };
 
                 TimePromptResult result = await UserDialogs.Instance.TimePromptAsync(timeCfg);
+
+                if (date.Date <= DateTime.Now)
+                {
+                    if (result.SelectedTime <= DateTime.Now.TimeOfDay)
+                        throw new Exception($"Selected time must be gather than now");
+                }
 
                 return result.SelectedTime;
             });

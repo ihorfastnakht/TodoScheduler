@@ -2,7 +2,6 @@
 using TodoScheduler.Base;
 using SQLite.Net.Attributes;
 using TodoScheduler.Enums;
-using System.Diagnostics;
 
 namespace TodoScheduler.Models
 {
@@ -11,74 +10,63 @@ namespace TodoScheduler.Models
     {
         #region private
 
-        // updated properties
-
-        readonly string[] dependendProps = new string[] { nameof(Status), nameof(RemainDisplay) };
+        readonly string[] dependendProps = new string[] { /*nameof(Status), */nameof(RemainDisplay) };
 
         int _id;
-        [AutoIncrement, PrimaryKey]
-        public int Id {
+        [AutoIncrement, PrimaryKey] public int Id {
             get { return _id; }
             set { SetProperty(ref _id, value); }
         }
 
         int _tagId;
-        [NotNull]
-        public int TagId {
+        [NotNull] public int TagId {
             get { return _tagId; }
             set { SetProperty(ref _tagId, value); }
         }
 
         string _title;
-        [NotNull, MaxLength(20)]
-        public string Title {
+        [NotNull, MaxLength(20)] public string Title {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
 
         string _description;
-        [NotNull, MaxLength(50)]
-        public string Description {
+        [NotNull, MaxLength(50)] public string Description {
             get { return _description; }
             set { SetProperty(ref _description, value); }
         }
 
         TodoPriority _priority = TodoPriority.Low;
-        [NotNull]
-        public TodoPriority Priority {
+        [NotNull] public TodoPriority Priority {
             get { return _priority; }
             set { SetProperty(ref _priority, value); }
         }
 
         DateTime? _createdDate;
-        [NotNull]
-        public DateTime? CreatedDate {
+        [NotNull] public DateTime? CreatedTime {
             get { return _createdDate; }
             set { SetProperty(ref _createdDate, value); }
         }
 
         DateTime? _dueDate;
-        [NotNull]
-        public DateTime? DueDate {
+        [NotNull] public DateTime? DueTime {
             get { return _dueDate; }
             set { SetProperty(ref _dueDate, value, dependendProperties: dependendProps); }
         }
 
         bool _isCompleted = false;
-        [NotNull]
-        public bool IsCompleted {
+        [NotNull] public bool IsCompleted {
             get { return _isCompleted; }
             set { SetProperty(ref _isCompleted, value, dependendProperties: dependendProps); }
         }
 
-        [Ignore]
-        public TagItem TagItem { get; set; }
+        [Ignore] public TagItem ParentTag { get; set; }
+        
         #endregion
 
         #region readonly properties
         
-        [Ignore]
-        public TodoStatus Status {
+        [Ignore] public TodoStatus Status {
             get
             {
                 if (IsCompleted)
@@ -90,13 +78,11 @@ namespace TodoScheduler.Models
             }
         }
 
-        [Ignore]
-        private double Remain => DueDate.HasValue 
-            ? DueDate.Value.Subtract(DateTime.Now).TotalMinutes 
-            : -1;
+        [Ignore] public double Remain => DueTime.HasValue 
+                                        ? DueTime.Value.Subtract(DateTime.Now).TotalMinutes 
+                                        : -1;
 
-        [Ignore]
-        public string RemainDisplay
+        [Ignore] public string RemainDisplay
         {
             get
             {

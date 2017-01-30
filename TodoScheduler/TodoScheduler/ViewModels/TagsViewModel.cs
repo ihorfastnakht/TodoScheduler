@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TodoScheduler.Base;
 using TodoScheduler.Enums;
@@ -55,9 +56,6 @@ namespace TodoScheduler.ViewModels
         {
             _dataService = dataService;
             _dialogService = dialogService;
-
-            MessagingCenter.Subscribe<CreateTagViewModel>(this, "refresh_tags", (sender) => LoadTagItems());
-            MessagingCenter.Subscribe<CreateTodoViewModel>(this, "refresh_todos", (sender) => LoadTagItems());
         }
 
         #endregion
@@ -108,6 +106,9 @@ namespace TodoScheduler.ViewModels
             try
             {
                 TagItems = null;
+#if DEBUG
+                await Task.Delay(500);
+#endif
                 var items = await _dataService.GetTagItemsAsync();
 
                 if (items.Any())
@@ -174,6 +175,12 @@ namespace TodoScheduler.ViewModels
         public override void Init(Dictionary<string, object> parameters = null)
         {
             base.Init(parameters);
+            LoadTagItems();
+        }
+
+        public override void Appearing()
+        {
+            base.Appearing();
             LoadTagItems();
         }
 
