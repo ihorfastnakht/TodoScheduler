@@ -64,9 +64,13 @@
     <Compile Include="Enums\TodoViewModelType.cs" />
     <Compile Include="Enums\ViewModelStates.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Models\TagItem.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="PageModel\Menu.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AppMainPage.xaml.cs">
       <DependentUpon>AppMainPage.xaml</DependentUpon>
     </Compile>
@@ -99,7 +103,9 @@
     <Compile Include="Services\NavigationServices\NavigationService.cs" />
     <Compile Include="Services\NotificationServices\INotificationService.cs" />
     <Compile Include="Services\NotificationServices\NotificationService.cs" />
+    <Compile Include="Services\PlatformServices\IAppVersionService.cs" />
     <Compile Include="Services\PlatformServices\ISqliteConnectionService.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\CreateTagViewModel.cs" />
     <Compile Include="ViewModels\CreateTodoViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
@@ -236,6 +242,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TodayPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\AboutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

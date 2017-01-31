@@ -126,6 +126,7 @@ namespace TodoScheduler.ViewModels
                 if (!result)
                     return;
 
+                await _notificationService.CancelTodoNotificationAsync(todo);
                 await _dataService.RemoveTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync("Todo has been removed", TimeSpan.FromSeconds(2));
 
@@ -149,6 +150,7 @@ namespace TodoScheduler.ViewModels
 
                 todo.IsCompleted = true;
 
+                await _notificationService.CancelTodoNotificationAsync(todo);
                 await _dataService.UpdateTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync("Congratulation, todo has been completed", TimeSpan.FromSeconds(2));
 
@@ -181,10 +183,11 @@ namespace TodoScheduler.ViewModels
                 if (time == null) return;
 
                 todo.DueTime = new DateTime(date.Year, date.Month, date.Day,
-                            time.Hours, time.Minutes, time.Seconds);     
-                               
-                
+                            time.Hours, time.Minutes, time.Seconds);
 
+
+                await _notificationService.CancelTodoNotificationAsync(todo);
+                todo.ReminderId = await _notificationService.SendNotificationAsync(todo.Title, todo.Description, todo.DueTime.Value);
                 await _dataService.UpdateTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync("Todo due date has been updated", TimeSpan.FromSeconds(2));
 
@@ -291,6 +294,12 @@ namespace TodoScheduler.ViewModels
         {
             base.Appearing();
             RefreshCommandExecute();
+        }
+
+        public override void Disappearing()
+        {
+            base.Disappearing();
+            TodoItems = null;
         }
 
         #endregion

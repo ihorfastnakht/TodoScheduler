@@ -54,11 +54,18 @@ namespace TodoScheduler.Models
             set { SetProperty(ref _dueDate, value, dependendProperties: dependendProps); }
         }
 
+        string _reminderId;
+        public string ReminderId {
+            get { return _reminderId; }
+            set { SetProperty(ref _reminderId, value); }
+        }
+
         bool _isCompleted = false;
         [NotNull] public bool IsCompleted {
             get { return _isCompleted; }
             set { SetProperty(ref _isCompleted, value, dependendProperties: dependendProps); }
         }
+
 
         [Ignore] public TagItem ParentTag { get; set; }
         
@@ -72,7 +79,7 @@ namespace TodoScheduler.Models
                 if (IsCompleted)
                     return TodoStatus.Completed;
                 if (!IsCompleted && Remain <= 0)
-                    return TodoStatus.Failed;
+                    return TodoStatus.Postponed;
 
                 return TodoStatus.InProcess;
             }

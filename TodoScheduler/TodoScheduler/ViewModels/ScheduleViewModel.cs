@@ -10,6 +10,8 @@ using TodoScheduler.Base;
 using TodoScheduler.Models;
 using System.Collections.ObjectModel;
 using TodoScheduler.Enums;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace TodoScheduler.ViewModels
 {
@@ -25,43 +27,47 @@ namespace TodoScheduler.ViewModels
 
         #endregion
 
+
         #region override
 
-        public override void Init(Dictionary<string, object> parameters = null)
-        {
-            base.Init(parameters);
-            Header = "Schedule";
-        }
         protected async override void LoadTodayTodos()
         {
-            //base.LoadTodayTodos();
             try
             {
-                if (State == VmState.Busy) return;
+                if (State == VmState.Busy)
+                    return;
                 State = VmState.Busy;
 
                 var todos = await _dataService.GetTodoItemsAsync();
-                if (todos.Any())
-                {
-                    var groupByTag = from todoItem in todos
-                                     where todoItem.Status == TodoStatus.InProcess
-                                     orderby todoItem.Remain,
-                                             todoItem.Priority descending
-                                     group todoItem by todoItem.ParentTag
-                                into grouped
-                                     select new Grouping<object, TodoItem>(grouped.Key, grouped);
-                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
 
+                var groupByTag = from todoItem in todos
+                                 where todoItem.Status == TodoStatus.InProcess || todoItem.Status == TodoStatus.Postponed
+                                 orderby todoItem.Remain,
+                                         todoItem.Priority descending
+                                 group todoItem by todoItem.ParentTag
+                                 into grouped
+                                 select new Grouping<object, TodoItem>(grouped.Key, grouped);
+                if (groupByTag.Any())
+                {
+                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
                     State = VmState.Normal;
                 }
                 else
+                {
                     State = VmState.NoData;
+                }
             }
             catch (Exception ex)
             {
                 await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
             }
         }
+
+        public override void Init(Dictionary<string, object> parameters = null)
+        {
+            Header = "Schedule";
+        }
+
         public override string NoDataText
         {
             get

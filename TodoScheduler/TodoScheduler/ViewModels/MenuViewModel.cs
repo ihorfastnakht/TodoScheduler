@@ -55,19 +55,19 @@ namespace TodoScheduler.ViewModels
             //Create menu groups
             MenuGroup tagGroup = new MenuGroup() { Id = 0, Icon = "tags.png", Title = "Tag items" };
             MenuGroup todoGroup = new MenuGroup() { Id = 1, Icon = "todos.png", Title = "Todo items" };
-            MenuGroup configGroup = new MenuGroup() { Id = 2, Icon = "settings.png", Title = "Settings" };
+            MenuGroup configGroup = new MenuGroup() { Id = 2, Icon = "_info.png", Title = "Information" };
             //Create menu items
 
             var menuItems = new List<MenuItem>()
             {
                 //Tags
-                new MenuItem() { Group = tagGroup, Icon = "tag.png", Title = "Tags", ViewModelType = typeof(TagsViewModel) },
+                new MenuItem() { Group = tagGroup, Icon = "_tags.png", Title = "Tags", ViewModelType = typeof(TagsViewModel) },
                 //Todos
                 new MenuItem() { Group = todoGroup, Icon = "today.png", Title = "Today", ViewModelType = typeof(TodayViewModel) },
                 new MenuItem() { Group = todoGroup, Icon = "tomorrow.png", Title = "Tomorrow", ViewModelType = typeof(TomorrowViewModel) },
                 new MenuItem() { Group = todoGroup, Icon = "schedule.png", Title = "Schedule", ViewModelType = typeof(ScheduleViewModel) },
                 //Settings
-                new MenuItem() { Group = configGroup, Icon = "about.png", Title = "About", ViewModelType = null }
+                new MenuItem() { Group = configGroup, Icon = "_info_.png", Title = "About", ViewModelType = typeof(AboutViewModel) }
             };
 
             var groupedMenuItems = from menu in menuItems

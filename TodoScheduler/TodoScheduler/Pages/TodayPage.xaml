@@ -21,10 +21,6 @@
   <controls:BasePage.ToolbarItems>
     <ToolbarItem Icon="refresh.png" Command="{Binding RefreshCommand}" Order="Primary"/>
     <ToolbarItem Icon="plus.png" Command="{Binding AddTodoCommand}" Name="Add new todo" Order="Primary"/>
-    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="date"
-                 Name="Group by date" Order="Secondary"/>
-    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="priority"
-                 Name="Group by priority" Order="Secondary"/>
   </controls:BasePage.ToolbarItems>
   <controls:StateContainer State="{Binding State}">
     <controls:StateCondition State="Normal">
@@ -50,7 +46,7 @@
                 <ViewCell>
                   <Grid HeightRequest="50"
                         BackgroundColor="{Binding Key.HexColor}"
-                        Margin="0,5,0,0">
+                        Margin="5">
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="Auto"/>
                       <ColumnDefinition/>
@@ -98,6 +94,10 @@
                                                HeightRequest="20"/>
                             <Label Text="{Binding RemainDisplay}" Font="12"
                                    VerticalOptions="Center"/>
+                            <Label HorizontalOptions="EndAndExpand"
+                                   Margin="0,0,10,0"
+                                   Text="{Binding DueTime, StringFormat='Due: {0:dd.MM.yyyy HH:mm}'}"
+                                   Font="12"/>
                           </StackLayout>
                         </StackLayout>
                         <Grid Grid.Row="1">
@@ -172,7 +172,6 @@
                                              CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
 
                           <xlabs:ImageButton Grid.Column="3"
-                                             IsVisible="{Binding Source={x:Reference cell}, Path=BindingContext.Status, Converter={StaticResource StatusToBool}}"
                                              BackgroundColor="{StaticResource WhiteColor}"
                                              ImageHeightRequest="20"
                                              Orientation="ImageToLeft"
@@ -184,7 +183,7 @@
                                              Margin="0,0,10,10"
                                              HorizontalOptions="FillAndExpand"
                                              VerticalOptions="FillAndExpand"
-                                             Command="{Binding CompleteTodoCommand}"
+                                             Command="{Binding CompleteCommand}"
                                              BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                              CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
                         </Grid>

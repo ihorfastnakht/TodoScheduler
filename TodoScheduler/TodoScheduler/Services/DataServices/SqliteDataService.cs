@@ -22,6 +22,7 @@ namespace TodoScheduler.Services.DataServices
         public SqliteDataService()
         {
             _database = DependencyService.Get<ISqliteConnectionService>().GetDatabaseConnection();
+            
             _database.CreateTable<TagItem>();
             _database.CreateTable<TodoItem>();
 

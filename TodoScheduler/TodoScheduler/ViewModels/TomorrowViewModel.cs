@@ -8,6 +8,7 @@ using TodoScheduler.Models;
 using TodoScheduler.Services.DataServices;
 using TodoScheduler.Services.DialogServices;
 using TodoScheduler.Services.NotificationServices;
+using TodoScheduler.Helpers;
 
 namespace TodoScheduler.ViewModels
 {
@@ -33,21 +34,23 @@ namespace TodoScheduler.ViewModels
                 State = VmState.Busy;
 
                 var todos = await _dataService.GetTodoItemsAsync(DateTime.Now.AddDays(1));
-                if (todos.Any())
-                {
-                    var groupByTag = from todoItem in todos
-                                     where todoItem.Status == TodoStatus.InProcess
-                                     orderby todoItem.Remain,
-                                             todoItem.Priority descending
-                                     group todoItem by todoItem.ParentTag
-                                into grouped
-                                     select new Grouping<object, TodoItem>(grouped.Key, grouped);
-                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
 
+                var groupByTag = from todoItem in todos
+                                 where todoItem.Status == TodoStatus.InProcess || todoItem.Status == TodoStatus.Postponed
+                                 orderby todoItem.Remain,
+                                         todoItem.Priority descending
+                                 group todoItem by todoItem.ParentTag
+                                 into grouped
+                                 select new Grouping<object, TodoItem>(grouped.Key, grouped);
+                if (groupByTag.Any())
+                {
+                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
                     State = VmState.Normal;
                 }
                 else
+                {
                     State = VmState.NoData;
+                }
             }
             catch (Exception ex)
             {
@@ -58,7 +61,7 @@ namespace TodoScheduler.ViewModels
         public override void Init(Dictionary<string, object> parameters = null)
         {
             base.Init(parameters);
-            Header = $"Tomorrow ({DateTime.Now.DayOfWeek}, {DateTime.Now.ToString("dd.MM.yyyy")})";
+            Header = $"Tomorrow ({StringHelper.DayCutter(DateTime.Now.AddDays(1).DayOfWeek.ToString())}, {DateTime.Now.AddDays(1).ToString("dd.MM.yyyy")})";
         }
 
         public override string NoDataText
@@ -67,7 +70,6 @@ namespace TodoScheduler.ViewModels
             {
                 return "There are no todos for tomorrow";
             }
-
             set
             {
                 base.NoDataText = value;

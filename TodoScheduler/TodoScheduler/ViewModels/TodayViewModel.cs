@@ -69,15 +69,29 @@ namespace TodoScheduler.ViewModels
             set { SetProperty(ref _addTodoCommand, value); }
         }
 
-        ICommand _selectHeaderCommand;
-        public ICommand SelectHeaderCommand {
-            get { return _selectHeaderCommand ?? new Command(SelectHeaderCommandExecute); }
-            set { SetProperty(ref _selectHeaderCommand, value); }
+        ICommand _completeCommand;
+        public ICommand CompleteCommand {
+            get { return _completeCommand ?? new Command<TodoItem>(CompleteCommandExecute); }
+            set { SetProperty(ref _completeCommand, value); }
+        }
+
+
+        ICommand _updateDueDateCommand;
+        public ICommand UpdateDueDateCommand {
+            get { return _updateDueDateCommand ?? new Command<TodoItem>(UpdateDueDateCommandExecute); }
+            private set { SetProperty(ref _updateDueDateCommand, value); }
+        }
+
+        ICommand _removeTodoCommand;
+        public ICommand RemoveTodoCommand {
+            get { return _removeTodoCommand ?? new Command<TodoItem>(RemoveTodoCommandExecute); }
+            set { SetProperty(ref _removeTodoCommand, value); }
         }
 
         #endregion
 
         #region private
+
 
         protected virtual async void LoadTodayTodos()
         {
@@ -87,21 +101,46 @@ namespace TodoScheduler.ViewModels
                 State = VmState.Busy;
 
                 var todos = await _dataService.GetTodoItemsAsync(DateTime.Now);
-                if (todos.Any())
-                {
-                    var groupByTag = from todoItem in todos
-                                     where todoItem.Status == TodoStatus.InProcess
-                                     orderby todoItem.Remain,
-                                             todoItem.Priority descending
-                                     group todoItem by todoItem.ParentTag
-                                into grouped
-                                     select new Grouping<object, TodoItem>(grouped.Key, grouped);
-                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
 
+                var groupByTag = from todoItem in todos
+                                 where todoItem.Status == TodoStatus.InProcess || todoItem.Status == TodoStatus.Postponed
+                                 orderby todoItem.Remain,
+                                         todoItem.Priority descending
+                                 group todoItem by todoItem.ParentTag
+                                 into grouped
+                                 select new Grouping<object, TodoItem>(grouped.Key, grouped);
+                if (groupByTag.Any())
+                {
+                    GroupedTodoItems = new ObservableCollection<Grouping<object, TodoItem>>(groupByTag);
                     State = VmState.Normal;
                 }
                 else
+                {
                     State = VmState.NoData;
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
+            }
+        }
+        private async void CompleteCommandExecute(TodoItem todo)
+        {
+            try
+            {
+                if (todo == null) return;
+
+                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Did you compeleted this todo?", "Yes", "Not yet");
+                if (!result)
+                    return;
+
+                todo.IsCompleted = true;
+
+                await _notificationService.CancelTodoNotificationAsync(todo);
+                await _dataService.UpdateTodoItemAsync(todo);
+                await _dialogService.ShowToastMessageAsync("Congratulation, todo has been completed", TimeSpan.FromSeconds(2));
+                //Refresh todos after completed
+                LoadTodayTodos();
             }
             catch (Exception ex)
             {
@@ -109,22 +148,61 @@ namespace TodoScheduler.ViewModels
             }
         }
 
-
-        private void SelectHeaderCommandExecute(object item)
+        private async void RemoveTodoCommandExecute(TodoItem todo)
         {
-            /*
-            var selectable = (SelectableObject<Grouping<object, TodoItem>>)item;
-            selectable.IsSelected = !selectable.IsSelected;
-
-            if (!selectable.IsSelected)
+            try
             {
-                selectable.Item.Clear();
-            }
-            else
-            {
+                if (todo == null) return;
 
+                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Remove this todo (it isn't complete)?");
+                if (!result)
+                    return;
+
+                await _notificationService.CancelTodoNotificationAsync(todo);
+                await _dataService.RemoveTodoItemAsync(todo);
+                await _dialogService.ShowToastMessageAsync("Todo has been removed", TimeSpan.FromSeconds(2));
+                LoadTodayTodos();
             }
-            */
+            catch (Exception ex)
+            {
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
+            }
+        }
+
+        private async void UpdateDueDateCommandExecute(TodoItem todo)
+        {
+            try
+            {
+                if (todo.IsCompleted)
+                {
+                    var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"This todo already marked as 'completed'. Do you want to update due date for this todo?", "Yes", "No");
+                    if (!result)
+                        return;
+
+                    todo.IsCompleted = false;
+                }
+
+                if (todo == null) return;
+                var date = await _dialogService.ShowDateDialogAsync();
+                if (date == null) return;
+                var time = await _dialogService.ShowTimeDialogAsync(date);
+
+                if (time == null) return;
+
+                todo.DueTime = new DateTime(date.Year, date.Month, date.Day,
+                            time.Hours, time.Minutes, time.Seconds);
+
+
+                await _notificationService.CancelTodoNotificationAsync(todo);
+                todo.ReminderId = await _notificationService.SendNotificationAsync(todo.Title, todo.Description, todo.DueTime.Value);
+                await _dataService.UpdateTodoItemAsync(todo);
+                await _dialogService.ShowToastMessageAsync("Todo due date has been updated", TimeSpan.FromSeconds(2));
+                LoadTodayTodos();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowErrorMessageAsync("Oops", ex.Message);
+            }
         }
 
         #endregion
@@ -134,7 +212,7 @@ namespace TodoScheduler.ViewModels
         public override void Init(Dictionary<string, object> parameters = null)
         {
             base.Init(parameters);
-            Header = $"Today ({DateTime.Now.DayOfWeek}, {DateTime.Now.ToString("dd.MM.yyyy")})";
+            Header = $"Today ({Helpers.StringHelper.DayCutter(DateTime.Now.DayOfWeek.ToString())}, {DateTime.Now.ToString("dd.MM.yyyy")})";
             LoadTodayTodos();
         }
 
@@ -142,6 +220,12 @@ namespace TodoScheduler.ViewModels
         {
             base.Appearing();
             LoadTodayTodos();
+        }
+
+        public override void Disappearing()
+        {
+            base.Disappearing();
+            GroupedTodoItems = null;
         }
 
         #endregion

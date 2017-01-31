@@ -13,7 +13,7 @@ namespace TodoScheduler.Converters
 
             if (status == TodoStatus.Completed)
                 return "#00CC00";
-            if (status == TodoStatus.Failed)
+            if (status == TodoStatus.Postponed)
                 return "#FF0000";
 
             return "#808080";

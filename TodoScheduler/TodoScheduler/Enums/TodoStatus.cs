@@ -4,6 +4,6 @@
     {
         InProcess = 0,
         Completed,
-        Failed
+        Postponed
     }
 }

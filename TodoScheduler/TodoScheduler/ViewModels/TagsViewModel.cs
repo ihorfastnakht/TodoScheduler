@@ -184,6 +184,13 @@ namespace TodoScheduler.ViewModels
             LoadTagItems();
         }
 
+        public override void Disappearing()
+        {
+            base.Disappearing();
+            SearchedText = string.Empty;
+            TagItems = null;
+        }
+
         #endregion
     }
 }

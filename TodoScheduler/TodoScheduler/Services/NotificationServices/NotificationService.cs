@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Acr.Notifications;
 using System.Diagnostics;
+using TodoScheduler.Models;
 
 namespace TodoScheduler.Services.NotificationServices
 {
@@ -9,9 +10,9 @@ namespace TodoScheduler.Services.NotificationServices
     {
         #region INotificationService implementation
 
-        public async Task SendNotificationAsync(string title, string message, DateTime date)
+        public async Task<string> SendNotificationAsync(string title, string message, DateTime date)
         {
-            await Task.Factory.StartNew(() => {
+            return await Task.Factory.StartNew(() => {
                 var notification = new Notification() {
                     Title = title,
                     Message = message
@@ -19,7 +20,17 @@ namespace TodoScheduler.Services.NotificationServices
 
                 notification.SetSchedule(date);
                 notification.Vibrate = true;
-                Notifications.Instance.Send(notification);
+                return Notifications.Instance.Send(notification);
+            });
+        }
+
+        public async Task CancelTodoNotificationAsync(TodoItem todo)
+        {
+            await Task.Factory.StartNew(() =>
+            {
+                if (todo == null)
+                    return;
+                Notifications.Instance.Cancel(todo.ReminderId);
             });
         }
 

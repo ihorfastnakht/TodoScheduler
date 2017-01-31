@@ -48,9 +48,11 @@
                        Margin="0,1,1,1">
             <Entry Text="{Binding Title}"
                    Placeholder="Type todo title"
+                   VerticalOptions="EndAndExpand"
                    Keyboard="Text"
                    Margin="15,0,15,2"/>
             <Entry Text="{Binding Description}"
+                   VerticalOptions="EndAndExpand"
                    Placeholder="Type todo description"
                    Keyboard="Text"
                    Margin="15,2,15,10"/>
@@ -78,11 +80,12 @@
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        Margin="0,1,1,1">
-            <controls:BindablePicker Margin="15,0"
+            <controls:BindablePicker Margin="20,5"
                                      ItemsSource="{Binding Tags}"
                                      SelectedItem="{Binding SelectedTag, Mode=TwoWay}"
                                      DisplayMemberPath="Title"
-                                     Title="Select tag"/>
+                                     Title="Select tag"
+                                     VerticalOptions="EndAndExpand"/>
           </StackLayout>
         </StackLayout>
 
@@ -107,10 +110,11 @@
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
                        Margin="0,1,1,1">
-            <controls:BindablePicker Margin="20,0"
+            <controls:BindablePicker Margin="20,5"
                                      ItemsSource="{Binding PriorityList}"
                                      SelectedItem="{Binding Priority, Mode=TwoWay}"
-                                     Title="Select priority"/>
+                                     Title="Select priority"
+                                     VerticalOptions="EndAndExpand"/>
           </StackLayout>
         </StackLayout>
 

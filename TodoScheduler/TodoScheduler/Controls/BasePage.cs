@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoScheduler.Base;
+﻿using TodoScheduler.Base;
 using TodoScheduler.Converters;
 using Xamarin.Forms;
 
@@ -26,6 +21,14 @@ namespace TodoScheduler.Controls
             var viewModel = (ViewModelBase)this.BindingContext;
             if (viewModel != null)
                 viewModel.Appearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var viewModel = (ViewModelBase)this.BindingContext;
+            if (viewModel != null)
+                viewModel.Disappearing();
         }
     }
 }

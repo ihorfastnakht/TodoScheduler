@@ -199,11 +199,11 @@ namespace TodoScheduler.ViewModels
                     IsCompleted = false
                 };
 
+                if (EnableReminder)
+                    todo.ReminderId = await _notificationService.SendNotificationAsync(todo.Title, todo.Description, DueTime.Value);
+
                 await _dataService.CreateTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync($"Todo has been created", TimeSpan.FromSeconds(2));
-
-                if (EnableReminder)
-                    await _notificationService.SendNotificationAsync(todo.Title, todo.Description, DueTime.Value);
 
                 MessagingCenter.Send(this, "refresh_tags");
                 await Navigation.CloseAsync();

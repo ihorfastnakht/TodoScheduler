@@ -7,8 +7,8 @@
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TodoScheduler.Base.BehaviorBase&lt;T&gt;" Collapsed="true">
-    <Position X="4.75" Y="1" Width="2" />
+  <Class Name="TodoScheduler.Base.BehaviorBase&lt;T&gt;">
+    <Position X="3.75" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAgAAAABIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\BehaviorBase.cs</FileName>
@@ -44,7 +44,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TodoScheduler.Behaviors.EventToCommandBehavior" Collapsed="true">
-    <Position X="1.5" Y="1" Width="2.5" />
+    <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAQAAIAAABIIgABIABAYAAAAAAICACAAAQAAA=</HashCode>
       <FileName>Behaviors\EventToCommandBehavior.cs</FileName>
@@ -53,7 +53,7 @@
   <Class Name="TodoScheduler.Controls.BasePage" Collapsed="true">
     <Position X="9" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controls\BasePage.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -329,28 +329,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TodoScheduler.ViewModels.TagDetailViewModel" Collapsed="true">
-    <Position X="5" Y="3.25" Width="1.5" />
+    <Position X="5" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAIMAIFAEBQgEIgAgCsAAAEAAAACAAUBAAACggEEAAA=</HashCode>
+      <HashCode>AAIMAIFAEBQgEIgAgCsAAAEAAAACACUBAAACggEEAAA=</HashCode>
       <FileName>ViewModels\TagDetailViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TodoScheduler.ViewModels.TagsViewModel" Collapsed="true">
     <Position X="7.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAAAQAABCAgCIICACAIAAQgAUAAAACCgEECKA=</HashCode>
+      <HashCode>gAAAAAAAAAQAABCAgCIICACAIAAQgCUAAAACCgEECKA=</HashCode>
       <FileName>ViewModels\TagsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TodoScheduler.ViewModels.TodayViewModel" Collapsed="true">
     <Position X="10.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABIAAAAEABAAAAAgAoCAAIAAAQAAAUAIAACAgEEQAA=</HashCode>
+      <HashCode>AAIcAAAAEABAAIEAgAsCAAMAAAQAACUAAAACggEEAAA=</HashCode>
       <FileName>ViewModels\TodayViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TodoScheduler.ViewModels.TomorrowViewModel" Collapsed="true">
-    <Position X="9.5" Y="4.75" Width="1.5" />
+    <Position X="8.75" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>ViewModels\TomorrowViewModel.cs</FileName>
@@ -408,7 +408,7 @@
   <Enum Name="TodoScheduler.Enums.TodoStatus" Collapsed="true">
     <Position X="30.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums\TodoStatus.cs</FileName>
     </TypeIdentifier>
   </Enum>
