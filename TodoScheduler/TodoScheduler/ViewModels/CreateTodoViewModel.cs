@@ -200,8 +200,8 @@ namespace TodoScheduler.ViewModels
                 };
 
                 if (EnableReminder)
-                    todo.ReminderId = await _notificationService.SendNotificationAsync(todo.Title, todo.Description, DueTime.Value);
-
+                    todo.ReminderId = await _notificationService.SendNotificationAsync("Todo scheduler", $"Did You forget about :'{todo.Title}'?", DueTime.Value);
+                
                 await _dataService.CreateTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync($"Todo has been created", TimeSpan.FromSeconds(2));
 

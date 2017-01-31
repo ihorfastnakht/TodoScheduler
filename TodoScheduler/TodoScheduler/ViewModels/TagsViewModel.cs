@@ -133,7 +133,7 @@ namespace TodoScheduler.ViewModels
             {
                 if (State == VmState.Busy) return;
           
-                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Remove tag ({tag.Title}) permanently?");
+                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Do You want to remove tag ({tag.Title}) permanently?");
 
                 if (result)
                 {

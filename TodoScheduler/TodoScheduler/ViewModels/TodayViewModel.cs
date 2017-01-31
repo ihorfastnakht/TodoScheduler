@@ -194,7 +194,7 @@ namespace TodoScheduler.ViewModels
 
 
                 await _notificationService.CancelTodoNotificationAsync(todo);
-                todo.ReminderId = await _notificationService.SendNotificationAsync(todo.Title, todo.Description, todo.DueTime.Value);
+                todo.ReminderId = await _notificationService.SendNotificationAsync("Todo scheduler", $"Did You forget about :'{todo.Title}'?", todo.DueTime.Value);
                 await _dataService.UpdateTodoItemAsync(todo);
                 await _dialogService.ShowToastMessageAsync("Todo due date has been updated", TimeSpan.FromSeconds(2));
                 LoadTodayTodos();

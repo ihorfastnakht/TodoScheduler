@@ -122,7 +122,7 @@ namespace TodoScheduler.ViewModels
             {
                 if (todo == null) return;
 
-                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Remove this todo?");
+                var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"Do You want to remove this todo?");
                 if (!result)
                     return;
 
@@ -168,7 +168,7 @@ namespace TodoScheduler.ViewModels
             {
                 if (todo.IsCompleted)
                 {
-                    var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"This todo already marked as 'completed'. Do you want to update due date for this todo?", "Yes", "No");
+                    var result = await _dialogService.ShowConfirmMessageAsync("Confirm", $"This todo already marked as 'completed'. Do You want to update due date for this todo?", "Yes", "No");
                     if (!result)
                         return;
 

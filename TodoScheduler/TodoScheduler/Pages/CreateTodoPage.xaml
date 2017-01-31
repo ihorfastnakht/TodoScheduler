@@ -212,8 +212,6 @@
                              HorizontalOptions="StartAndExpand"
                              HeightRequest="40"
                              WidthRequest="100"
-                             BorderWidth="1"
-                             BorderColor="Green"
                              BorderRadius="0"
                              Command="{Binding SaveCommand}"/>
           <xlabs:ImageButton
@@ -223,8 +221,6 @@
                            BorderRadius="0"
                            HeightRequest="40"
                            WidthRequest="100"
-                           BorderWidth="1"
-                           BorderColor="Red"
                            FontSize="12"
                            Command="{Binding CancelCommand}"/>
         </StackLayout>
