@@ -24,6 +24,8 @@
                  Name="Group by date" Order="Secondary"/>
     <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="priority" 
                  Name="Group by priority" Order="Secondary"/>
+    <ToolbarItem Command="{Binding GroupCommand}" CommandParameter="status"
+             Name="Group by status" Order="Secondary"/>
   </controls:BasePage.ToolbarItems>
   <controls:StateContainer State="{Binding State}">
     <controls:StateCondition State="Normal">
@@ -48,7 +50,7 @@
               <DataTemplate>
                 <ViewCell>
                   <Grid HeightRequest="50"
-                        BackgroundColor="{Binding TodoItem.ParentTag.HexColor}"
+                        BackgroundColor="{Binding Tag.HexColor}"
                         Margin="5">
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="Auto"/>
@@ -83,19 +85,19 @@
                           <RowDefinition/>
                           <RowDefinition Height="40"/>
                           <RowDefinition Height="1"/>
-                          <RowDefinition Height="40"/>
+                          <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <StackLayout Grid.Row="0" Orientation="Vertical" Padding="5">
                           <Label Text="{Binding Title}" FontSize="17"
                                  FontAttributes="Bold"/>
                           <Label Text="{Binding Description}"
                                  FontSize="12" FontAttributes="Italic"/>
-                          <StackLayout Orientation="Horizontal" 
-                                       IsVisible="{Binding Status, Converter={StaticResource StatusToBool}}">
+                          <StackLayout Orientation="Horizontal" IsVisible="{Binding Status, Converter={StaticResource StatusToBool}}">
                             <iconize:IconImage Grid.Column="0" Icon="fa-clock-o"
                                                VerticalOptions="Center"
                                                HeightRequest="20"/>
                             <Label Text="{Binding RemainDisplay}" Font="12"
+                                   HorizontalTextAlignment="End"
                                    VerticalOptions="Center"/>
                           </StackLayout>
                         </StackLayout>
@@ -122,7 +124,8 @@
                             <Label Text="{Binding Priority}" VerticalOptions="Center"/>
                           </StackLayout>
 
-                          <StackLayout Grid.Column="2" Padding="5" Margin="0,0,5,0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"  Orientation="Horizontal">
+                          <StackLayout Grid.Column="2" Padding="5" Margin="0,0,5,0" HorizontalOptions="EndAndExpand" 
+                                       VerticalOptions="CenterAndExpand"  Orientation="Horizontal">
                             <Label Text="{Binding Status}" 
                                    TextColor="{Binding Status, Converter={StaticResource StatusToColor}}"
                                    VerticalOptions="Center"/>
@@ -170,7 +173,8 @@
                                              BindingContext="{Binding Source={x:Reference list}, Path=BindingContext}"
                                              CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
                           
-                          <xlabs:ImageButton Grid.Column="3"
+                          <xlabs:ImageButton Grid.Column="3"               
+                                             IsVisible="{Binding Source={x:Reference cell}, Path=BindingContext.Status, Converter={StaticResource StatusToBool}}"
                                              BackgroundColor="{StaticResource WhiteColor}"
                                              ImageHeightRequest="20"
                                              Orientation="ImageToLeft"

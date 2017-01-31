@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace TodoScheduler.Android
 {
-    [Activity(Label = "TodoScheduler", Icon = "@drawable/icon", Theme = "@style/MainTheme", 
+    [Activity(Label = "Todo scheduler", Icon = "@drawable/icon", Theme = "@style/MainTheme", 
         MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

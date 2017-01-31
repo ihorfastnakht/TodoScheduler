@@ -13,9 +13,11 @@ namespace TodoScheduler.Services.NotificationServices
         public async Task<string> SendNotificationAsync(string title, string message, DateTime date)
         {
             return await Task.Factory.StartNew(() => {
+
+                Notifications.Instance.Vibrate(2000);
                 var notification = new Notification() {
                     Title = title,
-                    Message = message
+                    Message = message,
                 };
 
                 notification.SetSchedule(date);

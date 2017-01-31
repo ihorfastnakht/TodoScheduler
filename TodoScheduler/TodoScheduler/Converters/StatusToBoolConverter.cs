@@ -10,7 +10,8 @@ namespace TodoScheduler.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (TodoStatus)value;
-            if (status == TodoStatus.Postponed || status == TodoStatus.Completed)
+
+            if (status == TodoStatus.Completed)
                 return false;
 
             return true;

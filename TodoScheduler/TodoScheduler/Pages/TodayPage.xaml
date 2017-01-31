@@ -87,8 +87,7 @@
                                  FontAttributes="Bold"/>
                           <Label Text="{Binding Description}"
                                  FontSize="12" FontAttributes="Italic"/>
-                          <StackLayout Orientation="Horizontal"
-                                       IsVisible="{Binding Status, Converter={StaticResource StatusToBool}}">
+                          <StackLayout Orientation="Horizontal" IsVisible="{Binding Status, Converter={StaticResource StatusToBool}}">
                             <iconize:IconImage Grid.Column="0" Icon="fa-clock-o"
                                                VerticalOptions="Center"
                                                HeightRequest="20"/>
@@ -97,6 +96,7 @@
                             <Label HorizontalOptions="EndAndExpand"
                                    Margin="0,0,10,0"
                                    Text="{Binding DueTime, StringFormat='Due: {0:dd.MM.yyyy HH:mm}'}"
+                                   HorizontalTextAlignment="End"
                                    Font="12"/>
                           </StackLayout>
                         </StackLayout>
@@ -107,7 +107,8 @@
                             <ColumnDefinition Width="*"/>
                           </Grid.ColumnDefinitions>
 
-                          <StackLayout Grid.Column="0" Padding="5" Margin="5,0,0,0" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                          <StackLayout Grid.Column="0" Padding="5" Margin="5,0,0,0" 
+                                       HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
                             <iconize:IconImage Grid.Column="0" Icon="fa-tag"
                                                IconColor="{Binding ParentTag.HexColor}"
                                                VerticalOptions="Center"
@@ -172,6 +173,8 @@
                                              CommandParameter="{Binding Source={x:Reference cell}, Path=BindingContext}"/>
 
                           <xlabs:ImageButton Grid.Column="3"
+                                             IsEnabled="{Binding Status, Converter={StaticResource StatusToBool}}"
+                                             IsVisible="{Binding Status, Converter={StaticResource BoolInvertor}}"
                                              BackgroundColor="{StaticResource WhiteColor}"
                                              ImageHeightRequest="20"
                                              Orientation="ImageToLeft"

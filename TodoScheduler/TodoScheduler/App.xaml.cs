@@ -55,7 +55,7 @@ namespace TodoScheduler
         {
             MasterDetailPage mainPage = new MasterDetailPage();
             mainPage.Master = ResolvePage(typeof(MenuViewModel));
-            mainPage.Detail = new NavigationPage(ResolvePage(typeof(TagsViewModel)));
+            mainPage.Detail = new NavigationPage(ResolvePage(typeof(TodayViewModel)));
 
             return mainPage;
         }

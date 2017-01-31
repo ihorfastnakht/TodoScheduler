@@ -187,7 +187,7 @@ namespace TodoScheduler.Services.DataServices
                 var todos = _database.Table<TodoItem>()
                                      .ToList()
                                      .Where(t => t.DueTime.Value.Date == date.Date
-                                            && t.Status == Enums.TodoStatus.InProcess);
+                                            && (t.Status == Enums.TodoStatus.InProcess || t.Status == Enums.TodoStatus.Postponed));
 
                 foreach (var todo in todos)
                     todo.ParentTag = tags.Where(t => t.Id == todo.TagId).FirstOrDefault();

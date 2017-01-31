@@ -85,7 +85,7 @@ namespace TodoScheduler.ViewModels
             set { SetProperty(ref _cancelCommand, value); }
         }
 
-        private async void CancelCommandExecute() => await Navigation.CloseAsync(animation: true);
+        private async void CancelCommandExecute() => await Navigation.CloseAsync();
         private async void SaveCommandExecute()
         {
             if (State == VmState.Busy) return;
